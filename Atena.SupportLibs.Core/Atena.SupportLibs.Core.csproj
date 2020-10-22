@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Syncfusion.Blazor" Version="18.3.0.38" />
+    <PackageReference Include="Syncfusion.DocIO.Net.Core" Version="18.3.0.38" />
+    <PackageReference Include="Syncfusion.XlsIO.Net.Core" Version="18.3.0.38" />
+    <PackageReference Include="System.IO" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>

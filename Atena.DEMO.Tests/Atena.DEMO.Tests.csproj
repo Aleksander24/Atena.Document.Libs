@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Syncfusion.DocIO.Net.Core" Version="18.3.0.40" />
+    <PackageReference Include="Syncfusion.XlsIO.Net.Core" Version="18.3.0.38" />
+    <PackageReference Include="System.IO" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\Atena.SupportLibs.DocGenerators.SUB-SPSRequests_Word.csproj" />
+    <ProjectReference Include="..\Atena.SupportLibs.Core\Atena.SupportLibs.Core.csproj" />
+    <ProjectReference Include="..\Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word\Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word.csproj" />
+    <ProjectReference Include="..\Atena.SupportLibs.DocGenerators.ReportSubsidyReceivers_Excel\Atena.SupportLibs.DocGenerators.ReportSubsidyReceivers_Excel.csproj" />
+    <ProjectReference Include="..\Atena.SupportLibs.DocGenerators.SUB-ListOfRecipient_Word\Atena.SupportLibs.DocGenerators.SUB-ListOfRecipient_Word.csproj" />
+  </ItemGroup>
+
+</Project>

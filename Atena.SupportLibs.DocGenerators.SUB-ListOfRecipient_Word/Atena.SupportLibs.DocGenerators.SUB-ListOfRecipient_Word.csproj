@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Atena.SupportLibs.DocGenerators.SUB_ListOfRecipient_Word</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Syncfusion.Blazor" Version="18.3.0.38" />
+    <PackageReference Include="Syncfusion.DocIO.Net.Core" Version="18.3.0.38" />
+    <PackageReference Include="System.IO" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Atena.SupportLibs.Core\Atena.SupportLibs.Core.csproj" />
+  </ItemGroup>
+
+</Project>
