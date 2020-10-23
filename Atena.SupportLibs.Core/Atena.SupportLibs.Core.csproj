@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Syncfusion.Blazor" Version="18.3.0.38" />
-    <PackageReference Include="Syncfusion.DocIO.Net.Core" Version="18.3.0.38" />
-    <PackageReference Include="Syncfusion.XlsIO.Net.Core" Version="18.3.0.38" />
+    <PackageReference Include="Syncfusion.Blazor" Version="18.3.0.42" />
+    <PackageReference Include="Syncfusion.DocIO.Net.Core" Version="18.3.0.42" />
+    <PackageReference Include="Syncfusion.XlsIO.Net.Core" Version="18.3.0.42" />
     <PackageReference Include="System.IO" Version="4.3.0" />
   </ItemGroup>
 

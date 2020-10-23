@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Atena.SupportLibs.DocGenera
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Atena.SupportLibs.DocGenerators.SUB-ListOfRecipient_Word", "Atena.SupportLibs.DocGenerators.SUB-ListOfRecipient_Word\Atena.SupportLibs.DocGenerators.SUB-ListOfRecipient_Word.csproj", "{DEB87AA4-1839-418C-855A-731B53B67AA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word", "Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word\Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word.csproj", "{764E4A58-13D3-4A30-8618-54BC53EF6FA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word", "Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word\Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word.csproj", "{764E4A58-13D3-4A30-8618-54BC53EF6FA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
