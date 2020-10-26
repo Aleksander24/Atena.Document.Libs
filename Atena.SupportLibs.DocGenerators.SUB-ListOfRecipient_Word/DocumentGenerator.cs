@@ -27,6 +27,7 @@ namespace Atena.SupportLibs.DocGenerators.SUB_ListOfRecipient_Word
         List<ReceiverData> _rowDatas;
         #endregion
 
+        #region DocumentGenerator
         public DocumentGenerator(
             string aTextFinancialIncentive, 
             string aTextPayouts, 
@@ -36,8 +37,9 @@ namespace Atena.SupportLibs.DocGenerators.SUB_ListOfRecipient_Word
             _textPayouts = aTextPayouts;
             _rowDatas = aRowDatas;
         }
-        
-            public byte[] Generate()
+        #endregion
+
+        public byte[] Generate()
             {
                 #region Creating word, add section, add style
                 //Creating a new document
