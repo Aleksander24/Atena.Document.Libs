@@ -34,7 +34,7 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
         string _responsiblePerson;
         string _attachments;
         #endregion
-
+        #region DocumentGenerator
         public DocumentGenerator(
             string aSender, 
             string aReceiver, 
@@ -63,7 +63,7 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
             _responsiblePerson = aResponsiblePerson;
             _attachments = aAttachments;
         }
-
+        #endregion
 
         public byte[] Generate()
         {
