@@ -4,262 +4,309 @@ using System.Collections.Generic;
 using Atena.SupportLibs.DocGenerators.ReportSubsidyReceivers_Excel.Models;
 using Atena.SupportLibs.DocGenerators.SUB_ListOfRecipient_Word.Models;
 using Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word.Models;
-using Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word;
+//using Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word;
 using Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word.GroupsData;
+using Atena.SupportLibs.DocGenerators.ListOfTransactions_Word;
+using Atena.SupportLibs.DocGenerators.ListOfTransactions_Word.Models;
 
 namespace Atena.DEMO.Tests
 {
     class Program
     {
-        #region ActivityAnalysis
         static void Main(string[] args)
         {
-            var activityAnalysis_WordGenerator = new DocumentGenerator(
-                aHead: "ANALIZA AKTIVNOSTI EKO SKLADA\n",
-                aHeadObjects12: "OBJEKTI 1+2",
-                aHeadObjectsVec: "OBJEKTI VEČ.",
-                aHeadObjectsVis: "OBJEKTI VIS",
-                aHeadObjectsLs: "OBJEKTI LS",
-                aHeadObjectsEvpol: "OBJEKTI EVPOL",
-                aHeadObjectsSamoO: "OBJEKTI SamoO",
-                aHeadObjectsEnPr: "OBJEKTI EnPr",
-                aHeadVehiclesFO: "VOZILA FO",
-                aHeadVehiclesPO: "VOZILA PO",
-                aHeadVehiclesMunicipality: "VOZILA Občine JP",
-                aObjects12s: new List<Objects_1_2>()
+            var listOfTransactions_WordGenerator = new DocumentGenerator(
+                aDate: $"{Environment.NewLine + Environment.NewLine + Environment.NewLine}Spisek nakazil na dan:",
+                aTableRowsDatas: new List<TableRowsData>()
                 {
-                    new Objects_1_2()
+                    new TableRowsData()
                     {
-                        Leto = 2011,
-                        OdobrenoUredba = 9984597M,
-                        NakazanoUredba = 5095311M,
-                        OdobrenoSPS = 0,
-                        NakazanoSPS = 0,
-                        Vlog = 6790m,
-                        Nalozb = 7577m
+                        StNakazila = 1,
+                        Razpis = "108939/2020 76FS-PO19",
+                        PrejemnikNakazila = "AGENCIJA OSKAR, d.o.o.",
+                        DavcnaStevilka = 65099343,
+                        Naslov = "Zasavska cesta 45D 4000 KRANJ",
+                        StevPogodbe = "36026-374/2019",
+                        ZnesekPogodbe = 14163.67m,
+                        Razlika = 40900.00m,
+                        TRR = "SI56 300000000450019",
+                        ZnesekNakazila = 14163.67m
                     },
-                    new Objects_1_2()
+                    new TableRowsData()
                     {
-                        Leto = 2012,
-                        OdobrenoUredba = 22335850M,
-                        NakazanoUredba = 17986471M,
-                        OdobrenoSPS = 0,
-                        NakazanoSPS = 0,
-                        Vlog = 14543m,
-                        Nalozb = 16471m
+                        StNakazila = 2,
+                        Razpis = "101234/2020 21FS-PO21",
+                        PrejemnikNakazila = "ALEKSANDER PERŠIČ",
+                        DavcnaStevilka = 12345678,
+                        Naslov = "Zaloška cesta 4 1000 LJUBLJANA",
+                        StevPogodbe = "12345-374/2020",
+                        ZnesekPogodbe = 35163.67m,
+                        Razlika = 0.00m,
+                        TRR = "SI56 300000000674398",
+                        ZnesekNakazila = 82163.67m
                     }
                 },
-                aObjectsVecs: new List<ObjectsVec>()
-                {
-                    new ObjectsVec()
-                    {
-                        Leto1 = 2011,
-                        OdobrenoUredba1 = 3458878m,
-                        NakazanoUredba1 = 1332903m,
-                        OdobrenoSPS1 = 0m,
-                        NakazanoSPS1 = 0m,
-                        Vlog1 = 396,
-                        Nalozb1 = 467
-                    },
-                    new ObjectsVec()
-                    {
-                        Leto1 = 2012,
-                        OdobrenoUredba1 = 3458878m,
-                        NakazanoUredba1 = 1332903m,
-                        OdobrenoSPS1 = 0m,
-                        NakazanoSPS1 = 0m,
-                        Vlog1 = 396,
-                        Nalozb1 = 467
-                    }
-                },
-                aObjectsViss: new List<ObjectsVis>()
-                {
-                    new ObjectsVis
-                    {
-                        Leto2 = 2011,
-                        OdobrenoUredba2 = 12345,
-                        NakazanoUredba2 = 12345,
-                        OdobrenoSPS2 = 0,
-                        NakazanoSPS2 = 0,
-                        Vlog2 = 300,
-                        Nalozb2 = 200
-                    },
-                    new ObjectsVis
-                    {
-                        Leto2 = 2012,
-                        OdobrenoUredba2 = 12345,
-                        NakazanoUredba2 = 12345,
-                        OdobrenoSPS2 = 0,
-                        NakazanoSPS2 = 0,
-                        Vlog2 = 300,
-                        Nalozb2 = 200
-                    }
-                },
-                aObjectsLss: new List<ObjectsLs>()
-                {
-                    new ObjectsLs
-                    {
-                        Leto3 = 2011,
-                        OdobrenoUredba3 = 12345,
-                        NakazanoUredba3 = 12345,
-                        OdobrenoSPS3 = 0,
-                        NakazanoSPS3 = 0,
-                        Vlog3 = 200,
-                        Nalozb3 = 200
-                    },
-                    new ObjectsLs
-                    {
-                        Leto3 = 2012,
-                        OdobrenoUredba3 = 12345,
-                        NakazanoUredba3 = 12345,
-                        OdobrenoSPS3 = 0,
-                        NakazanoSPS3 = 0,
-                        Vlog3 = 200,
-                        Nalozb3 = 200
-                    }
-                },
-                aObjectsEvpols: new List<ObjectsEvpol>()
-                {
-                    new ObjectsEvpol
-                    {
-                        Leto4 = 2011,
-                        OdobrenoUredba4 = 12345,
-                        NakazanoUredba4 = 12345,
-                        OdobrenoSPS4 = 0,
-                        NakazanoSPS4 = 0,
-                        Vlog4 = 140,
-                        Nalozb4 = 120
-                    },
-                    new ObjectsEvpol
-                    {
-                        Leto4 = 2012,
-                        OdobrenoUredba4 = 12345,
-                        NakazanoUredba4 = 12345,
-                        OdobrenoSPS4 = 0,
-                        NakazanoSPS4 = 0,
-                        Vlog4 = 140,
-                        Nalozb4 = 120
-                    }
-                },
-                aObjectsSamoOs: new List<ObjectsSamoO>()
-                {
-                    new ObjectsSamoO
-                    {
-                        Leto5 = 2011,
-                        OdobrenoUredba5 = 21345,
-                        NakazanoUredba5 = 21345,
-                        OdobrenoSPS5 = 0,
-                        NakazanoSPS5 = 0,
-                        Vlog5 = 120,
-                        Nalozb5 = 300
-                    },
-                    new ObjectsSamoO
-                    {
-                        Leto5 = 2012,
-                        OdobrenoUredba5 = 21345,
-                        NakazanoUredba5 = 21345,
-                        OdobrenoSPS5 = 0,
-                        NakazanoSPS5 = 0,
-                        Vlog5 = 120,
-                        Nalozb5 = 300
-                    }
-                },
-                aObjectsEnPrs: new List<ObjectsEnPr>()
-                {
-                    new ObjectsEnPr
-                    {
-                        Leto6 = 2011,
-                        OdobrenoUredba6 = 4567,
-                        NakazanoUredba6 = 3456,
-                        OdobrenoSPS6 = 0,
-                        NakazanoSPS6 = 0,
-                        Vlog6 = 120,
-                        Nalozb6 = 939
-                    },
-                    new ObjectsEnPr
-                    {
-                        Leto6 = 2012,
-                        OdobrenoUredba6 = 4567,
-                        NakazanoUredba6 = 3456,
-                        OdobrenoSPS6 = 0,
-                        NakazanoSPS6 = 0,
-                        Vlog6 = 120,
-                        Nalozb6 = 939
-                    }
-                },
-                aVehiclesFOs: new List<VehiclesFO>()
-                {
-                    new VehiclesFO
-                    {
-                        Leto7 = 2011,
-                        OdobrenoUredba7 = 4567,
-                        NakazanoUredba7 = 3456,
-                        OdobrenoSPS7 = 0,
-                        NakazanoSPS7 = 0,
-                        Vlog7 = 120,
-                        Nalozb7 = 939
-                    },
-                    new VehiclesFO
-                    {
-                        Leto7 = 2012,
-                        OdobrenoUredba7 = 4567,
-                        NakazanoUredba7 = 3456,
-                        OdobrenoSPS7 = 0,
-                        NakazanoSPS7 = 0,
-                        Vlog7 = 120,
-                        Nalozb7 = 939
-                    }
-                },
-                aVehiclesPOs: new List<VehiclesPO>()
-                {
-                    new VehiclesPO
-                    {
-                        Leto8 = 2011,
-                        OdobrenoUredba8 = 4567,
-                        NakazanoUredba8 = 3456,
-                        OdobrenoSPS8 = 0,
-                        NakazanoSPS8 = 0,
-                        Vlog8 = 120,
-                        Nalozb8 = 939
-                    },
-                    new VehiclesPO
-                    {
-                        Leto8 = 2012,
-                        OdobrenoUredba8 = 4567,
-                        NakazanoUredba8 = 3456,
-                        OdobrenoSPS8 = 0,
-                        NakazanoSPS8 = 0,
-                        Vlog8 = 120,
-                        Nalozb8 = 939
-                    }
-                },
-                aVehiclesMunicipalityJPs: new List<VehiclesMunicipalityJP>()
-                {
-                    new VehiclesMunicipalityJP
-                    {
-                        Leto9 = 2011,
-                        OdobrenoUredba9 = 4567,
-                        NakazanoUredba9 = 3456,
-                        OdobrenoSPS9 = 0,
-                        NakazanoSPS9 = 0,
-                        Vlog9 = 120,
-                        Nalozb9 = 939
-                    },
-                    new VehiclesMunicipalityJP
-                    {
-                        Leto9 = 2012,
-                        OdobrenoUredba9 = 4567,
-                        NakazanoUredba9 = 3456,
-                        OdobrenoSPS9 = 0,
-                        NakazanoSPS9 = 0,
-                        Vlog9 = 120,
-                        Nalozb9 = 939
-                    }
-                },
-                aSummAllText: "Vse skupaj:");
+                aSumTransactions: "Vsota nakazil",
+
+
+                aResponsiblePerson: $"{Environment.NewLine} Vesna Črnilogar",
+                aResponsiblePerson2: "Nevenka Mateja Udovč");
+
             var timeA = DateTime.Now.ToFileTime().ToString();
-            File.WriteAllBytes($"C:\\test\\Atena.Documents\\AnalizaAktivnosti_EKOSKLADA_{timeA}.doc", activityAnalysis_WordGenerator.Generate());
+            File.WriteAllBytes($"C:\\test\\Atena.Documents\\SeznamNakazil{timeA}.doc", listOfTransactions_WordGenerator.Generate());
+
         }
+
+
+        #region ActivityAnalysis
+        //static void Main(string[] args)
+        //{
+        //    var activityAnalysis_WordGenerator = new SupportLibs.DocGenerators.ActitvityAnalysis_Word.DocumentGenerator(
+        //        aHead: "ANALIZA AKTIVNOSTI EKO SKLADA\n",
+        //        aHeadObjects12: "OBJEKTI 1+2",
+        //        aHeadObjectsVec: "OBJEKTI VEČ.",
+        //        aHeadObjectsVis: "OBJEKTI VIS",
+        //        aHeadObjectsLs: "OBJEKTI LS",
+        //        aHeadObjectsEvpol: "OBJEKTI EVPOL",
+        //        aHeadObjectsSamoO: "OBJEKTI SamoO",
+        //        aHeadObjectsEnPr: "OBJEKTI EnPr",
+        //        aHeadVehiclesFO: "VOZILA FO",
+        //        aHeadVehiclesPO: "VOZILA PO",
+        //        aHeadVehiclesMunicipality: "VOZILA Občine JP",
+        //        aObjects12s: new List<Objects_1_2>()
+        //        {
+        //            new Objects_1_2()
+        //            {
+        //                Leto = 2011,
+        //                OdobrenoUredba = 9984597M,
+        //                NakazanoUredba = 5095311M,
+        //                OdobrenoSPS = 0,
+        //                NakazanoSPS = 0,
+        //                Vlog = 6790m,
+        //                Nalozb = 7577m
+        //            },
+        //            new Objects_1_2()
+        //            {
+        //                Leto = 2012,
+        //                OdobrenoUredba = 22335850M,
+        //                NakazanoUredba = 17986471M,
+        //                OdobrenoSPS = 0,
+        //                NakazanoSPS = 0,
+        //                Vlog = 14543m,
+        //                Nalozb = 16471m
+        //            }
+        //        },
+        //        aObjectsVecs: new List<ObjectsVec>()
+        //        {
+        //            new ObjectsVec()
+        //            {
+        //                Leto1 = 2011,
+        //                OdobrenoUredba1 = 3458878m,
+        //                NakazanoUredba1 = 1332903m,
+        //                OdobrenoSPS1 = 0m,
+        //                NakazanoSPS1 = 0m,
+        //                Vlog1 = 396,
+        //                Nalozb1 = 467
+        //            },
+        //            new ObjectsVec()
+        //            {
+        //                Leto1 = 2012,
+        //                OdobrenoUredba1 = 3458878m,
+        //                NakazanoUredba1 = 1332903m,
+        //                OdobrenoSPS1 = 0m,
+        //                NakazanoSPS1 = 0m,
+        //                Vlog1 = 396,
+        //                Nalozb1 = 467
+        //            }
+        //        },
+        //        aObjectsViss: new List<ObjectsVis>()
+        //        {
+        //            new ObjectsVis
+        //            {
+        //                Leto2 = 2011,
+        //                OdobrenoUredba2 = 12345,
+        //                NakazanoUredba2 = 12345,
+        //                OdobrenoSPS2 = 0,
+        //                NakazanoSPS2 = 0,
+        //                Vlog2 = 300,
+        //                Nalozb2 = 200
+        //            },
+        //            new ObjectsVis
+        //            {
+        //                Leto2 = 2012,
+        //                OdobrenoUredba2 = 12345,
+        //                NakazanoUredba2 = 12345,
+        //                OdobrenoSPS2 = 0,
+        //                NakazanoSPS2 = 0,
+        //                Vlog2 = 300,
+        //                Nalozb2 = 200
+        //            }
+        //        },
+        //        aObjectsLss: new List<ObjectsLs>()
+        //        {
+        //            new ObjectsLs
+        //            {
+        //                Leto3 = 2011,
+        //                OdobrenoUredba3 = 12345,
+        //                NakazanoUredba3 = 12345,
+        //                OdobrenoSPS3 = 0,
+        //                NakazanoSPS3 = 0,
+        //                Vlog3 = 200,
+        //                Nalozb3 = 200
+        //            },
+        //            new ObjectsLs
+        //            {
+        //                Leto3 = 2012,
+        //                OdobrenoUredba3 = 12345,
+        //                NakazanoUredba3 = 12345,
+        //                OdobrenoSPS3 = 0,
+        //                NakazanoSPS3 = 0,
+        //                Vlog3 = 200,
+        //                Nalozb3 = 200
+        //            }
+        //        },
+        //        aObjectsEvpols: new List<ObjectsEvpol>()
+        //        {
+        //            new ObjectsEvpol
+        //            {
+        //                Leto4 = 2011,
+        //                OdobrenoUredba4 = 12345,
+        //                NakazanoUredba4 = 12345,
+        //                OdobrenoSPS4 = 0,
+        //                NakazanoSPS4 = 0,
+        //                Vlog4 = 140,
+        //                Nalozb4 = 120
+        //            },
+        //            new ObjectsEvpol
+        //            {
+        //                Leto4 = 2012,
+        //                OdobrenoUredba4 = 12345,
+        //                NakazanoUredba4 = 12345,
+        //                OdobrenoSPS4 = 0,
+        //                NakazanoSPS4 = 0,
+        //                Vlog4 = 140,
+        //                Nalozb4 = 120
+        //            }
+        //        },
+        //        aObjectsSamoOs: new List<ObjectsSamoO>()
+        //        {
+        //            new ObjectsSamoO
+        //            {
+        //                Leto5 = 2011,
+        //                OdobrenoUredba5 = 21345,
+        //                NakazanoUredba5 = 21345,
+        //                OdobrenoSPS5 = 0,
+        //                NakazanoSPS5 = 0,
+        //                Vlog5 = 120,
+        //                Nalozb5 = 300
+        //            },
+        //            new ObjectsSamoO
+        //            {
+        //                Leto5 = 2012,
+        //                OdobrenoUredba5 = 21345,
+        //                NakazanoUredba5 = 21345,
+        //                OdobrenoSPS5 = 0,
+        //                NakazanoSPS5 = 0,
+        //                Vlog5 = 120,
+        //                Nalozb5 = 300
+        //            }
+        //        },
+        //        aObjectsEnPrs: new List<ObjectsEnPr>()
+        //        {
+        //            new ObjectsEnPr
+        //            {
+        //                Leto6 = 2011,
+        //                OdobrenoUredba6 = 4567,
+        //                NakazanoUredba6 = 3456,
+        //                OdobrenoSPS6 = 0,
+        //                NakazanoSPS6 = 0,
+        //                Vlog6 = 120,
+        //                Nalozb6 = 939
+        //            },
+        //            new ObjectsEnPr
+        //            {
+        //                Leto6 = 2012,
+        //                OdobrenoUredba6 = 4567,
+        //                NakazanoUredba6 = 3456,
+        //                OdobrenoSPS6 = 0,
+        //                NakazanoSPS6 = 0,
+        //                Vlog6 = 120,
+        //                Nalozb6 = 939
+        //            }
+        //        },
+        //        aVehiclesFOs: new List<VehiclesFO>()
+        //        {
+        //            new VehiclesFO
+        //            {
+        //                Leto7 = 2011,
+        //                OdobrenoUredba7 = 4567,
+        //                NakazanoUredba7 = 3456,
+        //                OdobrenoSPS7 = 0,
+        //                NakazanoSPS7 = 0,
+        //                Vlog7 = 120,
+        //                Nalozb7 = 939
+        //            },
+        //            new VehiclesFO
+        //            {
+        //                Leto7 = 2012,
+        //                OdobrenoUredba7 = 4567,
+        //                NakazanoUredba7 = 3456,
+        //                OdobrenoSPS7 = 0,
+        //                NakazanoSPS7 = 0,
+        //                Vlog7 = 120,
+        //                Nalozb7 = 939
+        //            }
+        //        },
+        //        aVehiclesPOs: new List<VehiclesPO>()
+        //        {
+        //            new VehiclesPO
+        //            {
+        //                Leto8 = 2011,
+        //                OdobrenoUredba8 = 4567,
+        //                NakazanoUredba8 = 3456,
+        //                OdobrenoSPS8 = 0,
+        //                NakazanoSPS8 = 0,
+        //                Vlog8 = 120,
+        //                Nalozb8 = 939
+        //            },
+        //            new VehiclesPO
+        //            {
+        //                Leto8 = 2012,
+        //                OdobrenoUredba8 = 4567,
+        //                NakazanoUredba8 = 3456,
+        //                OdobrenoSPS8 = 0,
+        //                NakazanoSPS8 = 0,
+        //                Vlog8 = 120,
+        //                Nalozb8 = 939
+        //            }
+        //        },
+        //        aVehiclesMunicipalityJPs: new List<VehiclesMunicipalityJP>()
+        //        {
+        //            new VehiclesMunicipalityJP
+        //            {
+        //                Leto9 = 2011,
+        //                OdobrenoUredba9 = 4567,
+        //                NakazanoUredba9 = 3456,
+        //                OdobrenoSPS9 = 0,
+        //                NakazanoSPS9 = 0,
+        //                Vlog9 = 120,
+        //                Nalozb9 = 939
+        //            },
+        //            new VehiclesMunicipalityJP
+        //            {
+        //                Leto9 = 2012,
+        //                OdobrenoUredba9 = 4567,
+        //                NakazanoUredba9 = 3456,
+        //                OdobrenoSPS9 = 0,
+        //                NakazanoSPS9 = 0,
+        //                Vlog9 = 120,
+        //                Nalozb9 = 939
+        //            }
+        //        },
+        //        aSummAllText: "Vse skupaj:");
+        //    var timeA = DateTime.Now.ToFileTime().ToString();
+        //    File.WriteAllBytes($"C:\\test\\Atena.Documents\\AnalizaAktivnosti_EKOSKLADA_{timeA}.doc", activityAnalysis_WordGenerator.Generate());
+        //}
         #endregion
 
         #region ReportSubsidyReceiver

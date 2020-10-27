@@ -6,8 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Syncfusion.Blazor" Version="18.3.0.42" />
-    <PackageReference Include="Syncfusion.DocIO.Net.Core" Version="18.3.0.42" />
+    <Compile Remove="Models\Images\**" />
+    <EmbeddedResource Remove="Models\Images\**" />
+    <None Remove="Models\Images\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Syncfusion.DocIO.Net.Core" Version="18.3.0.44" />
     <PackageReference Include="System.IO" Version="4.3.0" />
   </ItemGroup>
 

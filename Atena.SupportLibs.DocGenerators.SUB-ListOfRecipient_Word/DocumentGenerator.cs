@@ -1,7 +1,6 @@
 ﻿using Atena.SupportLibs.Core.Enum;
 using Atena.SupportLibs.Core.Interfaces;
 using System;
-using Syncfusion.Blazor;
 using Syncfusion.DocIO;
 using Syncfusion.DocIO.DLS;
 using System.IO;
@@ -52,7 +51,7 @@ namespace Atena.SupportLibs.DocGenerators.SUB_ListOfRecipient_Word
                 section.PageSetup.Margins.All = 40;
 
                 //Set page size of the section
-                section.PageSetup.PageSize = new Syncfusion.Drawing.SizeF(575, 792);
+                section.PageSetup.PageSize = new SizeF(575, 792);
 
                 //Create Paragraph styles for normal font
                 WParagraphStyle style = document.AddParagraphStyle("Normal") as WParagraphStyle;
@@ -108,7 +107,7 @@ namespace Atena.SupportLibs.DocGenerators.SUB_ListOfRecipient_Word
                     for (int j = 0; j < _rowDatas[i].Actions.Count; j++)
                     {
                         table[i + 1, 3].Width = 160f;
-                        _ = table[i + 1, 3].AddParagraph().AppendText(_rowDatas[i].Actions[j].NazivNamena.ToString()) + Environment.NewLine;
+                        _ = table[i + 1, 3].AddParagraph().AppendText(_rowDatas[i].Actions[j].NazivNamena.ToString() + Environment.NewLine) + Environment.NewLine;
                         table[i + 1, 4].Width = 80f;
                         _ = table[i + 1, 4].AddParagraph().AppendText(_rowDatas[i].Actions[j].OpisKolicine.ToString());//+ "|\n" + Environment.NewLine;
                         table[i + 1, 5].Width = 40f;
@@ -134,26 +133,26 @@ namespace Atena.SupportLibs.DocGenerators.SUB_ListOfRecipient_Word
                     IWTextRange tabletextRange = table[0, 0].AddParagraph().AppendText("Zap. št.");
                     tabletextRange.CharacterFormat.Bold = true;
                     table[0, 1].Width = 70f;
-                    IWTextRange tabletextRange1 = table[0, 1].AddParagraph().AppendText("Prejemnik spodbude");
-                    tabletextRange1.CharacterFormat.Bold = true;
+                    tabletextRange = table[0, 1].AddParagraph().AppendText("Prejemnik spodbude");
+                    tabletextRange.CharacterFormat.Bold = true;
                     table[0, 2].Width = 70f;
-                    IWTextRange tabletextRange2 = table[0, 2].AddParagraph().AppendText("Naslov prejemnika");
-                    tabletextRange2.CharacterFormat.Bold = true;
+                    tabletextRange = table[0, 2].AddParagraph().AppendText("Naslov prejemnika");
+                    tabletextRange.CharacterFormat.Bold = true;
                     table[0, 3].Width = 160f;
-                    IWTextRange tabletextRange3 = table[0, 3].AddParagraph().AppendText("Namen");
-                    tabletextRange3.CharacterFormat.Bold = true;
+                    tabletextRange = table[0, 3].AddParagraph().AppendText("Namen");
+                    tabletextRange.CharacterFormat.Bold = true;
                     table[0, 4].Width = 80f;
-                    IWTextRange tabletextRange4 = table[0, 4].AddParagraph().AppendText("Opis količine");
-                    tabletextRange4.CharacterFormat.Bold = true;
+                    tabletextRange = table[0, 4].AddParagraph().AppendText("Opis količine");
+                    tabletextRange.CharacterFormat.Bold = true;
                     table[0, 5].Width = 40f;
-                    IWTextRange tabletextRange5 = table[0, 5].AddParagraph().AppendText("Velikost");
-                    tabletextRange5.CharacterFormat.Bold = true;
+                    tabletextRange = table[0, 5].AddParagraph().AppendText("Velikost");
+                    tabletextRange.CharacterFormat.Bold = true;
                     table[0, 6].Width = 25f;
-                    IWTextRange tabletextRange6 = table[0, 6].AddParagraph().AppendText("Ozn.");
-                    tabletextRange6.CharacterFormat.Bold = true;
+                    tabletextRange = table[0, 6].AddParagraph().AppendText("Ozn.");
+                    tabletextRange.CharacterFormat.Bold = true;
                     table[0, 7].Width = 45f;
-                    IWTextRange tabletextRange7 = table[0, 7].AddParagraph().AppendText("Višina spodbude v €");
-                    tabletextRange7.CharacterFormat.Bold = true;
+                    tabletextRange = table[0, 7].AddParagraph().AppendText("Višina spodbude v €");
+                    tabletextRange.CharacterFormat.Bold = true;
                 }
                 static IWParagraph SetTextPayouts(string aTextPayouts, IWSection section)
                 {

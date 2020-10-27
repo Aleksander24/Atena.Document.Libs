@@ -5,7 +5,6 @@ using Atena.SupportLibs.Core.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using Syncfusion.Drawing;
-using Syncfusion.Blazor;
 using Syncfusion.DocIO;
 using Syncfusion.DocIO.DLS;
 using Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word.GroupsData;

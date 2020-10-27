@@ -2,7 +2,6 @@
 using Atena.SupportLibs.Core.Enum;
 using Atena.SupportLibs.Core.Interfaces;
 using System.IO;
-using Syncfusion.Blazor;
 using Syncfusion.DocIO;
 using Syncfusion.DocIO.DLS;
 using Syncfusion.Drawing;
@@ -252,7 +251,7 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
         private static IWParagraph ImageSignaturePrepared(IWSection section)
         {
             IWParagraph paragraph = section.AddParagraph();
-            FileStream imageStream = new FileStream($"J:\\PROJEKTI\\ATENA_SUPPORT\\Atena.Document.Libs\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Uefa_logo.png", FileMode.Open, FileAccess.Read);
+            FileStream imageStream = new FileStream($"J:\\PROJEKTI\\ATENA_SUPPORT\\Atena.Document.Libs\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\Uefa_logo.png", FileMode.Open, FileAccess.Read);
             IWPicture picture = paragraph.AppendPicture(imageStream);
             picture.TextWrappingStyle = TextWrappingStyle.Square;
             picture.Width = 30;
@@ -264,7 +263,7 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
         private static IWParagraph ImageSignatureResponsiblePerson(IWSection section)
         {
             IWParagraph paragraph = section.AddParagraph();
-            FileStream imageStream1 = new FileStream($"J:\\PROJEKTI\\ATENA_SUPPORT\\Atena.Document.Libs\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\EA_sports.png", FileMode.Open, FileAccess.Read);
+            FileStream imageStream1 = new FileStream($"J:\\PROJEKTI\\ATENA_SUPPORT\\Atena.Document.Libs\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\EA_sports.png", FileMode.Open, FileAccess.Read);
             IWPicture picture1 = paragraph.AppendPicture(imageStream1);
             picture1.TextWrappingStyle = TextWrappingStyle.Square;
             picture1.Width = 30;
