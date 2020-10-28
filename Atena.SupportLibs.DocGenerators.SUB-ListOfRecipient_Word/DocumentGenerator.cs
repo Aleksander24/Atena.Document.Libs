@@ -16,7 +16,7 @@ namespace Atena.SupportLibs.DocGenerators.SUB_ListOfRecipient_Word
     {
         public string Version => "1.0.0";
 
-        public string Label => "Test";
+        public string Label => "DemoTest_SUB-ListOfRecipient";
 
         public DocumentTypeEnum DocumentTypeEnum => DocumentTypeEnum.Word;
 
@@ -75,10 +75,8 @@ namespace Atena.SupportLibs.DocGenerators.SUB_ListOfRecipient_Word
                 IWParagraph paragraph = section.HeadersFooters.Header.AddParagraph();
                 #endregion
 
-                // TextFinancialIncentive
                 SetTextFinancialIncentive(_textFinancialIncentive, section);
 
-                // TextPayouts
                 SetTextPayouts(_textPayouts, section);
 
                 #region Creating table
@@ -91,7 +89,6 @@ namespace Atena.SupportLibs.DocGenerators.SUB_ListOfRecipient_Word
                 table.TableFormat.Paddings.All = 2;
                 #endregion
 
-                // Heading table
                 SetHeadingsForTable(table);
 
                 // rows in table SUBListOfRecipient

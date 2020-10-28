@@ -16,7 +16,7 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
     public class DocumentGenerator : IDocumentGenerator
     {
         public string Version => "1.0.0";
-        public string Label => "Test";
+        public string Label => "DemoTest_SUB-SPSRequests";
         public DocumentTypeEnum DocumentTypeEnum => DocumentTypeEnum.Word;
 
         #region PROPS

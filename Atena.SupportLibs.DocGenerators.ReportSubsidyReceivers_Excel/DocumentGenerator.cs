@@ -12,7 +12,7 @@ namespace Atena.SupportLibs.DocGenerators.ReportSubsidyReceivers_Excel
     public class DocumentGenerator : IDocumentGenerator
     {
         public string Version => "1.0.0";
-        public string Label => "Test";
+        public string Label => "DemoTest_ReportSubsidyReceivers";
         public DocumentTypeEnum DocumentTypeEnum => DocumentTypeEnum.Excel;
 
         #region PRIVATS

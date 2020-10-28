@@ -15,7 +15,7 @@ namespace Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word
     public class DocumentGenerator : IDocumentGenerator
     {
         public string Version => "1.0.0";
-        public string Label => "Test";
+        public string Label => "DemoTest_ActivityAnalysis";
 
         public DocumentTypeEnum DocumentTypeEnum => DocumentTypeEnum.Word;
 
@@ -118,33 +118,10 @@ namespace Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word
             IWParagraph paragraph = section.HeadersFooters.Header.AddParagraph();
             #endregion
 
-            #region Head
-            paragraph = section.AddParagraph();
-            paragraph.ApplyStyle("Normal");
-            paragraph.ParagraphFormat.HorizontalAlignment = HorizontalAlignment.Left;
-            WTextRange textRange1 = paragraph.AppendText(_head) as WTextRange;
-            textRange1.CharacterFormat.FontSize = 14f;
-            textRange1.CharacterFormat.FontName = "Calibri";
-            textRange1.CharacterFormat.TextColor = Color.Black;
-            textRange1.CharacterFormat.Bold = true;
-            #endregion
 
-            #region Head table
-            IWTable table1 = section.AddTable();
-            table1.ResetCells(1, 3);
-            table1.TableFormat.BackColor = Color.White;
-            table1.TableFormat.HorizontalAlignment = RowAlignment.Left;
-            table1.TableFormat.Paddings.All = 2;
-            table1[0, 0].Width = 260f;
-            IWTextRange wTextRangeHead = table1[0, 0].AddParagraph().AppendText("UREDBA");
-            wTextRangeHead.CharacterFormat.FontSize = 13f;
-            table1[0, 1].Width = 140f;
-            wTextRangeHead =  table1[0, 1].AddParagraph().AppendText("SPS");
-            wTextRangeHead.CharacterFormat.FontSize = 13f;
-            table1[0, 2].Width = 100f;
-            wTextRangeHead = table1[0, 2].AddParagraph().AppendText("Število odobrenih");
-            wTextRangeHead.CharacterFormat.FontSize = 13f;
-            #endregion
+            paragraph = SetHead(section);
+
+            SetHeadTable(section);
 
             #region Align text in first table (right and center alignment)
             WTable table = section.Tables[0] as WTable;
@@ -165,79 +142,50 @@ namespace Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word
             }
             #endregion
 
-            #region Adding second part table
-            IWTable table2 = section.AddTable();
-            table2.ResetCells(1, 8);
-            table2.TableFormat.BackColor = Color.White;
-            table2.TableFormat.HorizontalAlignment = RowAlignment.Left;
-            table2.TableFormat.Paddings.All = 2;
-            table2[0, 0].Width = 80f;
-            IWTextRange textRangeSecondPartTable = table2[0, 0].AddParagraph().AppendText("Skupina");
-            table2[0, 1].Width = 40f;
-            textRangeSecondPartTable = table2[0, 1].AddParagraph().AppendText("Leto");
-            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
-            table2[0, 2].Width = 70f;
-            textRangeSecondPartTable = table2[0, 2].AddParagraph().AppendText("Odobreno");
-            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
-            table2[0, 3].Width = 70f;
-            textRangeSecondPartTable = table2[0, 3].AddParagraph().AppendText("Nakazano");
-            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
-            table2[0, 4].Width = 70f;
-            textRangeSecondPartTable = table2[0, 4].AddParagraph().AppendText("Odobreno");
-            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
-            table2[0, 5].Width = 70f;
-            textRangeSecondPartTable = table2[0, 5].AddParagraph().AppendText("Nakazano");
-            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
-            table2[0, 6].Width = 50f;
-            textRangeSecondPartTable = table2[0, 6].AddParagraph().AppendText("Vlog");
-            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
-            table2[0, 7].Width = 50f;
-            textRangeSecondPartTable = table2[0, 7].AddParagraph().AppendText("Naložb");
-            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
-            #endregion
+            SetSecondPartTable(section);
 
             #region Sums = OBJECTS 1+2
             IWTable table3 = section.AddTable();
-                table3.ResetCells(3, 8);
-                table3.TableFormat.BackColor = Color.White;
-                table3.TableFormat.HorizontalAlignment = RowAlignment.Left;
-                table3.TableFormat.Paddings.All = 2;
-                decimal sumOfAllOdobrenoUredba = _objects12s.Sum(p => p.OdobrenoUredba);
-                decimal sumOfAllNakazanoUredba = _objects12s.Sum(p => p.NakazanoUredba);
-                decimal sumofAllOdobrenoSPS = _objects12s.Sum(p => p.OdobrenoSPS);
-                decimal sumofAllNakazanoSPS = _objects12s.Sum(p => p.NakazanoSPS);
-                decimal sumOfAllVlog = _objects12s.Sum(p => p.Vlog);
-                decimal sumOfAllNalozb = _objects12s.Sum(p => p.Nalozb);
+            table3.ResetCells(3, 8);
+            table3.TableFormat.BackColor = Color.White;
+            table3.TableFormat.HorizontalAlignment = RowAlignment.Left;
+            table3.TableFormat.Paddings.All = 2;
+            decimal sumOfAllOdobrenoUredba = _objects12s.Sum(p => p.OdobrenoUredba);
+            decimal sumOfAllNakazanoUredba = _objects12s.Sum(p => p.NakazanoUredba);
+            decimal sumofAllOdobrenoSPS = _objects12s.Sum(p => p.OdobrenoSPS);
+            decimal sumofAllNakazanoSPS = _objects12s.Sum(p => p.NakazanoSPS);
+            decimal sumOfAllVlog = _objects12s.Sum(p => p.Vlog);
+            decimal sumOfAllNalozb = _objects12s.Sum(p => p.Nalozb);
 
-                table3[0, 0].Width = 80f;
-                IWTextRange textRange = table3[0, 0].AddParagraph().AppendText(_headObjects12);
-                textRange.CharacterFormat.Bold = true;
-                textRange.CharacterFormat.FontSize = 12f;
-                table3[0, 1].Width = 40f;
-                table3[0, 2].Width = 70f;
-                textRange = table3[0, 2].AddParagraph().AppendText(sumOfAllOdobrenoUredba.ToString());
-                textRange.CharacterFormat.Bold = true;
-                textRange.CharacterFormat.FontSize = 12f;
-                table3[0, 3].Width = 70f;
-                textRange = table3[0, 3].AddParagraph().AppendText(sumOfAllNakazanoUredba.ToString());
-                textRange.CharacterFormat.Bold = true;
-                textRange.CharacterFormat.FontSize = 12f;
-                table3[0, 4].Width = 70f;
-                textRange = table3[0, 4].AddParagraph().AppendText(sumofAllOdobrenoSPS.ToString());
-                textRange.CharacterFormat.Bold = true;
-                textRange.CharacterFormat.FontSize = 12f;
-                table3[0, 5].Width = 70f;
-                textRange = table3[0, 5].AddParagraph().AppendText(sumofAllNakazanoSPS.ToString());
-                textRange.CharacterFormat.Bold = true;
-                textRange.CharacterFormat.FontSize = 12f;
-                table3[0, 6].Width = 50;
-                textRange = table3[0, 6].AddParagraph().AppendText(sumOfAllVlog.ToString());
-                textRange.CharacterFormat.Bold = true;
-                textRange.CharacterFormat.FontSize = 12f;
-                table3[0, 7].Width = 50;
-                textRange = table3[0, 7].AddParagraph().AppendText(sumOfAllNalozb.ToString());
-                textRange.CharacterFormat.Bold = true;
-                textRange.CharacterFormat.FontSize = 12f;
+            table3[0, 0].Width = 80f;
+            IWTextRange textRange = table3[0, 0].AddParagraph().AppendText(_headObjects12);
+            textRange.CharacterFormat.Bold = true;
+            textRange.CharacterFormat.FontSize = 12f;
+            table3[0, 1].Width = 40f;
+            table3[0, 2].Width = 70f;
+            textRange = table3[0, 2].AddParagraph().AppendText(sumOfAllOdobrenoUredba.ToString());
+            textRange.CharacterFormat.Bold = true;
+            textRange.CharacterFormat.FontSize = 12f;
+            table3[0, 3].Width = 70f;
+            textRange = table3[0, 3].AddParagraph().AppendText(sumOfAllNakazanoUredba.ToString());
+            textRange.CharacterFormat.Bold = true;
+            textRange.CharacterFormat.FontSize = 12f;
+            table3[0, 4].Width = 70f;
+            textRange = table3[0, 4].AddParagraph().AppendText(sumofAllOdobrenoSPS.ToString());
+            textRange.CharacterFormat.Bold = true;
+            textRange.CharacterFormat.FontSize = 12f;
+            table3[0, 5].Width = 70f;
+            textRange = table3[0, 5].AddParagraph().AppendText(sumofAllNakazanoSPS.ToString());
+            textRange.CharacterFormat.Bold = true;
+            textRange.CharacterFormat.FontSize = 12f;
+            table3[0, 6].Width = 50;
+            textRange = table3[0, 6].AddParagraph().AppendText(sumOfAllVlog.ToString());
+            textRange.CharacterFormat.Bold = true;
+            textRange.CharacterFormat.FontSize = 12f;
+            table3[0, 7].Width = 50;
+            textRange = table3[0, 7].AddParagraph().AppendText(sumOfAllNalozb.ToString());
+            textRange.CharacterFormat.Bold = true;
+            textRange.CharacterFormat.FontSize = 12f;
             #endregion
             // Objects 1+2 data
             for (int i = 0; i < _objects12s.Count; i++)
@@ -832,16 +780,16 @@ namespace Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word
             table13.TableFormat.BackColor = Color.White;
             table13.TableFormat.Paddings.All = 2;
             table13.TableFormat.HorizontalAlignment = RowAlignment.Left;
-            decimal SUMALLOdobrenoUredba = 
-                _objects12s.Sum(p => p.OdobrenoUredba) + 
-                _objectsVecs.Sum(p => p.OdobrenoUredba1) + 
-                _objectsViss.Sum(p => p.OdobrenoUredba2) + 
-                _objectsLss.Sum(p => p.OdobrenoUredba3) + 
-                _objectsEvpols.Sum(p => p.OdobrenoUredba4) + 
-                _objectsSamoOs.Sum(p => p.OdobrenoUredba5) + 
-                _objectsEnPrs.Sum(p => p.OdobrenoUredba6) + 
-                _vehiclesFOs.Sum(p => p.OdobrenoUredba7) + 
-                _vehiclesPOs.Sum(p => p.OdobrenoUredba8) + 
+            decimal SUMALLOdobrenoUredba =
+                _objects12s.Sum(p => p.OdobrenoUredba) +
+                _objectsVecs.Sum(p => p.OdobrenoUredba1) +
+                _objectsViss.Sum(p => p.OdobrenoUredba2) +
+                _objectsLss.Sum(p => p.OdobrenoUredba3) +
+                _objectsEvpols.Sum(p => p.OdobrenoUredba4) +
+                _objectsSamoOs.Sum(p => p.OdobrenoUredba5) +
+                _objectsEnPrs.Sum(p => p.OdobrenoUredba6) +
+                _vehiclesFOs.Sum(p => p.OdobrenoUredba7) +
+                _vehiclesPOs.Sum(p => p.OdobrenoUredba8) +
                 _vehiclesMunicipalityJPs.Sum(p => p.OdobrenoUredba9);
             table13[0, 0].Width = 80f;
             textRange = table13[0, 0].AddParagraph().AppendText(_sumAllText);
@@ -941,6 +889,69 @@ namespace Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word
             return stream.ToArray();
             #endregion
 
+        }
+
+        private static void SetSecondPartTable(IWSection section)
+        {
+            IWTable table2 = section.AddTable();
+            table2.ResetCells(1, 8);
+            table2.TableFormat.BackColor = Color.White;
+            table2.TableFormat.HorizontalAlignment = RowAlignment.Left;
+            table2.TableFormat.Paddings.All = 2;
+            table2[0, 0].Width = 80f;
+            IWTextRange textRangeSecondPartTable = table2[0, 0].AddParagraph().AppendText("Skupina");
+            table2[0, 1].Width = 40f;
+            textRangeSecondPartTable = table2[0, 1].AddParagraph().AppendText("Leto");
+            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
+            table2[0, 2].Width = 70f;
+            textRangeSecondPartTable = table2[0, 2].AddParagraph().AppendText("Odobreno");
+            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
+            table2[0, 3].Width = 70f;
+            textRangeSecondPartTable = table2[0, 3].AddParagraph().AppendText("Nakazano");
+            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
+            table2[0, 4].Width = 70f;
+            textRangeSecondPartTable = table2[0, 4].AddParagraph().AppendText("Odobreno");
+            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
+            table2[0, 5].Width = 70f;
+            textRangeSecondPartTable = table2[0, 5].AddParagraph().AppendText("Nakazano");
+            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
+            table2[0, 6].Width = 50f;
+            textRangeSecondPartTable = table2[0, 6].AddParagraph().AppendText("Vlog");
+            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
+            table2[0, 7].Width = 50f;
+            textRangeSecondPartTable = table2[0, 7].AddParagraph().AppendText("Naložb");
+            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
+        }
+
+        private static void SetHeadTable(IWSection section)
+        {
+            IWTable table1 = section.AddTable();
+            table1.ResetCells(1, 3);
+            table1.TableFormat.BackColor = Color.White;
+            table1.TableFormat.HorizontalAlignment = RowAlignment.Left;
+            table1.TableFormat.Paddings.All = 2;
+            table1[0, 0].Width = 260f;
+            IWTextRange wTextRangeHead = table1[0, 0].AddParagraph().AppendText("UREDBA");
+            wTextRangeHead.CharacterFormat.FontSize = 13f;
+            table1[0, 1].Width = 140f;
+            wTextRangeHead = table1[0, 1].AddParagraph().AppendText("SPS");
+            wTextRangeHead.CharacterFormat.FontSize = 13f;
+            table1[0, 2].Width = 100f;
+            wTextRangeHead = table1[0, 2].AddParagraph().AppendText("Število odobrenih");
+            wTextRangeHead.CharacterFormat.FontSize = 13f;
+        }
+
+        private IWParagraph SetHead(IWSection section)
+        {
+            IWParagraph paragraph = section.AddParagraph();
+            paragraph.ApplyStyle("Normal");
+            paragraph.ParagraphFormat.HorizontalAlignment = HorizontalAlignment.Left;
+            WTextRange textRange1 = paragraph.AppendText(_head) as WTextRange;
+            textRange1.CharacterFormat.FontSize = 14f;
+            textRange1.CharacterFormat.FontName = "Calibri";
+            textRange1.CharacterFormat.TextColor = Color.Black;
+            textRange1.CharacterFormat.Bold = true;
+            return paragraph;
         }
     }
 }

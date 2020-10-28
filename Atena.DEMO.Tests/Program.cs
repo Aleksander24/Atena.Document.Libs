@@ -8,11 +8,189 @@ using Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word.Models;
 using Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word.GroupsData;
 using Atena.SupportLibs.DocGenerators.ListOfTransactions_Word;
 using Atena.SupportLibs.DocGenerators.ListOfTransactions_Word.Models;
+//using DocumentGenerator = ListOfRemittances_FinishedUnfinished_Word.DocumentGenerator;
+using ListOfRemittances_FinishedUnfinished_Word.Models.UnfinishedData;
+using ListOfRemittances_FinishedUnfinished_Word.Models.FinishedData;
 
 namespace Atena.DEMO.Tests
 {
     class Program
     {
+        #region ListOfRemittances_FinishedUnfinished
+        //static void Main(string[] args)
+        //{
+        //    var listOfRemittancesFinishedUnfinished_WordGenerator = new DocumentGenerator(
+        //        aHead: "SEZNAM NAKAZIL NA DAN",
+        //        aDateRemittances: "Datum nakazila",
+        //        aUnTenderCode1s: new List<UnTenderCode1>()
+        //        {
+        //            new UnTenderCode1()
+        //            {
+        //                ZapStevilka1 = 1,
+        //                ZapStevilka2 = 1,
+        //                Oznaka1 = "UTD1 1",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            },
+        //            new UnTenderCode1()
+        //            {
+        //                ZapStevilka1 = 2,
+        //                ZapStevilka2 = 2,
+        //                Oznaka1 = "UTD1 2",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            },
+        //            new UnTenderCode1()
+        //            {
+        //                ZapStevilka1 = 3,
+        //                ZapStevilka2 = 3,
+        //                Oznaka1 = "UTD1 3",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            }
+        //        },
+        //        aUnTenderCode2s: new List<UnTenderCode2>()
+        //        {
+        //            new UnTenderCode2()
+        //            {
+        //                ZapStevilka1 = 4,
+        //                ZapStevilka2 = 1,
+        //                Oznaka1 = "UTD2 1",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            },
+        //            new UnTenderCode2()
+        //            {
+        //                ZapStevilka1 = 5,
+        //                ZapStevilka2 = 2,
+        //                Oznaka1 = "UTD2 2",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            },
+        //            new UnTenderCode2()
+        //            {
+        //                ZapStevilka1 = 6,
+        //                ZapStevilka2 = 3,
+        //                Oznaka1 = "UTD2 3",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            }
+        //        },
+        //        aUnTenderCode3s: new List<UnTenderCode3>()
+        //        {
+        //            new UnTenderCode3()
+        //            {
+        //                ZapStevilka1 = 7,
+        //                ZapStevilka2 = 1,
+        //                Oznaka1 = "UTD3 1",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            },
+        //            new UnTenderCode3()
+        //            {
+        //                ZapStevilka1 = 8,
+        //                ZapStevilka2 = 2,
+        //                Oznaka1 = "UTD3 2",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            },
+        //            new UnTenderCode3()
+        //            {
+        //                ZapStevilka1 = 9,
+        //                ZapStevilka2 = 3,
+        //                Oznaka1 = "UTD3 3",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            }
+        //        },
+        //        aFiTenderCode1s: new List<FiTenderCode1>()
+        //        {
+        //            new FiTenderCode1
+        //            {
+        //                ZapStevilka1 = 10,
+        //                ZapStevilka2 = 1,
+        //                Oznaka1 = "FTD1 1",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            },
+        //            new FiTenderCode1
+        //            {
+        //                ZapStevilka1 = 11,
+        //                ZapStevilka2 = 2,
+        //                Oznaka1 = "FTD1 2",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            },
+        //            new FiTenderCode1
+        //            {
+        //                ZapStevilka1 = 12,
+        //                ZapStevilka2 = 3,
+        //                Oznaka1 = "FTD1 3",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            }
+        //        },
+        //        aFiTenderCode2s: new List<FiTenderCode2>()
+        //        {
+        //            new FiTenderCode2
+        //            {
+        //                ZapStevilka1 = 13,
+        //                ZapStevilka2 = 1,
+        //                Oznaka1 = "FTD2 1",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            },
+        //            new FiTenderCode2
+        //            {
+        //                ZapStevilka1 = 14,
+        //                ZapStevilka2 = 2,
+        //                Oznaka1 = "FTD2 2",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            },
+        //            new FiTenderCode2
+        //            {
+        //                ZapStevilka1 = 15,
+        //                ZapStevilka2 = 3,
+        //                Oznaka1 = "FTD2 3",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            }
+        //        },
+        //        aFiTenderCode3s: new List<FiTenderCode3>()
+        //        {
+        //            new FiTenderCode3
+        //            {
+        //                ZapStevilka1 = 16,
+        //                ZapStevilka2 = 1,
+        //                Oznaka1 = "FTD3 1",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            },
+        //            new FiTenderCode3
+        //            {
+        //                ZapStevilka1 = 17,
+        //                ZapStevilka2 = 2,
+        //                Oznaka1 = "FTD3 2",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            },
+        //            new FiTenderCode3
+        //            {
+        //                ZapStevilka1 = 18,
+        //                ZapStevilka2 = 3,
+        //                Oznaka1 = "FTD3 3",
+        //                Oznaka2 = "36014-6590/2020",
+        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //            }
+        //        }
+        //            );
+        //    var time = DateTime.Now.ToFileTime().ToString();
+        //    File.WriteAllBytes($"D:\\DeloOdDoma\\test\\SeznamNakazil_DokončanaNedokončana{time}.doc", listOfRemittancesFinishedUnfinished_WordGenerator.Generate()); // popravi v službi
+        //}
+        #endregion
+
+        #region ListOfTransactions
         static void Main(string[] args)
         {
             var listOfTransactions_WordGenerator = new DocumentGenerator(
@@ -53,10 +231,10 @@ namespace Atena.DEMO.Tests
                 aResponsiblePerson2: "Nevenka Mateja Udovč");
 
             var timeA = DateTime.Now.ToFileTime().ToString();
-            File.WriteAllBytes($"C:\\test\\Atena.Documents\\SeznamNakazil{timeA}.doc", listOfTransactions_WordGenerator.Generate());
+            File.WriteAllBytes($"D:\\DeloOdDoma\\test\\SeznamNakazil{timeA}.doc", listOfTransactions_WordGenerator.Generate());
 
         }
-
+        #endregion
 
         #region ActivityAnalysis
         //static void Main(string[] args)

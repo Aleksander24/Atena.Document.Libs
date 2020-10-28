@@ -15,9 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Atena.SupportLibs.DocGenera
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word", "Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word\Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word.csproj", "{764E4A58-13D3-4A30-8618-54BC53EF6FA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atena.SupportLibs.DocGenerators.ListOfTransactions_Word", "Atena.SupportLibs.DocGenerators.ListOfTransactions_Word\Atena.SupportLibs.DocGenerators.ListOfTransactions_Word.csproj", "{BD9FBBBD-3B7A-46B6-9130-CA0AC9335303}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Atena.SupportLibs.DocGenerators.ListOfTransactions_Word", "Atena.SupportLibs.DocGenerators.ListOfTransactions_Word\Atena.SupportLibs.DocGenerators.ListOfTransactions_Word.csproj", "{BD9FBBBD-3B7A-46B6-9130-CA0AC9335303}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListOfRemittances_FinishedUnfinished_Word", "ListOfRemittances_FinishedUnfinished_Word\ListOfRemittances_FinishedUnfinished_Word.csproj", "{C8870A1E-1CF3-48A8-A0C7-90FE26463509}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListOfRemittances_FinishedUnfinished_Word", "ListOfRemittances_FinishedUnfinished_Word\ListOfRemittances_FinishedUnfinished_Word.csproj", "{C8870A1E-1CF3-48A8-A0C7-90FE26463509}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word", "Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word\Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word.csproj", "{62825587-29A0-44E6-A34D-8A2BAEE091EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{C8870A1E-1CF3-48A8-A0C7-90FE26463509}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8870A1E-1CF3-48A8-A0C7-90FE26463509}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8870A1E-1CF3-48A8-A0C7-90FE26463509}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62825587-29A0-44E6-A34D-8A2BAEE091EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62825587-29A0-44E6-A34D-8A2BAEE091EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62825587-29A0-44E6-A34D-8A2BAEE091EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62825587-29A0-44E6-A34D-8A2BAEE091EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -16,7 +16,7 @@ namespace Atena.SupportLibs.DocGenerators.ListOfTransactions_Word
     {
         public string Version => "1.0.0";
 
-        public string Label => "Test";
+        public string Label => "DemoTest_ListOfTransactions";
 
         public DocumentTypeEnum DocumentTypeEnum => DocumentTypeEnum.Word;
 
@@ -239,7 +239,7 @@ namespace Atena.SupportLibs.DocGenerators.ListOfTransactions_Word
         {
             IWParagraph paragraph = section.AddParagraph();
             paragraph.ApplyStyle("Normal");
-            FileStream imageStream = new FileStream($"J:\\PROJEKTI\\ATENA_SUPPORT\\Atena.Document.Libs\\Atena.SupportLibs.DocGenerators.ListOfTransactions_Word\\Image\\EkoLogo.png", FileMode.Open, FileAccess.Read);
+            FileStream imageStream = new FileStream($"D:\\DeloOdDoma\\Atena.Document.Libs\\Atena.SupportLibs.DocGenerators.ListOfTransactions_Word\\Image\\EkoLogo.png", FileMode.Open, FileAccess.Read);
             IWPicture EkoLogo = paragraph.AppendPicture(imageStream);
             EkoLogo.TextWrappingStyle = TextWrappingStyle.InFrontOfText;
             EkoLogo.HorizontalAlignment = ShapeHorizontalAlignment.Center;
