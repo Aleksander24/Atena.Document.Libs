@@ -11,11 +11,66 @@ using Atena.SupportLibs.DocGenerators.ListOfTransactions_Word.Models;
 //using DocumentGenerator = ListOfRemittances_FinishedUnfinished_Word.DocumentGenerator;
 using ListOfRemittances_FinishedUnfinished_Word.Models.UnfinishedData;
 using ListOfRemittances_FinishedUnfinished_Word.Models.FinishedData;
+using Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word;
+using Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word.Models;
 
 namespace Atena.DEMO.Tests
 {
+    //string aTenderNumber,
+    //        string aInvestment,
+    //        string aRecipient,
+    //        string aTransferOrder,
+    //        string aTransferOrderBox,
+    //        string aDateTransfer,
+    //        string aAmountTransfer,
+    //        string aContractValue,
+    //        string aDifference,
+    //        string aResponsiblePerson1,
+    //        string aResponsiblePerson2,
+    //        string aPosiblePayment,
+    //        string aPosibleIncentive
     class Program
     {
+        static void Main(string[] args)
+        {
+            var fundsTransferOrder = new SupportLibs.DocGenerators.FundsTransferOrder_Word.DocumentGenerator(
+                aTenderNumber: Environment.NewLine + "\n\n\n\n\n\n36010-57/2019",
+                aInvestment: Environment.NewLine + "NALOŽBA KONČANA",
+                aRecipient: "DOMPLAN, d.d.\n" +
+                            "Bleiweisova cesta 14\n" +
+                            "4000 KRANJ",
+                aTransferOrder: "NALOG ZA NAKAZILO SREDSTEV št.: ",
+                aTransferOrderBox: "108376/2020",
+                aTableTenderDatas: new List<TableTenderData>()
+                { 
+                    new TableTenderData()
+                    {
+                        Razpis = "48SUB-SKOB17",
+                        PrejemnikSredstev = "DOMPLAN, d.d.",
+                        DavcnaStevilka = 66384010,
+                        Naslov = "Bleiweisova cesta 14, 4000 KRANJ",
+                        StevilkaPogodbe = "36010-57/2019",
+                        TRRZaNakazilo = "SI56 0510 0801 0528 081"
+                    }
+                },
+                aDateTransfer: "Datum nakazila: ",
+                aAmountTransfer: "Znesek nakazila: ",
+                aContractValue: "\n\nPogodbena vrednost:   ",
+                aContractValues: 3188.82m,
+                aSubtract: "Razlika (pogodba - izplačilo): ",
+                aSubtracts: 0.26m,
+                aResponsiblePerson1: Environment.NewLine + "\n\n\n\nVesna Črnilogar\t\t",
+                aResponsiblePerson2: "Nevenka Mateja Udovč",
+                aPossiblePayment: "Izplačilo za objekt na naslovu ULICA 1. AVGUSTA 9, 11, 4000 KRANJ.",
+                aPossibleIncentive: "Spodbuda se izplača v nižjem znesku, ker je račun nižji od ponudbe ob vlogi." + Environment.NewLine,
+                aPossibleNotify: Environment.NewLine + "\nObvestiti: DOMPLAN d.d.\n" +
+                                 "Bleiweisova cesta 14\n" +
+                                 "4000 KRANJ");
+
+            var time = DateTime.Now.ToFileTime().ToString();
+            File.WriteAllBytes($"D:\\DeloOdDoma\\test\\NalogZaNakaziloSredstev{time}.doc", fundsTransferOrder.Generate()); // popravi v službi
+        }
+
         #region ListOfRemittances_FinishedUnfinished
         //static void Main(string[] args)
         //{
@@ -191,49 +246,49 @@ namespace Atena.DEMO.Tests
         #endregion
 
         #region ListOfTransactions
-        static void Main(string[] args)
-        {
-            var listOfTransactions_WordGenerator = new DocumentGenerator(
-                aDate: $"{Environment.NewLine + Environment.NewLine + Environment.NewLine}Spisek nakazil na dan:",
-                aTableRowsDatas: new List<TableRowsData>()
-                {
-                    new TableRowsData()
-                    {
-                        StNakazila = 1,
-                        Razpis = "108939/2020 76FS-PO19",
-                        PrejemnikNakazila = "AGENCIJA OSKAR, d.o.o.",
-                        DavcnaStevilka = 65099343,
-                        Naslov = "Zasavska cesta 45D 4000 KRANJ",
-                        StevPogodbe = "36026-374/2019",
-                        ZnesekPogodbe = 14163.67m,
-                        Razlika = 40900.00m,
-                        TRR = "SI56 300000000450019",
-                        ZnesekNakazila = 14163.67m
-                    },
-                    new TableRowsData()
-                    {
-                        StNakazila = 2,
-                        Razpis = "101234/2020 21FS-PO21",
-                        PrejemnikNakazila = "ALEKSANDER PERŠIČ",
-                        DavcnaStevilka = 12345678,
-                        Naslov = "Zaloška cesta 4 1000 LJUBLJANA",
-                        StevPogodbe = "12345-374/2020",
-                        ZnesekPogodbe = 35163.67m,
-                        Razlika = 0.00m,
-                        TRR = "SI56 300000000674398",
-                        ZnesekNakazila = 82163.67m
-                    }
-                },
-                aSumTransactions: "Vsota nakazil",
+        //static void Main(string[] args)
+        //{
+        //    var listOfTransactions_WordGenerator = new DocumentGenerator(
+        //        aDate: $"{Environment.NewLine + Environment.NewLine + Environment.NewLine}Spisek nakazil na dan:",
+        //        aTableRowsDatas: new List<TableRowsData>()
+        //        {
+        //            new TableRowsData()
+        //            {
+        //                StNakazila = 1,
+        //                Razpis = "108939/2020 76FS-PO19",
+        //                PrejemnikNakazila = "AGENCIJA OSKAR, d.o.o.",
+        //                DavcnaStevilka = 65099343,
+        //                Naslov = "Zasavska cesta 45D 4000 KRANJ",
+        //                StevPogodbe = "36026-374/2019",
+        //                ZnesekPogodbe = 14163.67m,
+        //                Razlika = 40900.00m,
+        //                TRR = "SI56 300000000450019",
+        //                ZnesekNakazila = 14163.67m
+        //            },
+        //            new TableRowsData()
+        //            {
+        //                StNakazila = 2,
+        //                Razpis = "101234/2020 21FS-PO21",
+        //                PrejemnikNakazila = "ALEKSANDER PERŠIČ",
+        //                DavcnaStevilka = 12345678,
+        //                Naslov = "Zaloška cesta 4 1000 LJUBLJANA",
+        //                StevPogodbe = "12345-374/2020",
+        //                ZnesekPogodbe = 35163.67m,
+        //                Razlika = 0.00m,
+        //                TRR = "SI56 300000000674398",
+        //                ZnesekNakazila = 82163.67m
+        //            }
+        //        },
+        //        aSumTransactions: "Vsota nakazil",
 
 
-                aResponsiblePerson: $"{Environment.NewLine} Vesna Črnilogar",
-                aResponsiblePerson2: "Nevenka Mateja Udovč");
+        //        aResponsiblePerson: $"{Environment.NewLine} Vesna Črnilogar",
+        //        aResponsiblePerson2: "Nevenka Mateja Udovč");
 
-            var timeA = DateTime.Now.ToFileTime().ToString();
-            File.WriteAllBytes($"D:\\DeloOdDoma\\test\\SeznamNakazil{timeA}.doc", listOfTransactions_WordGenerator.Generate());
+        //    var timeA = DateTime.Now.ToFileTime().ToString();
+        //    File.WriteAllBytes($"D:\\DeloOdDoma\\test\\SeznamNakazil{timeA}.doc", listOfTransactions_WordGenerator.Generate());
 
-        }
+        //}
         #endregion
 
         #region ActivityAnalysis
