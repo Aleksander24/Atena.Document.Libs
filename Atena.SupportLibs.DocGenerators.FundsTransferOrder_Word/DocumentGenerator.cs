@@ -36,6 +36,7 @@ namespace Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word
         string _possiblePayment;
         string _possibleIncentive;
         string _possibleNotify;
+        byte[] _faximile;
         List<TableTenderData> _tableTenderDatas;
         #endregion
 
@@ -57,6 +58,7 @@ namespace Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word
             string aPossiblePayment,
             string aPossibleIncentive,
             string aPossibleNotify,
+            byte[] aFaximile,
             List<TableTenderData> aTableTenderDatas)
         {
             _tenderNumber = aTenderNumber;
@@ -76,6 +78,7 @@ namespace Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word
             _possibleIncentive = aPossibleIncentive;
             _possibleNotify = aPossibleNotify;
             _tableTenderDatas = aTableTenderDatas;
+            _faximile = aFaximile;
         }
         #endregion
         public byte[] Generate()
@@ -118,7 +121,7 @@ namespace Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word
             paragraph = SetPosiblePaymentIncentive(section);
             paragraph = SetResponsiblePersons(section);
             paragraph = SetPossibleNotify(section);
-            paragraph = SetImageSignature(section);
+            paragraph = SetImageSignature(section, _faximile);
 
 
             #region Saving document to stream
@@ -129,12 +132,12 @@ namespace Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word
             #endregion
         }
 
-        private static IWParagraph SetImageSignature(IWSection section)
+        private static IWParagraph SetImageSignature(IWSection section, byte[] aFaximile)
         {
             IWParagraph paragraph = section.AddParagraph();
             paragraph.ApplyStyle("Normal");
-            FileStream imageStream2 = new FileStream($"D:\\DeloOdDoma\\Atena.Document.Libs\\Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word\\Images\\ekoskladSignature.png", FileMode.Open, FileAccess.Read);
-            IWPicture imageSignature = paragraph.AppendPicture(imageStream2);
+            //FileStream imageStream2 = new FileStream($"C:\\Users\\Aleksanderv\\source\\repos\\Aleksander24\\Atena.Document.Libs\\Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word\\Images\\ekoskladSignature.png", FileMode.Open, FileAccess.Read);
+            IWPicture imageSignature = paragraph.AppendPicture(aFaximile);
             imageSignature.TextWrappingStyle = TextWrappingStyle.Square;
             imageSignature.HorizontalAlignment = ShapeHorizontalAlignment.Right;
             imageSignature.VerticalAlignment = ShapeVerticalAlignment.Bottom;
@@ -350,6 +353,7 @@ namespace Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word
                 textRangeTableTender = tableTender[5, i + 1].AddParagraph().AppendText(_tableTenderDatas[i].TRRZaNakazilo.ToString());
                 textRangeTableTender.CharacterFormat.FontSize = 14f;
 
+                // alignment.right;
                 WTable table = section.Tables[0] as WTable;
                 foreach (WTableRow row in table.Rows)
                 {
@@ -447,7 +451,7 @@ namespace Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word
         {
             IWParagraph paragraph = section.AddParagraph();
             paragraph.ApplyStyle("Normal");
-            FileStream imageStream = new FileStream($"D:\\DeloOdDoma\\Atena.Document.Libs\\Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word\\Images\\EkoLogo.png", FileMode.Open, FileAccess.Read);
+            FileStream imageStream = new FileStream($"C:\\Users\\Aleksanderv\\source\\repos\\Aleksander24\\Atena.Document.Libs\\Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word\\Images\\EkoLogo.png", FileMode.Open, FileAccess.Read);
             IWPicture EkoLogo = paragraph.AppendPicture(imageStream);
             EkoLogo.TextWrappingStyle = TextWrappingStyle.InFrontOfText;
             EkoLogo.HorizontalAlignment = ShapeHorizontalAlignment.Right;

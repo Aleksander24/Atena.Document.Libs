@@ -13,28 +13,20 @@ using ListOfRemittances_FinishedUnfinished_Word.Models.UnfinishedData;
 using ListOfRemittances_FinishedUnfinished_Word.Models.FinishedData;
 using Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word;
 using Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word.Models;
+using System.Drawing;
 
 namespace Atena.DEMO.Tests
 {
-    //string aTenderNumber,
-    //        string aInvestment,
-    //        string aRecipient,
-    //        string aTransferOrder,
-    //        string aTransferOrderBox,
-    //        string aDateTransfer,
-    //        string aAmountTransfer,
-    //        string aContractValue,
-    //        string aDifference,
-    //        string aResponsiblePerson1,
-    //        string aResponsiblePerson2,
-    //        string aPosiblePayment,
-    //        string aPosibleIncentive
     class Program
     {
         static void Main(string[] args)
         {
+
+
+            byte[] faximile = System.IO.File.ReadAllBytes(@"C:\\Users\\Aleksanderv\\source\\repos\\Aleksander24\\Atena.Document.Libs\\Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word\\Images\\ekoskladSignature.png");
+
             var fundsTransferOrder = new SupportLibs.DocGenerators.FundsTransferOrder_Word.DocumentGenerator(
-                aTenderNumber: Environment.NewLine + "\n\n\n\n\n\n36010-57/2019",
+                aTenderNumber: Environment.NewLine + Environment.NewLine + "\n\n\n\n\n36010-57/2019",
                 aInvestment: Environment.NewLine + "NALOŽBA KONČANA",
                 aRecipient: "DOMPLAN, d.d.\n" +
                             "Bleiweisova cesta 14\n" +
@@ -59,16 +51,19 @@ namespace Atena.DEMO.Tests
                 aContractValues: 3188.82m,
                 aSubtract: "Razlika (pogodba - izplačilo): ",
                 aSubtracts: 0.26m,
-                aResponsiblePerson1: Environment.NewLine + "\n\n\n\nVesna Črnilogar\t\t",
+                aResponsiblePerson1: Environment.NewLine + Environment.NewLine + "\n\n\nVesna Črnilogar\t\t",
                 aResponsiblePerson2: "Nevenka Mateja Udovč",
                 aPossiblePayment: "Izplačilo za objekt na naslovu ULICA 1. AVGUSTA 9, 11, 4000 KRANJ.",
                 aPossibleIncentive: "Spodbuda se izplača v nižjem znesku, ker je račun nižji od ponudbe ob vlogi." + Environment.NewLine,
                 aPossibleNotify: Environment.NewLine + "\nObvestiti: DOMPLAN d.d.\n" +
                                  "Bleiweisova cesta 14\n" +
-                                 "4000 KRANJ");
+                                 "4000 KRANJ",
+                aFaximile: faximile
+                                 );
+                
 
             var time = DateTime.Now.ToFileTime().ToString();
-            File.WriteAllBytes($"D:\\DeloOdDoma\\test\\NalogZaNakaziloSredstev{time}.doc", fundsTransferOrder.Generate()); // popravi v službi
+            File.WriteAllBytes($"C:\\test\\Atena.Documents\\NalogNakaziloSredstev_{time}.doc", fundsTransferOrder.Generate());
         }
 
         #region ListOfRemittances_FinishedUnfinished
