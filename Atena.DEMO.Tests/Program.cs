@@ -58,8 +58,7 @@ namespace Atena.DEMO.Tests
                 aPossibleNotify: Environment.NewLine + "\nObvestiti: DOMPLAN d.d.\n" +
                                  "Bleiweisova cesta 14\n" +
                                  "4000 KRANJ",
-                aFaximile: faximile
-                                 );
+                aFaximile: faximile);
                 
 
             var time = DateTime.Now.ToFileTime().ToString();
