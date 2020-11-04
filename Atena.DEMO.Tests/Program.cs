@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using Atena.SupportLibs.DocGenerators.ReportSubsidyReceivers_Excel.Models;
 using Atena.SupportLibs.DocGenerators.SUB_ListOfRecipient_Word.Models;
 using Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word.Models;
-//using Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word;
 using Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word.GroupsData;
 using Atena.SupportLibs.DocGenerators.ListOfTransactions_Word;
 using Atena.SupportLibs.DocGenerators.ListOfTransactions_Word.Models;
-//using DocumentGenerator = ListOfRemittances_FinishedUnfinished_Word.DocumentGenerator;
+using DocumentGenerator = ListOfRemittances_FinishedUnfinished_Word.DocumentGenerator;
 using ListOfRemittances_FinishedUnfinished_Word.Models.UnfinishedData;
 using ListOfRemittances_FinishedUnfinished_Word.Models.FinishedData;
-using Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word;
+//using Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word;
 using Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word.Models;
 using System.Drawing;
 
@@ -19,231 +18,263 @@ namespace Atena.DEMO.Tests
 {
     class Program
     {
-        static void Main(string[] args)
-        {
-
-
-            byte[] faximile = System.IO.File.ReadAllBytes(@"C:\\Users\\Aleksanderv\\source\\repos\\Aleksander24\\Atena.Document.Libs\\Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word\\Images\\ekoskladSignature.png");
-
-            var fundsTransferOrder = new SupportLibs.DocGenerators.FundsTransferOrder_Word.DocumentGenerator(
-                aTenderNumber: Environment.NewLine + Environment.NewLine + "\n\n\n\n\n36010-57/2019",
-                aInvestment: Environment.NewLine + "NALOŽBA KONČANA",
-                aRecipient: "DOMPLAN, d.d.\n" +
-                            "Bleiweisova cesta 14\n" +
-                            "4000 KRANJ",
-                aTransferOrder: "NALOG ZA NAKAZILO SREDSTEV št.: ",
-                aTransferOrderBox: "108376/2020",
-                aTableTenderDatas: new List<TableTenderData>()
-                { 
-                    new TableTenderData()
-                    {
-                        Razpis = "48SUB-SKOB17",
-                        PrejemnikSredstev = "DOMPLAN, d.d.",
-                        DavcnaStevilka = 66384010,
-                        Naslov = "Bleiweisova cesta 14, 4000 KRANJ",
-                        StevilkaPogodbe = "36010-57/2019",
-                        TRRZaNakazilo = "SI56 0510 0801 0528 081"
-                    }
-                },
-                aDateTransfer: "Datum nakazila: ",
-                aAmountTransfer: "Znesek nakazila: ",
-                aContractValue: "\n\nPogodbena vrednost:   ",
-                aContractValues: 3188.82m,
-                aSubtract: "Razlika (pogodba - izplačilo): ",
-                aSubtracts: 0.26m,
-                aResponsiblePerson1: Environment.NewLine + Environment.NewLine + "\n\n\nVesna Črnilogar\t\t",
-                aResponsiblePerson2: "Nevenka Mateja Udovč",
-                aPossiblePayment: "Izplačilo za objekt na naslovu ULICA 1. AVGUSTA 9, 11, 4000 KRANJ.",
-                aPossibleIncentive: "Spodbuda se izplača v nižjem znesku, ker je račun nižji od ponudbe ob vlogi." + Environment.NewLine,
-                aPossibleNotify: Environment.NewLine + "\nObvestiti: DOMPLAN d.d.\n" +
-                                 "Bleiweisova cesta 14\n" +
-                                 "4000 KRANJ",
-                aFaximile: faximile);
-                
-
-            var time = DateTime.Now.ToFileTime().ToString();
-            File.WriteAllBytes($"C:\\test\\Atena.Documents\\NalogNakaziloSredstev_{time}.doc", fundsTransferOrder.Generate());
-        }
-
-        #region ListOfRemittances_FinishedUnfinished
+        #region FundsTransferOrder
         //static void Main(string[] args)
         //{
-        //    var listOfRemittancesFinishedUnfinished_WordGenerator = new DocumentGenerator(
-        //        aHead: "SEZNAM NAKAZIL NA DAN",
-        //        aDateRemittances: "Datum nakazila",
-        //        aUnTenderCode1s: new List<UnTenderCode1>()
-        //        {
-        //            new UnTenderCode1()
+        //    byte[] faximile = File.ReadAllBytes(@"C:\\Users\\Aleksanderv\\source\\repos\\Aleksander24\\Atena.Document.Libs\\Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word\\Images\\ekoskladSignature.png");
+        //    byte[] logo = File.ReadAllBytes(@"C:\\Users\\Aleksanderv\\source\\repos\\Aleksander24\\Atena.Document.Libs\\Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word\\Images\\EkoLogo.png");
+
+        //    var fundsTransferOrder = new SupportLibs.DocGenerators.FundsTransferOrder_Word.DocumentGenerator(
+        //        aTenderNumber: Environment.NewLine + Environment.NewLine + "\n\n\n\n\n36010-57/2019",
+        //        aInvestment: Environment.NewLine + "NALOŽBA KONČANA",
+        //        aRecipient: "DOMPLAN, d.d.\n" +
+        //                    "Bleiweisova cesta 14\n" +
+        //                    "4000 KRANJ",
+        //        aTransferOrder: "NALOG ZA NAKAZILO SREDSTEV št.: ",
+        //        aTransferOrderBox: "108376/2020",
+        //        #region HeadingsTable
+        //        aTenderTable: "Razpis:",
+        //        aRecipientFundsTable: "Prejemnik sredstev:",
+        //        aTaxNumberTable: "Davčna številka: ",
+        //        aAddressRecipientTable: "Naslov:",
+        //        aContractNumberTable: "Številka pogodbe:",
+        //        aTRRForTransferTable: "TRR za nakazilo:",
+        //    #endregion
+        //        aTableTenderDatas: new List<TableTenderData>()
+        //        { 
+        //            new TableTenderData()
         //            {
-        //                ZapStevilka1 = 1,
-        //                ZapStevilka2 = 1,
-        //                Oznaka1 = "UTD1 1",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
-        //            },
-        //            new UnTenderCode1()
-        //            {
-        //                ZapStevilka1 = 2,
-        //                ZapStevilka2 = 2,
-        //                Oznaka1 = "UTD1 2",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
-        //            },
-        //            new UnTenderCode1()
-        //            {
-        //                ZapStevilka1 = 3,
-        //                ZapStevilka2 = 3,
-        //                Oznaka1 = "UTD1 3",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
+        //                Razpis = "48SUB-SKOB17",
+        //                PrejemnikSredstev = "DOMPLAN, d.d.",
+        //                DavcnaStevilka = 66384010,
+        //                Naslov = "Bleiweisova cesta 14, 4000 KRANJ",
+        //                StevilkaPogodbe = "36010-57/2019",
+        //                TRRZaNakazilo = "SI56 0510 0801 0528 081"
         //            }
         //        },
-        //        aUnTenderCode2s: new List<UnTenderCode2>()
-        //        {
-        //            new UnTenderCode2()
-        //            {
-        //                ZapStevilka1 = 4,
-        //                ZapStevilka2 = 1,
-        //                Oznaka1 = "UTD2 1",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
-        //            },
-        //            new UnTenderCode2()
-        //            {
-        //                ZapStevilka1 = 5,
-        //                ZapStevilka2 = 2,
-        //                Oznaka1 = "UTD2 2",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
-        //            },
-        //            new UnTenderCode2()
-        //            {
-        //                ZapStevilka1 = 6,
-        //                ZapStevilka2 = 3,
-        //                Oznaka1 = "UTD2 3",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
-        //            }
-        //        },
-        //        aUnTenderCode3s: new List<UnTenderCode3>()
-        //        {
-        //            new UnTenderCode3()
-        //            {
-        //                ZapStevilka1 = 7,
-        //                ZapStevilka2 = 1,
-        //                Oznaka1 = "UTD3 1",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
-        //            },
-        //            new UnTenderCode3()
-        //            {
-        //                ZapStevilka1 = 8,
-        //                ZapStevilka2 = 2,
-        //                Oznaka1 = "UTD3 2",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
-        //            },
-        //            new UnTenderCode3()
-        //            {
-        //                ZapStevilka1 = 9,
-        //                ZapStevilka2 = 3,
-        //                Oznaka1 = "UTD3 3",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
-        //            }
-        //        },
-        //        aFiTenderCode1s: new List<FiTenderCode1>()
-        //        {
-        //            new FiTenderCode1
-        //            {
-        //                ZapStevilka1 = 10,
-        //                ZapStevilka2 = 1,
-        //                Oznaka1 = "FTD1 1",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
-        //            },
-        //            new FiTenderCode1
-        //            {
-        //                ZapStevilka1 = 11,
-        //                ZapStevilka2 = 2,
-        //                Oznaka1 = "FTD1 2",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
-        //            },
-        //            new FiTenderCode1
-        //            {
-        //                ZapStevilka1 = 12,
-        //                ZapStevilka2 = 3,
-        //                Oznaka1 = "FTD1 3",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
-        //            }
-        //        },
-        //        aFiTenderCode2s: new List<FiTenderCode2>()
-        //        {
-        //            new FiTenderCode2
-        //            {
-        //                ZapStevilka1 = 13,
-        //                ZapStevilka2 = 1,
-        //                Oznaka1 = "FTD2 1",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
-        //            },
-        //            new FiTenderCode2
-        //            {
-        //                ZapStevilka1 = 14,
-        //                ZapStevilka2 = 2,
-        //                Oznaka1 = "FTD2 2",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
-        //            },
-        //            new FiTenderCode2
-        //            {
-        //                ZapStevilka1 = 15,
-        //                ZapStevilka2 = 3,
-        //                Oznaka1 = "FTD2 3",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
-        //            }
-        //        },
-        //        aFiTenderCode3s: new List<FiTenderCode3>()
-        //        {
-        //            new FiTenderCode3
-        //            {
-        //                ZapStevilka1 = 16,
-        //                ZapStevilka2 = 1,
-        //                Oznaka1 = "FTD3 1",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
-        //            },
-        //            new FiTenderCode3
-        //            {
-        //                ZapStevilka1 = 17,
-        //                ZapStevilka2 = 2,
-        //                Oznaka1 = "FTD3 2",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
-        //            },
-        //            new FiTenderCode3
-        //            {
-        //                ZapStevilka1 = 18,
-        //                ZapStevilka2 = 3,
-        //                Oznaka1 = "FTD3 3",
-        //                Oznaka2 = "36014-6590/2020",
-        //                Prejemnik = "Banka Intesa Sanpaolo d.d."
-        //            }
-        //        }
-        //            );
+        //        aDateTransfer: "Datum nakazila: ",
+        //        aAmountTransfer: "Znesek nakazila: ",
+        //        aContractValue: "\n\nPogodbena vrednost:   ",
+        //        aContractValues: 3188.82m,
+        //        aSubtract: "Razlika (pogodba - izplačilo): ",
+        //        aSubtracts: 0.26m,
+        //        aResponsiblePerson1: Environment.NewLine + Environment.NewLine + "\n\n\nVesna Črnilogar\t\t",
+        //        aResponsiblePerson2: "Nevenka Mateja Udovč",
+        //        aPossiblePayment: "Izplačilo za objekt na naslovu ULICA 1. AVGUSTA 9, 11, 4000 KRANJ.",
+        //        aPossibleIncentive: "Spodbuda se izplača v nižjem znesku, ker je račun nižji od ponudbe ob vlogi." + Environment.NewLine,
+        //        aPossibleNotify: Environment.NewLine + "\nObvestiti: DOMPLAN d.d.\n" +
+        //                         "Bleiweisova cesta 14\n" +
+        //                         "4000 KRANJ",
+        //        aFaximile: faximile,
+        //        aLogo: logo);
+
+
         //    var time = DateTime.Now.ToFileTime().ToString();
-        //    File.WriteAllBytes($"D:\\DeloOdDoma\\test\\SeznamNakazil_DokončanaNedokončana{time}.doc", listOfRemittancesFinishedUnfinished_WordGenerator.Generate()); // popravi v službi
+        //    File.WriteAllBytes($"C:\\test\\Atena.Documents\\NalogNakaziloSredstev_{time}.doc", fundsTransferOrder.Generate());
         //}
+        #endregion
+
+        #region ListOfRemittances_FinishedUnfinished
+        static void Main(string[] args)
+        {
+            var listOfRemittancesFinishedUnfinished_WordGenerator = new DocumentGenerator(
+                aHead: "SEZNAM NAKAZIL NA DAN",
+                aDateRemittances: "Datum nakazila",
+                aInvestStatusText:"Stanje naložbe",
+                aFinishedText: "Dokončano",
+                aUnfinishedText: "Nedokončano",
+                aTenderUnit: "Oznaka razpisa: ",
+                aUnTenderCode1s: new List<UnTenderCode1>()
+                {
+                    new UnTenderCode1()
+                    {
+                        ZapStevilka1 = 1,
+                        ZapStevilka2 = 1,
+                        Oznaka1 = "UTD1 1",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    },
+                    new UnTenderCode1()
+                    {
+                        ZapStevilka1 = 2,
+                        ZapStevilka2 = 2,
+                        Oznaka1 = "UTD1 2",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    },
+                    new UnTenderCode1()
+                    {
+                        ZapStevilka1 = 3,
+                        ZapStevilka2 = 3,
+                        Oznaka1 = "UTD1 3",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    }
+                },
+                aUnfinishedTenderNumber1: "74SUB",
+                aUnTenderCode2s: new List<UnTenderCode2>()
+                {
+                    new UnTenderCode2()
+                    {
+                        ZapStevilka1 = 4,
+                        ZapStevilka2 = 1,
+                        Oznaka1 = "UTD2 1",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    },
+                    new UnTenderCode2()
+                    {
+                        ZapStevilka1 = 5,
+                        ZapStevilka2 = 2,
+                        Oznaka1 = "UTD2 2",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    },
+                    new UnTenderCode2()
+                    {
+                        ZapStevilka1 = 6,
+                        ZapStevilka2 = 3,
+                        Oznaka1 = "UTD2 3",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    }
+                },
+                aUnfinishedTenderNumber2: "76FS",
+                aUnTenderCode3s: new List<UnTenderCode3>()
+                {
+                    new UnTenderCode3()
+                    {
+                        ZapStevilka1 = 7,
+                        ZapStevilka2 = 1,
+                        Oznaka1 = "UTD3 1",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    },
+                    new UnTenderCode3()
+                    {
+                        ZapStevilka1 = 8,
+                        ZapStevilka2 = 2,
+                        Oznaka1 = "UTD3 2",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    },
+                    new UnTenderCode3()
+                    {
+                        ZapStevilka1 = 9,
+                        ZapStevilka2 = 3,
+                        Oznaka1 = "UTD3 3",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    }
+                },
+                aUnfinishedTenderNumber3: "24SUB",
+                aFiTenderCode1s: new List<FiTenderCode1>()
+                {
+                    new FiTenderCode1
+                    {
+                        ZapStevilka1 = 10,
+                        ZapStevilka2 = 1,
+                        Oznaka1 = "FTD1 1",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    },
+                    new FiTenderCode1
+                    {
+                        ZapStevilka1 = 11,
+                        ZapStevilka2 = 2,
+                        Oznaka1 = "FTD1 2",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    },
+                    new FiTenderCode1
+                    {
+                        ZapStevilka1 = 12,
+                        ZapStevilka2 = 3,
+                        Oznaka1 = "FTD1 3",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    }
+                },
+                aFinishedTenderNumber1: "74SUB",
+                aFiTenderCode2s: new List<FiTenderCode2>()
+                {
+                    new FiTenderCode2
+                    {
+                        ZapStevilka1 = 13,
+                        ZapStevilka2 = 1,
+                        Oznaka1 = "FTD2 1",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    },
+                    new FiTenderCode2
+                    {
+                        ZapStevilka1 = 14,
+                        ZapStevilka2 = 2,
+                        Oznaka1 = "FTD2 2",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    },
+                    new FiTenderCode2
+                    {
+                        ZapStevilka1 = 15,
+                        ZapStevilka2 = 3,
+                        Oznaka1 = "FTD2 3",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    }
+                },
+                aFinishedTenderNumber2: "76FS",
+                aFiTenderCode3s: new List<FiTenderCode3>()
+                {
+                    new FiTenderCode3
+                    {
+                        ZapStevilka1 = 16,
+                        ZapStevilka2 = 1,
+                        Oznaka1 = "FTD3 1",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    },
+                    new FiTenderCode3
+                    {
+                        ZapStevilka1 = 17,
+                        ZapStevilka2 = 2,
+                        Oznaka1 = "FTD3 2",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    },
+                    new FiTenderCode3
+                    {
+                        ZapStevilka1 = 18,
+                        ZapStevilka2 = 3,
+                        Oznaka1 = "FTD3 3",
+                        Oznaka2 = "36014-6590/2020",
+                        Prejemnik = "Banka Intesa Sanpaolo d.d."
+                    }
+                },
+                aFinishedTenderNumber3: "24SUB"
+                    );
+            var time = DateTime.Now.ToFileTime().ToString();
+            File.WriteAllBytes($"D:\\DeloOdDoma\\test\\SeznamNakazil_DokončanaNedokončana{time}.doc", listOfRemittancesFinishedUnfinished_WordGenerator.Generate()); // popravi v službi
+        }
         #endregion
 
         #region ListOfTransactions
         //static void Main(string[] args)
         //{
+        //    byte[] logoEko = File.ReadAllBytes(@"D:\\DeloOdDoma\\Atena.Document.Libs\\Atena.SupportLibs.DocGenerators.ListOfTransactions_Word\\Image\\EkoLogo.png"); // popravi v službi
         //    var listOfTransactions_WordGenerator = new DocumentGenerator(
+        //        aLogo: logoEko,
         //        aDate: $"{Environment.NewLine + Environment.NewLine + Environment.NewLine}Spisek nakazil na dan:",
+        //        aNumberTransferTable: "Št. nakazila",
+        //        aTenderTable: "Razpis",
+        //        aRecipientTransferTable: "Prejemnik nakazila",
+        //        aTaxNumberTable: "Davčna številka",
+        //        aAddressTable: "Naslov",
+        //        aNumberContractTable: "Številka pogodbe",
+        //        aAmountContractTable: "Znesek pogodbe",
+        //        aSubtractTable: "Razlika",
+        //        aTrrTable: "TRR",
+        //        aAmountTransferTable: "Znesek nakazila (€)",
         //        aTableRowsDatas: new List<TableRowsData>()
         //        {
         //            new TableRowsData()
@@ -275,12 +306,11 @@ namespace Atena.DEMO.Tests
         //        },
         //        aSumTransactions: "Vsota nakazil",
 
-
         //        aResponsiblePerson: $"{Environment.NewLine} Vesna Črnilogar",
         //        aResponsiblePerson2: "Nevenka Mateja Udovč");
 
         //    var timeA = DateTime.Now.ToFileTime().ToString();
-        //    File.WriteAllBytes($"D:\\DeloOdDoma\\test\\SeznamNakazil{timeA}.doc", listOfTransactions_WordGenerator.Generate());
+        //    File.WriteAllBytes($"D:\\DeloOdDoma\\test\\SeznamNakazil{timeA}.doc", listOfTransactions_WordGenerator.Generate()); // popravi v službi
 
         //}
         #endregion
@@ -290,6 +320,22 @@ namespace Atena.DEMO.Tests
         //{
         //    var activityAnalysis_WordGenerator = new SupportLibs.DocGenerators.ActitvityAnalysis_Word.DocumentGenerator(
         //        aHead: "ANALIZA AKTIVNOSTI EKO SKLADA\n",
+        //        #region FirstPartTable
+        //        aRegulation: "UREDBA",
+        //        aSps: "SPS",
+        //        aNumberProof: "Število odobrenih",
+        //    #endregion
+        //        #region SecondPartTable
+        //        agroupTable: "Skupina",
+        //        ayearTable: "Leto",
+        //        aproof1Table: "Odobreno",
+        //        atransfer1Table: "Nakazano",
+        //        aproof2Table: "Odobreno",
+        //        atransfer2Table: "Nakazano",
+        //        arole: "Vlog",
+        //        ainvest: "Naložb",
+        //    #endregion
+        //        #region GroupsNames
         //        aHeadObjects12: "OBJEKTI 1+2",
         //        aHeadObjectsVec: "OBJEKTI VEČ.",
         //        aHeadObjectsVis: "OBJEKTI VIS",
@@ -300,6 +346,8 @@ namespace Atena.DEMO.Tests
         //        aHeadVehiclesFO: "VOZILA FO",
         //        aHeadVehiclesPO: "VOZILA PO",
         //        aHeadVehiclesMunicipality: "VOZILA Občine JP",
+        //    #endregion
+        //        #region GroupsData
         //        aObjects12s: new List<Objects_1_2>()
         //        {
         //            new Objects_1_2()
@@ -530,9 +578,10 @@ namespace Atena.DEMO.Tests
         //                Nalozb9 = 939
         //            }
         //        },
+        //    #endregion
         //        aSummAllText: "Vse skupaj:");
         //    var timeA = DateTime.Now.ToFileTime().ToString();
-        //    File.WriteAllBytes($"C:\\test\\Atena.Documents\\AnalizaAktivnosti_EKOSKLADA_{timeA}.doc", activityAnalysis_WordGenerator.Generate());
+        //    File.WriteAllBytes($"D:\\DeloOdDoma\\test\\AnalizaAktivnosti_EKOSKLADA_{timeA}.doc", activityAnalysis_WordGenerator.Generate()); // popravi v službi
         //}
         #endregion
 
@@ -588,31 +637,34 @@ namespace Atena.DEMO.Tests
         #region SUB-SPSRequest_Word
         //static void Main(string[] args)
         //{
-        //var SPSRequest_WordGenerator = new SupporLibs.DocGenerators.SUB_SPSRequests_Word.DocumentGenerator(
-        //    aSender: "EKO SKLAD,\n" +
-        //    "SLOVENSKI OKOLJSKI JAVNI SKLAD\n" +
-        //    "BLEIWEISOV CESTA 30\n" +
-        //    "Davčna številka: 10677798\n\n",
+        //    byte[] logoEko1 = File.ReadAllBytes(@"J:\\PROJEKTI\\ATENA_SUPPORT\\Atena.Document.Libs\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\Uefa_logo.png");
+        //    byte[] logoEko2 = File.ReadAllBytes(@"J:\\PROJEKTI\\ATENA_SUPPORT\\Atena.Document.Libs\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\EA_sports.png");
 
-        //    aReceiver: "REPUBLIKA SLOVENIJA\n" +
-        //                "MINISTRISTVO ZA OKOLJE IN PROSTOR\n" +
-        //                "DUNAJSKA CESTA 47\n" +
-        //                "1000 LJUBLJANA\n" +
-        //                "Davčna številka: 31162991\n",
-
-        //    aTransferRequest: "ZAHTEVEK ZA NAKAZILO številka: ",
-
-        //    aTransferRequestCont: "60-SUB/2016",
-
-        //    aDate: "\t\t\tV Ljubljani, dne:",
-
-        //    aPublicTenderText: "\nna podlagi 6. člena pogodbe 2550-16-31100\n" +
-        //        "Javni poziv: 37SUB-OB16\n\n\n",
-
-        //    aProgramFunds: "NAKAZILO NEPOVRATNIH SREDSTEV NA TRR: EKO SKLAD, j.s. - PROGRAMSKA SREDSTVA štev: SI56 0110 0695 0960 378\n",
-
-        //    aRowDatas: new List<MainTableRowsData>()
-        //    {
+        //    var SPSRequest_WordGenerator = new SupporLibs.DocGenerators.SUB_SPSRequests_Word.DocumentGenerator(
+        //        aSender: "EKO SKLAD,\n" +
+        //        "SLOVENSKI OKOLJSKI JAVNI SKLAD\n" +
+        //        "BLEIWEISOV CESTA 30\n" +
+        //        "Davčna številka: 10677798\n\n",
+        //        aRecipient: "REPUBLIKA SLOVENIJA\n" +
+        //                    "MINISTRISTVO ZA OKOLJE IN PROSTOR\n" +
+        //                    "DUNAJSKA CESTA 47\n" +
+        //                    "1000 LJUBLJANA\n" +
+        //                    "Davčna številka: 31162991\n",
+        //        aTransferRequest: "ZAHTEVEK ZA NAKAZILO številka: ",
+        //        aTransferRequestCont: "60-SUB/2016",
+        //        aDate: "\t\t\tV Ljubljani, dne:",
+        //        aPublicTenderText: "\nna podlagi 6. člena pogodbe 2550-16-31100\n" +
+        //            "Javni poziv: 37SUB-OB16\n\n\n",
+        //        aProgramFunds: "NAKAZILO NEPOVRATNIH SREDSTEV NA TRR: EKO SKLAD, j.s. - PROGRAMSKA SREDSTVA štev: SI56 0110 0695 0960 378\n",
+        //        aSerialNumberText: "Zap št.",
+        //        aContractNumberText: "Številka pogodbe",
+        //        aRecipientText: "Prejemnik",
+        //        aAddressText: "Naslov",
+        //        aPostNumberText: "Pošta",
+        //        aTaxNumberText: "Davčna številka",
+        //        aValueEURText: "Vrednost v EUR",
+        //        aRowDatas: new List<MainTableRowsData>()
+        //        {
         //        new MainTableRowsData()
         //        {
         //            ZapStevilka= 1,
@@ -664,10 +716,9 @@ namespace Atena.DEMO.Tests
         //            DavcnaStevilka = 12345678,
         //            VrednostVEUR = 1882.17M
         //        } ,
-        //    },
-
-        //    aSPSRecapitulations: new List<SPSRecapitulationData>()
-        //    {
+        //        },
+        //        aSPSRecapitulations: new List<SPSRecapitulationData>()
+        //        {
         //        new SPSRecapitulationData
         //        {
         //            SPSProjectName = "2550-17-0021 Ogrevalne naprave (Kurilne+TČ)",
@@ -678,30 +729,44 @@ namespace Atena.DEMO.Tests
         //            SPSProjectName = "2550-17-0022 Ostali ukrepi na stavbah",
         //            SPSProjectSum = 16769.54M
         //        }
-        //    },
-
-        //aPrepared: "\nPripravil: mag. Igor Čehovin",
-        //aResponsiblePerson: "Odgovorna oseba: mag. Vesna Črnilogar\n",
-        //aAttachments: "\n\nPriloge:" +
-        //        "\n - pogodbe\n"
+        //        },
+        //        aSumTableText: "Skupaj:",
+        //    aPrepared: "\nPripravil: mag. Igor Čehovin",
+        //    aResponsiblePerson: "Odgovorna oseba: mag. Vesna Črnilogar\n",
+        //    aAttachments: "\n\nPriloge:" +
+        //            "\n - pogodbe\n",
+        //    aSPSProjectText:"SPS projekt: ",
+        //    aSumProjectText: "Vsota projekta: ",
+        //    aSumRequestText: "Vsota zahtevka: ",
+        //    aHeadRecapitulationText: "Naslov Rekapitulacija",
+        //    aRecapitulationRequestProjectText: "Rekapitulacija zahtevka po projektih",
+        //    aLogo1: logoEko1,
+        //    aLogo2: logoEko2
         //    );
         //    var time1 = DateTime.Now.ToFileTime().ToString();
-        //    File.WriteAllBytes($"C:\\test\\Atena.Documents\\SUB-SPS_Request_{time1}.docx", SPSRequest_WordGenerator.Generate());
+        //    File.WriteAllBytes($"C:\\test\\Atena.Documents\\SUB-SPS_Request_{time1}.docx", SPSRequest_WordGenerator.Generate()); // popravi
         //}
         #endregion
 
         #region SUB-ListOfRecipient_Word
         //static void Main(string[] args)
         //{
-        //var listOfRecipient_WordGenerator = new Atena.SupportLibs.DocGenerators.SUB_ListOfRecipient_Word.DocumentGenerator(
-        //    aTextFinancialIncentive: "Seznam prejemnikov nepovratnih finančnih spodbud, ki ga Eko sklad j.s. objavlja na podlagi " +
-        //    "316. člena Energetskega zakona EZ1 (Ur.l. RS, št. 17/14) in 3. točke prvega odstavka 10. člena Uredbe o posredovanju " +
-        //    "in ponovni uporabi informacij javnega značaja (Ur. l. RS, št. 24/16)\n",
+        //    var listOfRecipient_WordGenerator = new Atena.SupportLibs.DocGenerators.SUB_ListOfRecipient_Word.DocumentGenerator(
+        //        aTextFinancialIncentive: "Seznam prejemnikov nepovratnih finančnih spodbud, ki ga Eko sklad j.s. objavlja na podlagi " +
+        //        "316. člena Energetskega zakona EZ1 (Ur.l. RS, št. 17/14) in 3. točke prvega odstavka 10. člena Uredbe o posredovanju " +
+        //        "in ponovni uporabi informacij javnega značaja (Ur. l. RS, št. 24/16)\n",
+        //        aSerialNumberText: "Zap. št.",
+        //        aRecipientIncentiveText: "Prejemnik spodbude",
+        //        aAddressRecipientText: "Naslov prejemnika",
+        //        aPurposeText: "Namen",
+        //        aDescriptionQuantityText: "Opis količine",
+        //        aHeightText: "Velikost",
+        //        aUnitText: "Oznaka",
+        //        aAmountIncentiveText: "Višina spodbude v €",
+        //        aTextPayouts: "Izplačila nepovratnih finančnih spodbud v letu 2017",
 
-        //    aTextPayouts: "Izplačila nepovratnih finančnih spodbud v letu 2017",
-
-        //    aRowDatas: new List<ReceiverData>()
-        //    {
+        //        aRowDatas: new List<ReceiverData>()
+        //        {
         //        new ReceiverData()
         //        {
         //            ZapStevilka = 1,
@@ -836,11 +901,12 @@ namespace Atena.DEMO.Tests
         //                }
         //            }
         //        }
-        //    });
-        //    var time2 = DateTime.Now.ToFileTime().ToString();
-        //    File.WriteAllBytes($"C:\\test\\Atena.Documents\\SUB-ListOfRecipient_{time2}.docx", listOfRecipient_WordGenerator.Generate());
-        //}
+        //        });
 
+        //    var time2 = DateTime.Now.ToFileTime().ToString();
+        //    File.WriteAllBytes($"D:\\DeloOdDoma\\test\\SUB-ListOfRecipient_{time2}.docx", listOfRecipient_WordGenerator.Generate());
+        ////C:\\test\\Atena.Documents\\
+        //} 
         #endregion
     }
 }

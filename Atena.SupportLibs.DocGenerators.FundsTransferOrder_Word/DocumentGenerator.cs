@@ -37,6 +37,13 @@ namespace Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word
         string _possibleIncentive;
         string _possibleNotify;
         byte[] _faximile;
+        byte[] _logo;
+        string _tenderTable;
+        string _recipientFundsTable;
+        string _taxNumberTable;
+        string _addressRecipientTable;
+        string _contractNumberTable;
+        string _tRRForTransferTable;
         List<TableTenderData> _tableTenderDatas;
         #endregion
 
@@ -59,7 +66,14 @@ namespace Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word
             string aPossibleIncentive,
             string aPossibleNotify,
             byte[] aFaximile,
-            List<TableTenderData> aTableTenderDatas)
+            byte[] aLogo,
+            string aTenderTable,
+            string aRecipientFundsTable,
+            string aTaxNumberTable,
+            string aAddressRecipientTable,
+            string aContractNumberTable,
+            string aTRRForTransferTable,
+        List<TableTenderData> aTableTenderDatas)
         {
             _tenderNumber = aTenderNumber;
             _investment = aInvestment;
@@ -79,6 +93,13 @@ namespace Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word
             _possibleNotify = aPossibleNotify;
             _tableTenderDatas = aTableTenderDatas;
             _faximile = aFaximile;
+            _logo = aLogo;
+            _tenderTable = aTenderTable;
+            _recipientFundsTable = aRecipientFundsTable;
+            _taxNumberTable = aTaxNumberTable;
+            _addressRecipientTable = aAddressRecipientTable;
+            _contractNumberTable = aContractNumberTable;
+            _tRRForTransferTable = aTRRForTransferTable;
         }
         #endregion
         public byte[] Generate()
@@ -101,7 +122,7 @@ namespace Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word
             IWParagraph paragraph = section.HeadersFooters.Header.AddParagraph();
             #endregion
 
-            paragraph = SetImageEkoLogo(section);
+            paragraph = SetImageEkoLogo(section, _logo);
             paragraph = SetTenderNumber(section);
             paragraph = SetInvestmentEnded(section);
             paragraph = SetRecipient(section);
@@ -302,14 +323,6 @@ namespace Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word
             paragraph = section.AddParagraph();
             paragraph = section.AddParagraph();
             paragraph = section.AddParagraph();
-            #region string for Headings in table
-            string Tender = "Razpis:";
-            string RecipientFunds = "Prejemnik sredstev:";
-            string TaxNumber = "Davčna številka: ";
-            string AddressRecipient = "Naslov:";
-            string ContractNumber = "Številka pogodbe:";
-            string TRRForTransfer = "TRR za nakazilo:";
-            #endregion
             IWTable tableTender = section.AddTable();
             tableTender.ResetCells(6, 2);
             tableTender.TableFormat.Paddings.All = 2;
@@ -319,17 +332,17 @@ namespace Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word
             tableTender[3, 0].Width = 250f;
             tableTender[4, 0].Width = 250f;
             tableTender[5, 0].Width = 250f;
-            IWTextRange textRangeTableTender = tableTender[0, 0].AddParagraph().AppendText(Tender);
+            IWTextRange textRangeTableTender = tableTender[0, 0].AddParagraph().AppendText(_tenderTable);
             textRangeTableTender.CharacterFormat.FontSize = 14f;
-            textRangeTableTender = tableTender[1, 0].AddParagraph().AppendText(RecipientFunds);
+            textRangeTableTender = tableTender[1, 0].AddParagraph().AppendText(_recipientFundsTable);
             textRangeTableTender.CharacterFormat.FontSize = 14f;
-            textRangeTableTender = tableTender[2, 0].AddParagraph().AppendText(TaxNumber);
+            textRangeTableTender = tableTender[2, 0].AddParagraph().AppendText(_taxNumberTable);
             textRangeTableTender.CharacterFormat.FontSize = 14f;
-            textRangeTableTender = tableTender[3, 0].AddParagraph().AppendText(AddressRecipient);
+            textRangeTableTender = tableTender[3, 0].AddParagraph().AppendText(_addressRecipientTable);
             textRangeTableTender.CharacterFormat.FontSize = 14f;
-            textRangeTableTender = tableTender[4, 0].AddParagraph().AppendText(ContractNumber);
+            textRangeTableTender = tableTender[4, 0].AddParagraph().AppendText(_contractNumberTable);
             textRangeTableTender.CharacterFormat.FontSize = 14f;
-            textRangeTableTender = tableTender[5, 0].AddParagraph().AppendText(TRRForTransfer);
+            textRangeTableTender = tableTender[5, 0].AddParagraph().AppendText(_tRRForTransferTable);
             textRangeTableTender.CharacterFormat.FontSize = 14f;
 
             for (int i = 0; i < _tableTenderDatas.Count; i++)
@@ -447,12 +460,12 @@ namespace Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word
             return paragraph;
         }
 
-        private static IWParagraph SetImageEkoLogo(IWSection section)
+        private static IWParagraph SetImageEkoLogo(IWSection section, byte[] aLogo)
         {
             IWParagraph paragraph = section.AddParagraph();
             paragraph.ApplyStyle("Normal");
-            FileStream imageStream = new FileStream($"C:\\Users\\Aleksanderv\\source\\repos\\Aleksander24\\Atena.Document.Libs\\Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word\\Images\\EkoLogo.png", FileMode.Open, FileAccess.Read);
-            IWPicture EkoLogo = paragraph.AppendPicture(imageStream);
+            //FileStream imageStream = new FileStream($"C:\\Users\\Aleksanderv\\source\\repos\\Aleksander24\\Atena.Document.Libs\\Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word\\Images\\EkoLogo.png", FileMode.Open, FileAccess.Read);
+            IWPicture EkoLogo = paragraph.AppendPicture(aLogo);
             EkoLogo.TextWrappingStyle = TextWrappingStyle.InFrontOfText;
             EkoLogo.HorizontalAlignment = ShapeHorizontalAlignment.Right;
             EkoLogo.Width = 200;

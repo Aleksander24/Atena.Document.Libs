@@ -21,7 +21,7 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
 
         #region PROPS
         string _sender;
-        string _receiver;
+        string _recipient;
         string _transferRequest;
         string _transferRequestCont;
         string _date;
@@ -32,11 +32,27 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
         string _prepared;
         string _responsiblePerson;
         string _attachments;
+        byte[] _logo1;
+        byte[] _logo2;
+        string _serialNumberText;
+        string _contractNumberText;
+        string _recipientText;
+        string _addressText;
+        string _postNumberText;
+        string _taxNumberText;
+        string _valueEURText;
+        string _sPSProjectText;
+        string _sumProjectText;
+        string _sumRequestText;
+        string _headRecapitulationText;
+        string _recapitulationRequestProjectText;
+        string _sumTableText;
         #endregion
+        
         #region DocumentGenerator
         public DocumentGenerator(
             string aSender, 
-            string aReceiver, 
+            string aRecipient, 
             string aTransferRequest, 
             string aTransferRequestCont, 
             string aDate, 
@@ -46,11 +62,26 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
             List<SPSRecapitulationData> aSPSRecapitulations, 
             string aPrepared, 
             string aResponsiblePerson, 
-            string aAttachments)
+            string aAttachments,
+            byte[] aLogo1,
+            byte[] aLogo2,
+            string aSerialNumberText,
+            string aContractNumberText,
+            string aRecipientText,
+            string aAddressText,
+            string aPostNumberText,
+            string aTaxNumberText,
+            string aValueEURText,
+            string aSPSProjectText,
+            string aSumProjectText,
+            string aSumRequestText,
+            string aHeadRecapitulationText,
+            string aRecapitulationRequestProjectText,
+            string aSumTableText)
 
         {
             _sender = aSender;
-            _receiver = aReceiver;
+            _recipient = aRecipient;
             _transferRequest = aTransferRequest;
             _transferRequestCont = aTransferRequestCont;
             _date = aDate;
@@ -61,6 +92,21 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
             _prepared = aPrepared;
             _responsiblePerson = aResponsiblePerson;
             _attachments = aAttachments;
+            _logo1 = aLogo1;
+            _logo2 = aLogo2;
+            _serialNumberText = aSerialNumberText;
+            _contractNumberText = aContractNumberText;
+            _recipientText = aRecipientText;
+            _addressText = aAddressText;
+            _postNumberText = aPostNumberText;
+            _taxNumberText = aTaxNumberText;
+            _valueEURText = aValueEURText;
+            _sPSProjectText = aSPSProjectText;
+            _sumProjectText = aSumProjectText;
+            _sumRequestText = aSumRequestText;
+            _headRecapitulationText = aHeadRecapitulationText;
+            _recapitulationRequestProjectText = aRecapitulationRequestProjectText;
+            _sumTableText = aSumTableText;
         }
         #endregion
 
@@ -94,7 +140,7 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
 
             paragraph = SetSender(_sender, section);
 
-            paragraph = SetReceiver(_receiver, section);
+            paragraph = SetReceiver(_recipient, section);
 
             paragraph = SetTransferRequest(_transferRequest, section);
             SetTransferRequestCont(_transferRequestCont, paragraph);
@@ -104,36 +150,9 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
 
             paragraph = SetProgramFunds(_programFunds, section);
 
+            IWTable table = CreatingMainTable(section);
 
-            #region Creating Main table
-            // Creating Main table
-            IWTable table = section.AddTable();
-            table.ResetCells(6, 8);
-            table.TableFormat.BackColor = Color.White;
-            table.TableFormat.HorizontalAlignment = RowAlignment.Left;
-            table.TableFormat.Positioning.HorizPosition = 1;
-            table.TableFormat.Positioning.VertPosition = 230;
-            table.TableFormat.Paddings.All = 2;
-            #endregion
-
-            #region Headings for Main table
-            table[0, 0].Width = 28f;
-            table[0, 0].AddParagraph().AppendText("Zap št.");
-            table[0, 1].Width = 30f;
-            table[0, 1].AddParagraph().AppendText("");
-            table[0, 2].Width = 80f;
-            table[0, 2].AddParagraph().AppendText("Številka pogodbe");
-            table[0, 3].Width = 85f;
-            table[0, 3].AddParagraph().AppendText("Prejemnik");
-            table[0, 4].Width = 85f;
-            table[0, 4].AddParagraph().AppendText("Naslov");
-            table[0, 5].Width = 76f;
-            table[0, 5].AddParagraph().AppendText("Pošta");
-            table[0, 6].Width = 54.4f;
-            table[0, 6].AddParagraph().AppendText("Davčna številka");
-            table[0, 7].Width = 60f;
-            table[0, 7].AddParagraph().AppendText("Vrednost v EUR");
-            #endregion
+            HeadingsForMainTable(table);
 
             // rows in Main table
             for (int i = 0; i < _rowDatas.Count; i++)
@@ -157,19 +176,7 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
 
             }
 
-            #region Skupaj at the end of the Main table (for "Vrednost v EUR)
-            IWTable table1 = section.AddTable();
-            table1.ResetCells(1, 2);
-            table1.TableFormat.BackColor = Color.White;
-            table1.TableFormat.HorizontalAlignment = RowAlignment.Right;
-            table1.TableFormat.Paddings.All = 2;
-            table1[0, 0].Width = 54.5f;
-            table1[0, 0].AddParagraph().AppendText("Skupaj:");
-            // sum for table
-            decimal sumOfAllRowDatas = _rowDatas.Sum(p => p.VrednostVEUR);
-            table1[0, 1].Width = 60f;
-            table1[0, 1].AddParagraph().AppendText(sumOfAllRowDatas.ToString());
-            #endregion
+            SetSumMainTable(section);
 
             paragraph = SetPrepared(_prepared, section);
 
@@ -177,45 +184,14 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
 
             paragraph = SetAttachments(_attachments, section);
 
-            paragraph = ImageSignatureResponsiblePerson(section);
+            paragraph = ImageSignatureResponsiblePerson(section, _logo2);
 
-            paragraph = ImageSignaturePrepared(section);
+            paragraph = ImageSignaturePrepared(section, _logo1);
 
-            #region Adding for naslov Rekapitulacija
-            WParagraphStyle styleBox = document.AddParagraphStyle("Naslov Rekapitulacija") as WParagraphStyle;
-            styleBox.CharacterFormat.FontName = "Calibri";
-            styleBox.CharacterFormat.FontSize = 14f;
-            styleBox.ParagraphFormat.BeforeSpacing = 0;
-            styleBox.ParagraphFormat.AfterSpacing = 0;
-            styleBox.ParagraphFormat.LineSpacing = 15f;
-            #endregion
-
-            #region Adding textbox and Rekapitulacija heading
-            paragraph = section.AddParagraph();
-            IWTextBox textBox = paragraph.AppendTextBox(260, 95);
-            textBox.TextBoxFormat.HorizontalAlignment = ShapeHorizontalAlignment.Center;
-            textBox.TextBoxFormat.FillColor = Color.LightGray;
-            WParagraph textBoxParagraph = textBox.TextBoxBody.AddParagraph() as WParagraph;
-            textBoxParagraph.ApplyStyle("Naslov Rekapitulacija");
-            textBoxParagraph.AppendText("Rekapitulacija zahtevka po projektih");
-            textBoxParagraph.ParagraphFormat.HorizontalAlignment = HorizontalAlignment.Center;
-            #endregion
-
-            #region Table inside SPSRecapitulation
-            WTable tableRec = textBox.TextBoxBody.AddTable() as WTable;
-            tableRec.ResetCells(3, 2);
-            tableRec.TableFormat.BackColor = Color.White;
-            tableRec.TableFormat.HorizontalAlignment = RowAlignment.Center;
-            tableRec.TableFormat.Paddings.All = 2;
-
-            //Head of table SPSRecapitulation
-            string SPSProject = "SPS projekt: ";
-            string SumProject = "Vsota projekta: ";
-            tableRec[0, 0].Width = 185f;
-            tableRec[0, 0].AddParagraph().AppendText(SPSProject);
-            tableRec[0, 1].Width = 73f;
-            tableRec[0, 1].AddParagraph().AppendText(SumProject);
-            #endregion
+            SetRecapitulationHead(document);
+            IWTextBox textBox;
+            WTable tableRec;
+            SetTextBoxRecapitulationHeading(section, out paragraph, out textBox, out tableRec);
 
             // rows in table SPSRecapitulation
             for (int i = 0; i < _spsRecapitulations.Count; i++)
@@ -226,20 +202,7 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
                 tableRec[i + 1, 1].AddParagraph().AppendText(_spsRecapitulations[i].SPSProjectSum.ToString());
             }
 
-            #region End of table SPSRecapitulation (Vsota zahtevka)
-            string SumRequest = "Vsota zahtevka: ";
-            WTable tableRecEnd = textBox.TextBoxBody.AddTable() as WTable;
-            tableRecEnd.ResetCells(1, 2);
-            tableRecEnd.TableFormat.BackColor = Color.White;
-            tableRecEnd.TableFormat.HorizontalAlignment = RowAlignment.Center;
-            tableRecEnd.TableFormat.Paddings.All = 2;
-            tableRecEnd[0, 0].Width = 185f;
-            tableRecEnd[0, 0].AddParagraph().AppendText(SumRequest);
-            //sum SPSRecapitulation
-            decimal sumOfAllSPSProjects = _spsRecapitulations.Sum(p => p.SPSProjectSum);
-            tableRecEnd[0, 1].Width = 73f;
-            tableRecEnd[0, 1].AddParagraph().AppendText(sumOfAllSPSProjects.ToString());
-            #endregion
+            SetSumRecapitulationTable(textBox);
 
             #region Saving word document
             MemoryStream stream = new MemoryStream();
@@ -248,11 +211,106 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
             return stream.ToArray();
             #endregion
         }
-        private static IWParagraph ImageSignaturePrepared(IWSection section)
+
+        private void SetTextBoxRecapitulationHeading(IWSection section, out IWParagraph paragraph, out IWTextBox textBox, out WTable tableRec)
+        {
+            paragraph = section.AddParagraph();
+            textBox = paragraph.AppendTextBox(260, 95);
+            textBox.TextBoxFormat.HorizontalAlignment = ShapeHorizontalAlignment.Center;
+            textBox.TextBoxFormat.FillColor = Color.LightGray;
+            WParagraph textBoxParagraph = textBox.TextBoxBody.AddParagraph() as WParagraph;
+            textBoxParagraph.ApplyStyle(_headRecapitulationText);
+            textBoxParagraph.AppendText(_recapitulationRequestProjectText);
+            textBoxParagraph.ParagraphFormat.HorizontalAlignment = HorizontalAlignment.Center;
+            tableRec = SetInsideRecapitulationBox(textBox);
+        }
+
+        private WTable SetInsideRecapitulationBox(IWTextBox textBox)
+        {
+            WTable tableRec = textBox.TextBoxBody.AddTable() as WTable;
+            tableRec.ResetCells(3, 2);
+            tableRec.TableFormat.BackColor = Color.White;
+            tableRec.TableFormat.HorizontalAlignment = RowAlignment.Center;
+            tableRec.TableFormat.Paddings.All = 2;
+
+            tableRec[0, 0].Width = 185f;
+            tableRec[0, 0].AddParagraph().AppendText(_sPSProjectText);
+            tableRec[0, 1].Width = 73f;
+            tableRec[0, 1].AddParagraph().AppendText(_sumProjectText);
+            return tableRec;
+        }
+        private void SetSumRecapitulationTable(IWTextBox textBox)
+        {
+            WTable tableRecEnd = textBox.TextBoxBody.AddTable() as WTable;
+            tableRecEnd.ResetCells(1, 2);
+            tableRecEnd.TableFormat.BackColor = Color.White;
+            tableRecEnd.TableFormat.HorizontalAlignment = RowAlignment.Center;
+            tableRecEnd.TableFormat.Paddings.All = 2;
+            tableRecEnd[0, 0].Width = 185f;
+            tableRecEnd[0, 0].AddParagraph().AppendText(_sumRequestText);
+            //sum SPSRecapitulation
+            decimal sumOfAllSPSProjects = _spsRecapitulations.Sum(p => p.SPSProjectSum);
+            tableRecEnd[0, 1].Width = 73f;
+            tableRecEnd[0, 1].AddParagraph().AppendText(sumOfAllSPSProjects.ToString());
+        }
+        private static void SetRecapitulationHead(WordDocument document)
+        {
+            WParagraphStyle styleBox = document.AddParagraphStyle("Naslov Rekapitulacija") as WParagraphStyle;
+            styleBox.CharacterFormat.FontName = "Calibri";
+            styleBox.CharacterFormat.FontSize = 14f;
+            styleBox.ParagraphFormat.BeforeSpacing = 0;
+            styleBox.ParagraphFormat.AfterSpacing = 0;
+            styleBox.ParagraphFormat.LineSpacing = 15f;
+        }
+        private void SetSumMainTable(IWSection section)
+        { 
+            IWTable table1 = section.AddTable();
+            table1.ResetCells(1, 2);
+            table1.TableFormat.BackColor = Color.White;
+            table1.TableFormat.HorizontalAlignment = RowAlignment.Right;
+            table1.TableFormat.Paddings.All = 2;
+            table1[0, 0].Width = 54.5f;
+            table1[0, 0].AddParagraph().AppendText(_sumTableText);
+            // sum for table
+            decimal sumOfAllRowDatas = _rowDatas.Sum(p => p.VrednostVEUR);
+            table1[0, 1].Width = 60f;
+            table1[0, 1].AddParagraph().AppendText(sumOfAllRowDatas.ToString());
+        }
+        private void HeadingsForMainTable(IWTable table)
+        {
+            table[0, 0].Width = 28f;
+            table[0, 0].AddParagraph().AppendText(_serialNumberText);
+            table[0, 1].Width = 30f;
+            //table[0, 1].AddParagraph().AppendText("");
+            table[0, 2].Width = 80f;
+            table[0, 2].AddParagraph().AppendText(_contractNumberText);
+            table[0, 3].Width = 85f;
+            table[0, 3].AddParagraph().AppendText(_recipientText);
+            table[0, 4].Width = 85f;
+            table[0, 4].AddParagraph().AppendText(_addressText);
+            table[0, 5].Width = 76f;
+            table[0, 5].AddParagraph().AppendText(_postNumberText);
+            table[0, 6].Width = 54.4f;
+            table[0, 6].AddParagraph().AppendText(_taxNumberText);
+            table[0, 7].Width = 60f;
+            table[0, 7].AddParagraph().AppendText(_valueEURText);
+        }
+        private static IWTable CreatingMainTable(IWSection section)
+        {
+            IWTable table = section.AddTable();
+            table.ResetCells(6, 8);
+            table.TableFormat.BackColor = Color.White;
+            table.TableFormat.HorizontalAlignment = RowAlignment.Left;
+            table.TableFormat.Positioning.HorizPosition = 1;
+            table.TableFormat.Positioning.VertPosition = 230;
+            table.TableFormat.Paddings.All = 2;
+            return table;
+        }
+        private static IWParagraph ImageSignaturePrepared(IWSection section, byte[] logo1)
         {
             IWParagraph paragraph = section.AddParagraph();
-            FileStream imageStream = new FileStream($"J:\\PROJEKTI\\ATENA_SUPPORT\\Atena.Document.Libs\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\Uefa_logo.png", FileMode.Open, FileAccess.Read);
-            IWPicture picture = paragraph.AppendPicture(imageStream);
+            //FileStream imageStream = new FileStream($"J:\\PROJEKTI\\ATENA_SUPPORT\\Atena.Document.Libs\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\Uefa_logo.png", FileMode.Open, FileAccess.Read);
+            IWPicture picture = paragraph.AppendPicture(logo1);
             picture.TextWrappingStyle = TextWrappingStyle.Square;
             picture.Width = 30;
             picture.Height = 30;
@@ -260,11 +318,11 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
             picture.HorizontalAlignment = ShapeHorizontalAlignment.Left;
             return paragraph;
         }
-        private static IWParagraph ImageSignatureResponsiblePerson(IWSection section)
+        private static IWParagraph ImageSignatureResponsiblePerson(IWSection section, byte[] logo2)
         {
             IWParagraph paragraph = section.AddParagraph();
-            FileStream imageStream1 = new FileStream($"J:\\PROJEKTI\\ATENA_SUPPORT\\Atena.Document.Libs\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\EA_sports.png", FileMode.Open, FileAccess.Read);
-            IWPicture picture1 = paragraph.AppendPicture(imageStream1);
+            //FileStream imageStream1 = new FileStream($"J:\\PROJEKTI\\ATENA_SUPPORT\\Atena.Document.Libs\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\EA_sports.png", FileMode.Open, FileAccess.Read);
+            IWPicture picture1 = paragraph.AppendPicture(logo2);
             picture1.TextWrappingStyle = TextWrappingStyle.Square;
             picture1.Width = 30;
             picture1.Height = 30;
@@ -309,7 +367,7 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
             WTextRange textRange8 = paragraph.AppendText(aPrepared) as WTextRange;
             textRange8.CharacterFormat.FontSize = 9f;
             textRange8.CharacterFormat.FontName = "Calibri";
-            textRange8.CharacterFormat.TextColor = Syncfusion.Drawing.Color.Black;
+            textRange8.CharacterFormat.TextColor = Color.Black;
             return paragraph;
         }
         private static IWParagraph SetProgramFunds(string aProgramFunds, IWSection section)
@@ -320,7 +378,7 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
             WTextRange textRange7 = paragraph.AppendText(aProgramFunds) as WTextRange;
             textRange7.CharacterFormat.FontSize = 10.25f;
             textRange7.CharacterFormat.FontName = "Calibri";
-            textRange7.CharacterFormat.TextColor = Syncfusion.Drawing.Color.Black;
+            textRange7.CharacterFormat.TextColor = Color.Black;
             return paragraph;
         }
         private static IWParagraph SetPublicTenderName(string aPublicTenderText, IWSection section)
@@ -341,7 +399,7 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
             WTextRange textRange5 = paragraph.AppendText(aDate) as WTextRange;
             textRange5.CharacterFormat.FontSize = 9f;
             textRange5.CharacterFormat.FontName = "Calibri";
-            textRange5.CharacterFormat.TextColor = Syncfusion.Drawing.Color.Black;
+            textRange5.CharacterFormat.TextColor = Color.Black;
         }
         private static void SetTransferRequestCont(string aTransferRequestCont, IWParagraph paragraph)
         {
@@ -371,7 +429,7 @@ namespace Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word
             WTextRange textRange2 = paragraph.AppendText(aReceiver) as WTextRange;
             textRange2.CharacterFormat.FontSize = 10f;
             textRange2.CharacterFormat.FontName = "Calibri";
-            textRange2.CharacterFormat.TextColor = Syncfusion.Drawing.Color.Black;
+            textRange2.CharacterFormat.TextColor = Color.Black;
             textRange2.CharacterFormat.Bold = true;
             return paragraph;
         }

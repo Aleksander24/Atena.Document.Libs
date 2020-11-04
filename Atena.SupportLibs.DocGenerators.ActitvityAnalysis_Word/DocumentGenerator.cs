@@ -19,7 +19,6 @@ namespace Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word
 
         public DocumentTypeEnum DocumentTypeEnum => DocumentTypeEnum.Word;
 
-
         #region string PROP
         string _head;
         string _headObjects12;
@@ -43,8 +42,19 @@ namespace Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word
         string _headvehiclesMunicipalityJP;
         List<VehiclesMunicipalityJP> _vehiclesMunicipalityJPs;
         string _sumAllText;
+        string _groupTable;
+        string _yearTable;
+        string _proof1Table;
+        string _transfer1Table;
+        string _proof2Table;
+        string _transfer2Table;
+        string _role;
+        string _invest;
+        string _regulation;
+        string _sps;
+        string _numberProof;
         #endregion
-
+       
         #region DocumentGenerator
         public DocumentGenerator(
             string aHead,
@@ -68,7 +78,18 @@ namespace Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word
             List<VehiclesPO> aVehiclesPOs,
             string aHeadVehiclesMunicipality,
             List<VehiclesMunicipalityJP> aVehiclesMunicipalityJPs,
-            string aSummAllText)
+            string aSummAllText,
+            string agroupTable,
+            string ayearTable,
+            string aproof1Table,
+            string atransfer1Table,
+            string aproof2Table,
+            string atransfer2Table,
+            string arole,
+            string ainvest,
+            string aRegulation,
+            string aSps,
+            string aNumberProof)
         {
             _head = aHead;
             _headObjects12 = aHeadObjects12;
@@ -92,9 +113,19 @@ namespace Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word
             _headvehiclesMunicipalityJP = aHeadVehiclesMunicipality;
             _vehiclesMunicipalityJPs = aVehiclesMunicipalityJPs;
             _sumAllText = aSummAllText;
+            _groupTable = agroupTable;
+            _yearTable = ayearTable;
+            _proof1Table = aproof1Table;
+            _proof2Table = aproof2Table;
+            _transfer1Table = atransfer1Table;
+            _transfer2Table = atransfer2Table;
+            _role = arole;
+            _invest = ainvest;
+            _regulation = aRegulation;
+            _sps = aSps;
+            _numberProof = aNumberProof;
         }
         #endregion
-
 
         public byte[] Generate()
         {
@@ -891,39 +922,7 @@ namespace Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word
 
         }
 
-        private static void SetSecondPartTable(IWSection section)
-        {
-            IWTable table2 = section.AddTable();
-            table2.ResetCells(1, 8);
-            table2.TableFormat.BackColor = Color.White;
-            table2.TableFormat.HorizontalAlignment = RowAlignment.Left;
-            table2.TableFormat.Paddings.All = 2;
-            table2[0, 0].Width = 80f;
-            IWTextRange textRangeSecondPartTable = table2[0, 0].AddParagraph().AppendText("Skupina");
-            table2[0, 1].Width = 40f;
-            textRangeSecondPartTable = table2[0, 1].AddParagraph().AppendText("Leto");
-            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
-            table2[0, 2].Width = 70f;
-            textRangeSecondPartTable = table2[0, 2].AddParagraph().AppendText("Odobreno");
-            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
-            table2[0, 3].Width = 70f;
-            textRangeSecondPartTable = table2[0, 3].AddParagraph().AppendText("Nakazano");
-            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
-            table2[0, 4].Width = 70f;
-            textRangeSecondPartTable = table2[0, 4].AddParagraph().AppendText("Odobreno");
-            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
-            table2[0, 5].Width = 70f;
-            textRangeSecondPartTable = table2[0, 5].AddParagraph().AppendText("Nakazano");
-            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
-            table2[0, 6].Width = 50f;
-            textRangeSecondPartTable = table2[0, 6].AddParagraph().AppendText("Vlog");
-            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
-            table2[0, 7].Width = 50f;
-            textRangeSecondPartTable = table2[0, 7].AddParagraph().AppendText("Naložb");
-            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
-        }
-
-        private static void SetHeadTable(IWSection section)
+        private void SetHeadTable(IWSection section)
         {
             IWTable table1 = section.AddTable();
             table1.ResetCells(1, 3);
@@ -931,14 +930,47 @@ namespace Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word
             table1.TableFormat.HorizontalAlignment = RowAlignment.Left;
             table1.TableFormat.Paddings.All = 2;
             table1[0, 0].Width = 260f;
-            IWTextRange wTextRangeHead = table1[0, 0].AddParagraph().AppendText("UREDBA");
+            IWTextRange wTextRangeHead = table1[0, 0].AddParagraph().AppendText(_regulation);
             wTextRangeHead.CharacterFormat.FontSize = 13f;
             table1[0, 1].Width = 140f;
-            wTextRangeHead = table1[0, 1].AddParagraph().AppendText("SPS");
+            wTextRangeHead = table1[0, 1].AddParagraph().AppendText(_sps);
             wTextRangeHead.CharacterFormat.FontSize = 13f;
             table1[0, 2].Width = 100f;
-            wTextRangeHead = table1[0, 2].AddParagraph().AppendText("Število odobrenih");
+            wTextRangeHead = table1[0, 2].AddParagraph().AppendText(_numberProof);
             wTextRangeHead.CharacterFormat.FontSize = 13f;
+        }
+
+        private void SetSecondPartTable(IWSection section)
+        {
+            IWTable table2 = section.AddTable();
+            table2.ResetCells(1, 8);
+            table2.TableFormat.BackColor = Color.White;
+            table2.TableFormat.HorizontalAlignment = RowAlignment.Left;
+            table2.TableFormat.Paddings.All = 2;
+            table2[0, 0].Width = 80f;
+            IWTextRange textRangeSecondPartTable = table2[0, 0].AddParagraph().AppendText(_groupTable);
+            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
+            table2[0, 1].Width = 40f;
+            textRangeSecondPartTable = table2[0, 1].AddParagraph().AppendText(_yearTable);
+            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
+            table2[0, 2].Width = 70f;
+            textRangeSecondPartTable = table2[0, 2].AddParagraph().AppendText(_proof1Table);
+            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
+            table2[0, 3].Width = 70f;
+            textRangeSecondPartTable = table2[0, 3].AddParagraph().AppendText(_transfer1Table);
+            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
+            table2[0, 4].Width = 70f;
+            textRangeSecondPartTable = table2[0, 4].AddParagraph().AppendText(_proof2Table);
+            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
+            table2[0, 5].Width = 70f;
+            textRangeSecondPartTable = table2[0, 5].AddParagraph().AppendText(_transfer2Table);
+            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
+            table2[0, 6].Width = 50f;
+            textRangeSecondPartTable = table2[0, 6].AddParagraph().AppendText(_role);
+            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
+            table2[0, 7].Width = 50f;
+            textRangeSecondPartTable = table2[0, 7].AddParagraph().AppendText(_invest);
+            textRangeSecondPartTable.CharacterFormat.FontSize = 12f;
         }
 
         private IWParagraph SetHead(IWSection section)

@@ -30,7 +30,18 @@ namespace ListOfRemittances_FinishedUnfinished_Word
         List<FiTenderCode1> _fiTenderCode1s;
         List<FiTenderCode2> _fiTenderCode2s;
         List<FiTenderCode3> _fiTenderCode3s;
+        string _investStatusText;
+        string _finishedText;
+        string _unfinishedText;
+        string _tenderUnit;
+        string _unfinishedTenderNumber1;
+        string _unfinishedTenderNumber2;
+        string _unfinishedTenderNumber3;
+        string _finishedTenderNumber1;
+        string _finishedTenderNumber2;
+        string _finishedTenderNumber3;
         #endregion
+
         public DocumentGenerator(
             string aHead,
             string aDateRemittances,
@@ -39,7 +50,17 @@ namespace ListOfRemittances_FinishedUnfinished_Word
             List<UnTenderCode3> aUnTenderCode3s,
             List<FiTenderCode1> aFiTenderCode1s,
             List<FiTenderCode2> aFiTenderCode2s,
-            List<FiTenderCode3> aFiTenderCode3s) 
+            List<FiTenderCode3> aFiTenderCode3s,
+            string aInvestStatusText,
+            string aFinishedText,
+            string aUnfinishedText,
+            string aTenderUnit,
+            string aUnfinishedTenderNumber1,
+            string aUnfinishedTenderNumber2,
+            string aUnfinishedTenderNumber3,
+            string aFinishedTenderNumber1,
+            string aFinishedTenderNumber2,
+            string aFinishedTenderNumber3) 
         {
             _head = aHead;
             _dateRemittances = aDateRemittances;
@@ -49,6 +70,16 @@ namespace ListOfRemittances_FinishedUnfinished_Word
             _fiTenderCode1s = aFiTenderCode1s;
             _fiTenderCode2s = aFiTenderCode2s;
             _fiTenderCode3s = aFiTenderCode3s;
+            _investStatusText = aInvestStatusText;
+            _finishedText = aFinishedText;
+            _unfinishedText = aUnfinishedText;
+            _tenderUnit = aTenderUnit;
+            _unfinishedTenderNumber1 = aUnfinishedTenderNumber1;
+            _unfinishedTenderNumber2 = aUnfinishedTenderNumber2;
+            _unfinishedTenderNumber3 = aUnfinishedTenderNumber3;
+            _finishedTenderNumber1 = aFinishedTenderNumber1;
+            _finishedTenderNumber2 = aFinishedTenderNumber2;
+            _finishedTenderNumber3 = aFinishedTenderNumber3;
         }
 
         public byte[] Generate()
@@ -71,13 +102,10 @@ namespace ListOfRemittances_FinishedUnfinished_Word
             IWParagraph paragraph = section.HeadersFooters.Header.AddParagraph();
             #endregion
 
-
             paragraph = SetHeadDocument(section);
             paragraph = SetDateRemittances(section);
             paragraph = SetDateTimeBox(document, section);
-
-            paragraph = section.AddParagraph();
-            SetTableHeadUnfinished(section);
+            paragraph = SetTableHeadUnfinished(section);
 
             #region OznakaRazpisa1Unfinished
             IWTable tableUnfinished1 = section.AddTable();
@@ -89,11 +117,11 @@ namespace ListOfRemittances_FinishedUnfinished_Word
             tableUnfinished1[0, 0].Width = 28f;
             tableUnfinished1[0, 1].Width = 30f;
             tableUnfinished1[0, 2].Width = 100f;
-            WTextRange textRangeUnfinished1 = (WTextRange)tableUnfinished1[0, 2].AddParagraph().AppendText("Oznaka razpisa:");
+            WTextRange textRangeUnfinished1 = (WTextRange)tableUnfinished1[0, 2].AddParagraph().AppendText(_tenderUnit);
             textRangeUnfinished1.CharacterFormat.Bold = true;
             textRangeUnfinished1.CharacterFormat.FontSize = 12f;
             tableUnfinished1[0, 3].Width = 100f;
-            textRangeUnfinished1 = (WTextRange)tableUnfinished1[0, 3].AddParagraph().AppendText("74SUB");
+            textRangeUnfinished1 = (WTextRange)tableUnfinished1[0, 3].AddParagraph().AppendText(_unfinishedTenderNumber1);
             textRangeUnfinished1.CharacterFormat.Bold = true;
             textRangeUnfinished1.CharacterFormat.FontSize = 12f;
             tableUnfinished1[0, 4].Width = 240f;
@@ -122,11 +150,11 @@ namespace ListOfRemittances_FinishedUnfinished_Word
             tableUnfinished2[0, 0].Width = 28f;
             tableUnfinished2[0, 1].Width = 30f;
             tableUnfinished2[0, 2].Width = 100f;
-            WTextRange textRangeUnfinished2 = (WTextRange)tableUnfinished2[0, 2].AddParagraph().AppendText("Oznaka razpisa:");
+            WTextRange textRangeUnfinished2 = (WTextRange)tableUnfinished2[0, 2].AddParagraph().AppendText(_tenderUnit);
             textRangeUnfinished2.CharacterFormat.Bold = true;
             textRangeUnfinished2.CharacterFormat.FontSize = 12f;
             tableUnfinished2[0, 3].Width = 100f;
-            textRangeUnfinished2 = (WTextRange)tableUnfinished2[0, 3].AddParagraph().AppendText("76FS");
+            textRangeUnfinished2 = (WTextRange)tableUnfinished2[0, 3].AddParagraph().AppendText(_unfinishedTenderNumber2);
             textRangeUnfinished2.CharacterFormat.Bold = true;
             textRangeUnfinished2.CharacterFormat.FontSize = 12f;
             tableUnfinished2[0, 4].Width = 240f;
@@ -155,11 +183,11 @@ namespace ListOfRemittances_FinishedUnfinished_Word
             tableUnfinished3[0, 0].Width = 28f;
             tableUnfinished3[0, 1].Width = 30f;
             tableUnfinished3[0, 2].Width = 100f;
-            WTextRange textRangeUnfinished3 = (WTextRange)tableUnfinished3[0, 2].AddParagraph().AppendText("Oznaka razpisa:");
+            WTextRange textRangeUnfinished3 = (WTextRange)tableUnfinished3[0, 2].AddParagraph().AppendText(_tenderUnit);
             textRangeUnfinished3.CharacterFormat.Bold = true;
             textRangeUnfinished3.CharacterFormat.FontSize = 12f;
             tableUnfinished3[0, 3].Width = 100f;
-            textRangeUnfinished3 = (WTextRange)tableUnfinished3[0, 3].AddParagraph().AppendText("24SUB");
+            textRangeUnfinished3 = (WTextRange)tableUnfinished3[0, 3].AddParagraph().AppendText(_unfinishedTenderNumber3);
             textRangeUnfinished3.CharacterFormat.Bold = true;
             textRangeUnfinished3.CharacterFormat.FontSize = 12f;
             tableUnfinished3[0, 4].Width = 240f;
@@ -179,7 +207,7 @@ namespace ListOfRemittances_FinishedUnfinished_Word
             }
 
             SetTableHeadFinished(section);
-            
+
             #region OznakaRazpisa1Finished
             IWTable tableFinished1 = section.AddTable();
             tableFinished1.ResetCells(4, 5);
@@ -190,11 +218,11 @@ namespace ListOfRemittances_FinishedUnfinished_Word
             tableFinished1[0, 0].Width = 28f;
             tableFinished1[0, 1].Width = 30f;
             tableFinished1[0, 2].Width = 100f;
-            WTextRange textRangeFinished1 = (WTextRange)tableFinished1[0, 2].AddParagraph().AppendText("Oznaka razpisa:");
+            WTextRange textRangeFinished1 = (WTextRange)tableFinished1[0, 2].AddParagraph().AppendText(_tenderUnit);
             textRangeFinished1.CharacterFormat.Bold = true;
             textRangeFinished1.CharacterFormat.FontSize = 12f;
             tableFinished1[0, 3].Width = 100f;
-            textRangeFinished1 = (WTextRange)tableFinished1[0, 3].AddParagraph().AppendText("74SUB");
+            textRangeFinished1 = (WTextRange)tableFinished1[0, 3].AddParagraph().AppendText(_finishedTenderNumber1);
             textRangeFinished1.CharacterFormat.Bold = true;
             textRangeFinished1.CharacterFormat.FontSize = 12f;
             tableFinished1[0, 4].Width = 240f;
@@ -223,11 +251,11 @@ namespace ListOfRemittances_FinishedUnfinished_Word
             tableFinished2[0, 0].Width = 28f;
             tableFinished2[0, 1].Width = 30f;
             tableFinished2[0, 2].Width = 100f;
-            WTextRange textRangeFinished2 = (WTextRange)tableFinished2[0, 2].AddParagraph().AppendText("Oznaka razpisa:");
+            WTextRange textRangeFinished2 = (WTextRange)tableFinished2[0, 2].AddParagraph().AppendText(_tenderUnit);
             textRangeFinished2.CharacterFormat.Bold = true;
             textRangeFinished2.CharacterFormat.FontSize = 12f;
             tableFinished2[0, 3].Width = 100f;
-            textRangeFinished2 = (WTextRange)tableFinished2[0, 3].AddParagraph().AppendText("24SUB");
+            textRangeFinished2 = (WTextRange)tableFinished2[0, 3].AddParagraph().AppendText(_finishedTenderNumber1);
             textRangeFinished2.CharacterFormat.Bold = true;
             textRangeFinished2.CharacterFormat.FontSize = 12f;
             tableFinished2[0, 4].Width = 240f;
@@ -256,11 +284,11 @@ namespace ListOfRemittances_FinishedUnfinished_Word
             tableFinished3[0, 0].Width = 28f;
             tableFinished3[0, 1].Width = 30f;
             tableFinished3[0, 2].Width = 100f;
-            WTextRange textRangeFinished3 = (WTextRange)tableFinished3[0, 2].AddParagraph().AppendText("Oznaka razpisa:");
+            WTextRange textRangeFinished3 = (WTextRange)tableFinished3[0, 2].AddParagraph().AppendText(_tenderUnit);
             textRangeFinished3.CharacterFormat.Bold = true;
             textRangeFinished3.CharacterFormat.FontSize = 12f;
             tableFinished3[0, 3].Width = 100f;
-            textRangeFinished3 = (WTextRange)tableFinished3[0, 3].AddParagraph().AppendText("76FS");
+            textRangeFinished3 = (WTextRange)tableFinished3[0, 3].AddParagraph().AppendText(_finishedTenderNumber3);
             textRangeFinished3.CharacterFormat.Bold = true;
             textRangeFinished3.CharacterFormat.FontSize = 12f;
             tableFinished3[0, 4].Width = 240f;
@@ -288,7 +316,32 @@ namespace ListOfRemittances_FinishedUnfinished_Word
             #endregion
         }
 
-        private static void SetTableHeadFinished(IWSection section)
+        private IWParagraph SetTableHeadUnfinished(IWSection section)
+        {
+            IWParagraph paragraph = section.AddParagraph();
+            IWTable tableHeadUnfinished = section.AddTable();
+            tableHeadUnfinished.ResetCells(1, 5);
+            tableHeadUnfinished.TableFormat.HorizontalAlignment = RowAlignment.Left;
+            tableHeadUnfinished.TableFormat.BackColor = Color.White;
+            tableHeadUnfinished.TableFormat.Paddings.All = 2;
+
+            tableHeadUnfinished[0, 0].Width = 28f;
+            tableHeadUnfinished[0, 1].Width = 30f;
+            tableHeadUnfinished[0, 2].Width = 100f;
+            WTextRange textRangeUnfinished = (WTextRange)tableHeadUnfinished[0, 2].AddParagraph().AppendText(_investStatusText);
+            textRangeUnfinished.CharacterFormat.Bold = true;
+            textRangeUnfinished.CharacterFormat.FontSize = 14f;
+            textRangeUnfinished.CharacterFormat.TextBackgroundColor = Color.Yellow;
+            tableHeadUnfinished[0, 3].Width = 100f;
+            textRangeUnfinished = (WTextRange)tableHeadUnfinished[0, 3].AddParagraph().AppendText(_unfinishedText);
+            textRangeUnfinished.CharacterFormat.Bold = true;
+            textRangeUnfinished.CharacterFormat.FontSize = 14f;
+            textRangeUnfinished.CharacterFormat.TextBackgroundColor = Color.Yellow;
+            tableHeadUnfinished[0, 4].Width = 240f;
+            return paragraph;
+        }
+
+        private void SetTableHeadFinished(IWSection section)
         {
             IWTable tableHeadFinished = section.AddTable();
             tableHeadFinished.ResetCells(1, 5);
@@ -299,41 +352,17 @@ namespace ListOfRemittances_FinishedUnfinished_Word
             tableHeadFinished[0, 0].Width = 28f;
             tableHeadFinished[0, 1].Width = 30f;
             tableHeadFinished[0, 2].Width = 100f;
-            WTextRange textRangeFinished = (WTextRange)tableHeadFinished[0, 2].AddParagraph().AppendText("Stanje naložbe");
+            WTextRange textRangeFinished = (WTextRange)tableHeadFinished[0, 2].AddParagraph().AppendText(_investStatusText);
             textRangeFinished.CharacterFormat.Bold = true;
             textRangeFinished.CharacterFormat.FontSize = 14f;
             textRangeFinished.CharacterFormat.TextBackgroundColor = Color.Yellow;
             tableHeadFinished[0, 3].Width = 100f;
-            textRangeFinished = (WTextRange)tableHeadFinished[0, 3].AddParagraph().AppendText("Dokončano");
+            textRangeFinished = (WTextRange)tableHeadFinished[0, 3].AddParagraph().AppendText(_finishedText);
             textRangeFinished.CharacterFormat.Bold = true;
             textRangeFinished.CharacterFormat.FontSize = 14f;
             textRangeFinished.CharacterFormat.TextBackgroundColor = Color.Yellow;
             tableHeadFinished[0, 4].Width = 240f;
         }
-
-        private static void SetTableHeadUnfinished(IWSection section)
-        {
-            IWTable tableHeadUnfinished = section.AddTable();
-            tableHeadUnfinished.ResetCells(1, 5);
-            tableHeadUnfinished.TableFormat.HorizontalAlignment = RowAlignment.Left;
-            tableHeadUnfinished.TableFormat.BackColor = Color.White;
-            tableHeadUnfinished.TableFormat.Paddings.All = 2;
-
-            tableHeadUnfinished[0, 0].Width = 28f;
-            tableHeadUnfinished[0, 1].Width = 30f;
-            tableHeadUnfinished[0, 2].Width = 100f;
-            WTextRange textRangeUnfinished = (WTextRange)tableHeadUnfinished[0, 2].AddParagraph().AppendText("Stanje naložbe");
-            textRangeUnfinished.CharacterFormat.Bold = true;
-            textRangeUnfinished.CharacterFormat.FontSize = 14f;
-            textRangeUnfinished.CharacterFormat.TextBackgroundColor = Color.Yellow;
-            tableHeadUnfinished[0, 3].Width = 100f;
-            textRangeUnfinished = (WTextRange)tableHeadUnfinished[0, 3].AddParagraph().AppendText("Nedokončano");
-            textRangeUnfinished.CharacterFormat.Bold = true;
-            textRangeUnfinished.CharacterFormat.FontSize = 14f;
-            textRangeUnfinished.CharacterFormat.TextBackgroundColor = Color.Yellow;
-            tableHeadUnfinished[0, 4].Width = 240f;
-        }
-
         private static IWParagraph SetDateTimeBox(WordDocument document, IWSection section)
         {
             IWParagraph paragraph;
@@ -356,7 +385,6 @@ namespace ListOfRemittances_FinishedUnfinished_Word
             textBoxParagraph.ParagraphFormat.HorizontalAlignment = HorizontalAlignment.Left;
             return paragraph;
         }
-
         private IWParagraph SetDateRemittances(IWSection section)
         {
             IWParagraph paragraph = section.AddParagraph();
@@ -368,7 +396,6 @@ namespace ListOfRemittances_FinishedUnfinished_Word
             textRange2.CharacterFormat.TextColor = Color.Black;
             return paragraph;
         }
-
         private IWParagraph SetHeadDocument(IWSection section)
         {
             IWParagraph paragraph = section.AddParagraph();
