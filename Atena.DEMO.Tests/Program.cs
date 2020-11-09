@@ -21,12 +21,12 @@ namespace Atena.DEMO.Tests
     {
         static void Main(string[] args)
         {
-            //     
+
             var reportInvestmentEffects_WordGenerator = new SupportLibs.DocGenerators.ReportInvestmentEffects_Word.DocumentGenerator(
-                aHeadDocumentText: "POROČILO O UČINKIH INVESTICIJE" + Environment.NewLine,
+                aHeadDocumentText: "POROČILO O UČINKIH INVESTICIJE",
                 aConcernText: "Zadeva:",
             #region BorrowerBox
-                aBorrowerTextBorrowerBox: "Kreditojemalec: " + Environment.NewLine,
+                aBorrowerTextBorrowerBox: "Kreditojemalec: " + Environment.NewLine + Environment.NewLine,
                 aInvestNameTextBorrowerBox: "Naziv investicije: ",
                 aAmountCreditBorrowerBoxTable: "Znesek kredita:",
                 aContractBorrowerBoxTable: "Pogodba",
@@ -43,19 +43,21 @@ namespace Atena.DEMO.Tests
                 aInvestProcent: "Ocena stopnje\n" +
                 "dokončanosti\n investicije",
             #region LevelConditionInvestBox
-                aLevelConditionInvestText: "Stopnja oz. stanje investicije v času izdelave poročila" + Environment.NewLine,
+                aLevelConditionInvestText: "Stopnja oz. stanje investicije v času izdelave poročila",
                 aFrontBehindInvestLevelConditionInvestBoxTable: "pred oz. med investicijo ",
                 aEndInvestLevelConditionInvestBoxTable: "investicija končana ",
-                aYear1WorkLevelConditionInvestBoxTable:"po 1.letu delovanja ",
+                aYear1WorkLevelConditionInvestBoxTable: "po 1.letu delovanja ",
                 aYear2WorkLevelConditionInvestBoxTable: "po 2. letu delovanja ",
                 aYear3WorkLevelConditionInvestBoxTable: "po 3. letu delovanja ",
             #endregion
-                aTechDataInvestText: Environment.NewLine + "\n\nOsnovni tehnični podatki o investiciji",
+                aTechDataInvestText: Environment.NewLine + "\nOsnovni tehnični podatki o investiciji",
+            #region TableHeadBasicTechDataInvest
                 aParamText: "Parameter",
                 aUnitText: "Enota",
                 aForecastText: "Prognoza",
                 aRealizeText: "Realizirano",
-                aFootnoteText: "Opomba",
+                aFootnoteTextTechDataInvest: "Opomba",
+            #endregion
                 aHoursText: "URE",
                 aUsingEnergy: "Učinkovita raba energije",
                 aRowDatasBasicTechInvests: new List<RowDatasBasicTechInvest>
@@ -68,11 +70,48 @@ namespace Atena.DEMO.Tests
                         Prognoza = "xxx",
                         Realizirano = "xxx",
                         Opomba = "xxx"
-                    } 
+                    }
                 },
-                aRegularOperationTextBox: "Prvo leto rednega obratovanja"
-            
-                );
+                aRegularOperationTextBox: "Prvo leto rednega obratovanja",
+                aPerformEffects: "Učinki delovanja",
+            #region TableHeadPerformEffects
+                aParamPerformEffectsHead: "Parameter",
+                aUnitPerformEffects: "Enota",
+                aSituatInvestPerformEffectsHead: "Stanje pred investicijo",
+                aforecastPerformEffectsHead: "Prognoza",
+                aYear1PerformEffectsHead: "1. leto",
+                aYear2PerformEffectsHead: "2. leto",
+                aYear3PerformEffectsHead: "3. leto",
+                aFootnotePerformEffectsHead: "Opomba",
+            #endregion
+                aRowDatasPerformEffects: new List<RowDatasPerformEffects>()
+                {
+                    new RowDatasPerformEffects()
+                    {
+                        Ure = 1,
+                        RabaEnergije = "letno zmanjšanje emisije CO2",
+                        Enota = "t/leto",
+                        StanjePredInvesticijo = "xxx",
+                        Prognoza = "xxx",
+                        Leto1 = "",
+                        Leto2 = "",
+                        Leto3 = "",
+                        Opomba = "izmerjena oz. drugače določena letno zmanjšanje emisije CO2"
+                    }
+                },
+                aEmergencyInstruction: "VSI PODATKI SE NANAŠAJO SAMO NA KREDITIRANI DEL INVESTICIJE !!!\n" +
+                "IZPOLNITE VSE RUBRIKE OZ. NAVEDITE V OPOMBAH ZAKAJ NISO IZPOLNJENE !!!\n" +
+                "V PRIMERU VEČJEGA ODSTOPANJA OD PROGNOZE NAVEDITE RAZLOGE !!!",
+                aFootNoteText: "Opombe:",
+                aDateCreatedReportText: "Datum izdelave poročila:" + Environment.NewLine,
+                aSignatureReportText: "Podpis izdelovalca poročila:\t\t\t\t žig" + Environment.NewLine + Environment.NewLine + Environment.NewLine,
+                aGeneralInstructionsHeadText: "Splošna navodila za izpolnjevanje poročila:",
+                aGeneralInstructionsData: "- ocenite stopnjo dokončanosti in obkrožite za katero stanje izdelujete poročilo;\n" +
+                                        "- prvo poročilo mora vsebovati tudi prognozo in vse podatke iz predhodnih stanj;\n" +
+                                        "- v prazne rubrike vnesite znane in prognozirane podatke; stanje pred - podatek pred investicijo;\n" +
+                                        "- 1.leto - vnesite podatke po prvem letu delovanja, prav tako pa tudi za 2. in 3. leto;\n" +
+                                        "- za opombe in dopolnila lahko uporabite tudi drugo stran, napačne podatke popravite."
+                ) ;
 
 
             var time = DateTime.Now.ToFileTime().ToString();
