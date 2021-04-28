@@ -19,104 +19,106 @@ namespace Atena.DEMO.Tests
 {
     class Program
     {
-        static void Main(string[] args)
-        {
+        #region ReportInvestmentEffects_Word
+        //static void Main(string[] args)
+        //{
 
-            var reportInvestmentEffects_WordGenerator = new SupportLibs.DocGenerators.ReportInvestmentEffects_Word.DocumentGenerator(
-                aHeadDocumentText: "POROČILO O UČINKIH INVESTICIJE",
-                aConcernText: "Zadeva:",
-            #region BorrowerBox
-                aBorrowerTextBorrowerBox: "Kreditojemalec: " + Environment.NewLine + Environment.NewLine,
-                aInvestNameTextBorrowerBox: "Naziv investicije: ",
-                aAmountCreditBorrowerBoxTable: "Znesek kredita:",
-                aContractBorrowerBoxTable: "Pogodba",
-                aMaturityRepayBorrowerBoxTable: "Ročnost odplačila:\t mes.",
-                aDateSignatureBorrowerBoxTable: "Datum podpisa:",
-                aMoratoriumBorrowerBoxTable: "Moratorij:\t\t mes.",
-            #endregion
-            #region CreatedReportBox
-                aPersonTextCreatedReportBox: "Oseba odgovorna za izdelavo poročila:",
-                aNameSurnameTextCreatedReportBox: "Ime in priimek:",
-                aFunctionTextCreatedReportBox: "Funkcija:",
-                aPhoneFaxTextCreatedReportBox: "Telefon:\t\t\t Faks:",
-            #endregion
-                aInvestProcent: "Ocena stopnje\n" +
-                "dokončanosti\n investicije",
-            #region LevelConditionInvestBox
-                aLevelConditionInvestText: "Stopnja oz. stanje investicije v času izdelave poročila",
-                aFrontBehindInvestLevelConditionInvestBoxTable: "pred oz. med investicijo ",
-                aEndInvestLevelConditionInvestBoxTable: "investicija končana ",
-                aYear1WorkLevelConditionInvestBoxTable: "po 1.letu delovanja ",
-                aYear2WorkLevelConditionInvestBoxTable: "po 2. letu delovanja ",
-                aYear3WorkLevelConditionInvestBoxTable: "po 3. letu delovanja ",
-            #endregion
-                aTechDataInvestText: Environment.NewLine + "\nOsnovni tehnični podatki o investiciji",
-            #region TableHeadBasicTechDataInvest
-                aParamText: "Parameter",
-                aUnitText: "Enota",
-                aForecastText: "Prognoza",
-                aRealizeText: "Realizirano",
-                aFootnoteTextTechDataInvest: "Opomba",
-            #endregion
-                aHoursText: "URE",
-                aUsingEnergy: "Učinkovita raba energije",
-                aRowDatasBasicTechInvests: new List<RowDatasBasicTechInvest>
-                {
-                    new RowDatasBasicTechInvest()
-                    {
-                        Ure = 1,
-                        RabaEnergije = "Neto ogrevana površina saniran NE/PH javnih zgradb",
-                        Enota = "m2",
-                        Prognoza = "xxx",
-                        Realizirano = "xxx",
-                        Opomba = "xxx"
-                    }
-                },
-                aRegularOperationTextBox: "Prvo leto rednega obratovanja",
-                aPerformEffects: "Učinki delovanja",
-            #region TableHeadPerformEffects
-                aParamPerformEffectsHead: "Parameter",
-                aUnitPerformEffects: "Enota",
-                aSituatInvestPerformEffectsHead: "Stanje pred investicijo",
-                aforecastPerformEffectsHead: "Prognoza",
-                aYear1PerformEffectsHead: "1. leto",
-                aYear2PerformEffectsHead: "2. leto",
-                aYear3PerformEffectsHead: "3. leto",
-                aFootnotePerformEffectsHead: "Opomba",
-            #endregion
-                aRowDatasPerformEffects: new List<RowDatasPerformEffects>()
-                {
-                    new RowDatasPerformEffects()
-                    {
-                        Ure = 1,
-                        RabaEnergije = "letno zmanjšanje emisije CO2",
-                        Enota = "t/leto",
-                        StanjePredInvesticijo = "xxx",
-                        Prognoza = "xxx",
-                        Leto1 = "",
-                        Leto2 = "",
-                        Leto3 = "",
-                        Opomba = "izmerjena oz. drugače določena letno zmanjšanje emisije CO2"
-                    }
-                },
-                aEmergencyInstruction: "VSI PODATKI SE NANAŠAJO SAMO NA KREDITIRANI DEL INVESTICIJE !!!\n" +
-                "IZPOLNITE VSE RUBRIKE OZ. NAVEDITE V OPOMBAH ZAKAJ NISO IZPOLNJENE !!!\n" +
-                "V PRIMERU VEČJEGA ODSTOPANJA OD PROGNOZE NAVEDITE RAZLOGE !!!",
-                aFootNoteText: "Opombe:",
-                aDateCreatedReportText: "Datum izdelave poročila:" + Environment.NewLine,
-                aSignatureReportText: "Podpis izdelovalca poročila:\t\t\t\t žig" + Environment.NewLine + Environment.NewLine + Environment.NewLine,
-                aGeneralInstructionsHeadText: "Splošna navodila za izpolnjevanje poročila:",
-                aGeneralInstructionsData: "- ocenite stopnjo dokončanosti in obkrožite za katero stanje izdelujete poročilo;\n" +
-                                        "- prvo poročilo mora vsebovati tudi prognozo in vse podatke iz predhodnih stanj;\n" +
-                                        "- v prazne rubrike vnesite znane in prognozirane podatke; stanje pred - podatek pred investicijo;\n" +
-                                        "- 1.leto - vnesite podatke po prvem letu delovanja, prav tako pa tudi za 2. in 3. leto;\n" +
-                                        "- za opombe in dopolnila lahko uporabite tudi drugo stran, napačne podatke popravite."
-                ) ;
+        //    var reportInvestmentEffects_WordGenerator = new SupportLibs.DocGenerators.ReportInvestmentEffects_Word.DocumentGenerator(
+        //        aHeadDocumentText: "POROČILO O UČINKIH INVESTICIJE",
+        //        aConcernText: "Zadeva:",
+        //    #region BorrowerBox
+        //        aBorrowerTextBorrowerBox: "Kreditojemalec: " + Environment.NewLine + Environment.NewLine,
+        //        aInvestNameTextBorrowerBox: "Naziv investicije: ",
+        //        aAmountCreditBorrowerBoxTable: "Znesek kredita:",
+        //        aContractBorrowerBoxTable: "Pogodba",
+        //        aMaturityRepayBorrowerBoxTable: "Ročnost odplačila:\t mes.",
+        //        aDateSignatureBorrowerBoxTable: "Datum podpisa:",
+        //        aMoratoriumBorrowerBoxTable: "Moratorij:\t\t mes.",
+        //    #endregion
+        //    #region CreatedReportBox
+        //        aPersonTextCreatedReportBox: "Oseba odgovorna za izdelavo poročila:",
+        //        aNameSurnameTextCreatedReportBox: "Ime in priimek:",
+        //        aFunctionTextCreatedReportBox: "Funkcija:",
+        //        aPhoneFaxTextCreatedReportBox: "Telefon:\t\t\t Faks:",
+        //    #endregion
+        //        aInvestProcent: "Ocena stopnje\n" +
+        //        "dokončanosti\n investicije",
+        //    #region LevelConditionInvestBox
+        //        aLevelConditionInvestText: "Stopnja oz. stanje investicije v času izdelave poročila",
+        //        aFrontBehindInvestLevelConditionInvestBoxTable: "pred oz. med investicijo ",
+        //        aEndInvestLevelConditionInvestBoxTable: "investicija končana ",
+        //        aYear1WorkLevelConditionInvestBoxTable: "po 1.letu delovanja ",
+        //        aYear2WorkLevelConditionInvestBoxTable: "po 2. letu delovanja ",
+        //        aYear3WorkLevelConditionInvestBoxTable: "po 3. letu delovanja ",
+        //    #endregion
+        //        aTechDataInvestText: Environment.NewLine + "\nOsnovni tehnični podatki o investiciji",
+        //    #region TableHeadBasicTechDataInvest
+        //        aParamText: "Parameter",
+        //        aUnitText: "Enota",
+        //        aForecastText: "Prognoza",
+        //        aRealizeText: "Realizirano",
+        //        aFootnoteTextTechDataInvest: "Opomba",
+        //    #endregion
+        //        aHoursText: "URE",
+        //        aUsingEnergy: "Učinkovita raba energije",
+        //        aRowDatasBasicTechInvests: new List<RowDatasBasicTechInvest>
+        //        {
+        //            new RowDatasBasicTechInvest()
+        //            {
+        //                Ure = 1,
+        //                RabaEnergije = "Neto ogrevana površina saniran NE/PH javnih zgradb",
+        //                Enota = "m2",
+        //                Prognoza = "xxx",
+        //                Realizirano = "xxx",
+        //                Opomba = "xxx"
+        //            }
+        //        },
+        //        aRegularOperationTextBox: "Prvo leto rednega obratovanja",
+        //        aPerformEffects: "Učinki delovanja",
+        //    #region TableHeadPerformEffects
+        //        aParamPerformEffectsHead: "Parameter",
+        //        aUnitPerformEffects: "Enota",
+        //        aSituatInvestPerformEffectsHead: "Stanje pred investicijo",
+        //        aforecastPerformEffectsHead: "Prognoza",
+        //        aYear1PerformEffectsHead: "1. leto",
+        //        aYear2PerformEffectsHead: "2. leto",
+        //        aYear3PerformEffectsHead: "3. leto",
+        //        aFootnotePerformEffectsHead: "Opomba",
+        //    #endregion
+        //        aRowDatasPerformEffects: new List<RowDatasPerformEffects>()
+        //        {
+        //            new RowDatasPerformEffects()
+        //            {
+        //                Ure = 1,
+        //                RabaEnergije = "letno zmanjšanje emisije CO2",
+        //                Enota = "t/leto",
+        //                StanjePredInvesticijo = "xxx",
+        //                Prognoza = "xxx",
+        //                Leto1 = "",
+        //                Leto2 = "",
+        //                Leto3 = "",
+        //                Opomba = "izmerjena oz. drugače določena letno zmanjšanje emisije CO2"
+        //            }
+        //        },
+        //        aEmergencyInstruction: "VSI PODATKI SE NANAŠAJO SAMO NA KREDITIRANI DEL INVESTICIJE !!!\n" +
+        //        "IZPOLNITE VSE RUBRIKE OZ. NAVEDITE V OPOMBAH ZAKAJ NISO IZPOLNJENE !!!\n" +
+        //        "V PRIMERU VEČJEGA ODSTOPANJA OD PROGNOZE NAVEDITE RAZLOGE !!!",
+        //        aFootNoteText: "Opombe:",
+        //        aDateCreatedReportText: "Datum izdelave poročila:" + Environment.NewLine,
+        //        aSignatureReportText: "Podpis izdelovalca poročila:\t\t\t\t žig" + Environment.NewLine + Environment.NewLine + Environment.NewLine,
+        //        aGeneralInstructionsHeadText: "Splošna navodila za izpolnjevanje poročila:",
+        //        aGeneralInstructionsData: "- ocenite stopnjo dokončanosti in obkrožite za katero stanje izdelujete poročilo;\n" +
+        //                                "- prvo poročilo mora vsebovati tudi prognozo in vse podatke iz predhodnih stanj;\n" +
+        //                                "- v prazne rubrike vnesite znane in prognozirane podatke; stanje pred - podatek pred investicijo;\n" +
+        //                                "- 1.leto - vnesite podatke po prvem letu delovanja, prav tako pa tudi za 2. in 3. leto;\n" +
+        //                                "- za opombe in dopolnila lahko uporabite tudi drugo stran, napačne podatke popravite."
+        //        ) ;
 
 
-            var time = DateTime.Now.ToFileTime().ToString();
-            File.WriteAllBytes($"D:\\DeloOdDoma\\test\\PoročiloUčinkihInvesticije\\PoročiloUčinkihInvesticije{time}.doc", reportInvestmentEffects_WordGenerator.Generate()); // popravi v službi
-        }
+        //    var time = DateTime.Now.ToFileTime().ToString();
+        //    File.WriteAllBytes($"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\Testi\\PoročiloUčinkihInvesticije{time}.doc", reportInvestmentEffects_WordGenerator.Generate()); // popravi v službi
+        //}
+        #endregion
 
         #region FundsTransferOrder
         //static void Main(string[] args)
@@ -735,117 +737,117 @@ namespace Atena.DEMO.Tests
         #endregion
 
         #region SUB-SPSRequest_Word
-        //static void Main(string[] args)
-        //{
-        //    byte[] logoEko1 = File.ReadAllBytes(@"J:\\PROJEKTI\\ATENA_SUPPORT\\Atena.Document.Libs\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\Uefa_logo.png");
-        //    byte[] logoEko2 = File.ReadAllBytes(@"J:\\PROJEKTI\\ATENA_SUPPORT\\Atena.Document.Libs\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\EA_sports.png");
+        static void Main(string[] args)
+        {
+            byte[] logoEko1 = File.ReadAllBytes(@"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\Atena.Document.Libs\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\Uefa_logo.png");
+            byte[] logoEko2 = File.ReadAllBytes(@"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\Atena.Document.Libs\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\EA_sports.png");
 
-        //    var SPSRequest_WordGenerator = new SupporLibs.DocGenerators.SUB_SPSRequests_Word.DocumentGenerator(
-        //        aSender: "EKO SKLAD,\n" +
-        //        "SLOVENSKI OKOLJSKI JAVNI SKLAD\n" +
-        //        "BLEIWEISOV CESTA 30\n" +
-        //        "Davčna številka: 10677798\n\n",
-        //        aRecipient: "REPUBLIKA SLOVENIJA\n" +
-        //                    "MINISTRISTVO ZA OKOLJE IN PROSTOR\n" +
-        //                    "DUNAJSKA CESTA 47\n" +
-        //                    "1000 LJUBLJANA\n" +
-        //                    "Davčna številka: 31162991\n",
-        //        aTransferRequest: "ZAHTEVEK ZA NAKAZILO številka: ",
-        //        aTransferRequestCont: "60-SUB/2016",
-        //        aDate: "\t\t\tV Ljubljani, dne:",
-        //        aPublicTenderText: "\nna podlagi 6. člena pogodbe 2550-16-31100\n" +
-        //            "Javni poziv: 37SUB-OB16\n\n\n",
-        //        aProgramFunds: "NAKAZILO NEPOVRATNIH SREDSTEV NA TRR: EKO SKLAD, j.s. - PROGRAMSKA SREDSTVA štev: SI56 0110 0695 0960 378\n",
-        //        aSerialNumberText: "Zap št.",
-        //        aContractNumberText: "Številka pogodbe",
-        //        aRecipientText: "Prejemnik",
-        //        aAddressText: "Naslov",
-        //        aPostNumberText: "Pošta",
-        //        aTaxNumberText: "Davčna številka",
-        //        aValueEURText: "Vrednost v EUR",
-        //        aRowDatas: new List<MainTableRowsData>()
-        //        {
-        //        new MainTableRowsData()
-        //        {
-        //            ZapStevilka= 1,
-        //            RegularStevilka ="4718",
-        //            StevilkaPogodbe = "36014-8158/2017",
-        //            Prejemnik = "Prejemnik 92545",
-        //            Naslov = "naslov 92545",
-        //            Posta = "1000 Ljubljana",
-        //            DavcnaStevilka = 12345678,
-        //            VrednostVEUR = 600.00m
-        //        } ,
-        //        new MainTableRowsData() {
-        //            ZapStevilka= 2,
-        //            RegularStevilka ="4719",
-        //            StevilkaPogodbe = "36014-8648/2017",
-        //            Prejemnik = "Prejemnik 92551",
-        //            Naslov = "naslov 92551",
-        //            Posta = "1000 Ljubljana",
-        //            DavcnaStevilka = 12345678,
-        //            VrednostVEUR = 1882.17M
-        //        } ,
-        //        new MainTableRowsData() {
-        //            ZapStevilka= 3,
-        //            RegularStevilka ="4719",
-        //            StevilkaPogodbe = "36014-8648/2017",
-        //            Prejemnik = "Prejemnik 92551",
-        //            Naslov = "naslov 92551",
-        //            Posta = "1000 Ljubljana",
-        //            DavcnaStevilka = 12345678,
-        //            VrednostVEUR = 1882.17M
-        //        } ,
-        //        new MainTableRowsData() {
-        //            ZapStevilka= 4,
-        //            RegularStevilka ="4719",
-        //            StevilkaPogodbe = "36014-8648/2017",
-        //            Prejemnik = "Prejemnik 92551",
-        //            Naslov = "naslov 92551",
-        //            Posta = "1000 Ljubljana",
-        //            DavcnaStevilka = 12345678,
-        //            VrednostVEUR = 1882.17M
-        //        } ,
-        //        new MainTableRowsData() {
-        //            ZapStevilka= 5,
-        //            RegularStevilka ="4719",
-        //            StevilkaPogodbe = "36014-8648/2017",
-        //            Prejemnik = "Prejemnik 92551",
-        //            Naslov = "naslov 92551",
-        //            Posta = "1000 Ljubljana",
-        //            DavcnaStevilka = 12345678,
-        //            VrednostVEUR = 1882.17M
-        //        } ,
-        //        },
-        //        aSPSRecapitulations: new List<SPSRecapitulationData>()
-        //        {
-        //        new SPSRecapitulationData
-        //        {
-        //            SPSProjectName = "2550-17-0021 Ogrevalne naprave (Kurilne+TČ)",
-        //            SPSProjectSum = 6602.66M
-        //        },
-        //        new SPSRecapitulationData
-        //        {
-        //            SPSProjectName = "2550-17-0022 Ostali ukrepi na stavbah",
-        //            SPSProjectSum = 16769.54M
-        //        }
-        //        },
-        //        aSumTableText: "Skupaj:",
-        //    aPrepared: "\nPripravil: mag. Igor Čehovin",
-        //    aResponsiblePerson: "Odgovorna oseba: mag. Vesna Črnilogar\n",
-        //    aAttachments: "\n\nPriloge:" +
-        //            "\n - pogodbe\n",
-        //    aSPSProjectText:"SPS projekt: ",
-        //    aSumProjectText: "Vsota projekta: ",
-        //    aSumRequestText: "Vsota zahtevka: ",
-        //    aHeadRecapitulationText: "Naslov Rekapitulacija",
-        //    aRecapitulationRequestProjectText: "Rekapitulacija zahtevka po projektih",
-        //    aLogo1: logoEko1,
-        //    aLogo2: logoEko2
-        //    );
-        //    var time1 = DateTime.Now.ToFileTime().ToString();
-        //    File.WriteAllBytes($"C:\\test\\Atena.Documents\\SUB-SPS_Request_{time1}.docx", SPSRequest_WordGenerator.Generate()); // popravi
-        //}
+            var SPSRequest_WordGenerator = new SupporLibs.DocGenerators.SUB_SPSRequests_Word.DocumentGenerator(
+                aSender: "EKO SKLAD,\n" +
+                "SLOVENSKI OKOLJSKI JAVNI SKLAD\n" +
+                "BLEIWEISOV CESTA 30\n" +
+                "Davčna številka: 10677798\n\n",
+                aRecipient: "REPUBLIKA SLOVENIJA\n" +
+                            "MINISTRISTVO ZA OKOLJE IN PROSTOR\n" +
+                            "DUNAJSKA CESTA 47\n" +
+                            "1000 LJUBLJANA\n" +
+                            "Davčna številka: 31162991\n",
+                aTransferRequest: "ZAHTEVEK ZA NAKAZILO številka: ",
+                aTransferRequestCont: "60-SUB/2016",
+                aDate: "\t\t\tV Ljubljani, dne:",
+                aPublicTenderText: "\nna podlagi 6. člena pogodbe 2550-16-31100\n" +
+                    "Javni poziv: 37SUB-OB16\n\n\n",
+                aProgramFunds: "NAKAZILO NEPOVRATNIH SREDSTEV NA TRR: EKO SKLAD, j.s. - PROGRAMSKA SREDSTVA štev: SI56 0110 0695 0960 378\n",
+                aSerialNumberText: "Zap št.",
+                aContractNumberText: "Številka pogodbe",
+                aRecipientText: "Prejemnik",
+                aAddressText: "Naslov",
+                aPostNumberText: "Pošta",
+                aTaxNumberText: "Davčna številka",
+                aValueEURText: "Vrednost v EUR",
+                aRowDatas: new List<MainTableRowsData>()
+                {
+                new MainTableRowsData()
+                {
+                    ZapStevilka= 1,
+                    RegularStevilka ="4718",
+                    StevilkaPogodbe = "36014-8158/2017",
+                    Prejemnik = "Prejemnik 92545",
+                    Naslov = "naslov 92545",
+                    Posta = "1000 Ljubljana",
+                    DavcnaStevilka = 12345678,
+                    VrednostVEUR = 600.00m
+                } ,
+                new MainTableRowsData() {
+                    ZapStevilka= 2,
+                    RegularStevilka ="4719",
+                    StevilkaPogodbe = "36014-8648/2017",
+                    Prejemnik = "Prejemnik 92551",
+                    Naslov = "naslov 92551",
+                    Posta = "1000 Ljubljana",
+                    DavcnaStevilka = 12345678,
+                    VrednostVEUR = 1882.17M
+                } ,
+                new MainTableRowsData() {
+                    ZapStevilka= 3,
+                    RegularStevilka ="4719",
+                    StevilkaPogodbe = "36014-8648/2017",
+                    Prejemnik = "Prejemnik 92551",
+                    Naslov = "naslov 92551",
+                    Posta = "1000 Ljubljana",
+                    DavcnaStevilka = 12345678,
+                    VrednostVEUR = 1882.17M
+                } ,
+                new MainTableRowsData() {
+                    ZapStevilka= 4,
+                    RegularStevilka ="4719",
+                    StevilkaPogodbe = "36014-8648/2017",
+                    Prejemnik = "Prejemnik 92551",
+                    Naslov = "naslov 92551",
+                    Posta = "1000 Ljubljana",
+                    DavcnaStevilka = 12345678,
+                    VrednostVEUR = 1882.17M
+                } ,
+                new MainTableRowsData() {
+                    ZapStevilka= 5,
+                    RegularStevilka ="4719",
+                    StevilkaPogodbe = "36014-8648/2017",
+                    Prejemnik = "Prejemnik 92551",
+                    Naslov = "naslov 92551",
+                    Posta = "1000 Ljubljana",
+                    DavcnaStevilka = 12345678,
+                    VrednostVEUR = 1882.17M
+                } ,
+                },
+                aSPSRecapitulations: new List<SPSRecapitulationData>()
+                {
+                new SPSRecapitulationData
+                {
+                    SPSProjectName = "2550-17-0021 Ogrevalne naprave (Kurilne+TČ)",
+                    SPSProjectSum = 6602.66M
+                },
+                new SPSRecapitulationData
+                {
+                    SPSProjectName = "2550-17-0022 Ostali ukrepi na stavbah",
+                    SPSProjectSum = 16769.54M
+                }
+                },
+                aSumTableText: "Skupaj:",
+            aPrepared: "\nPripravil: mag. Igor Čehovin",
+            aResponsiblePerson: "Odgovorna oseba: mag. Vesna Črnilogar\n",
+            aAttachments: "\n\nPriloge:" +
+                    "\n - pogodbe\n",
+            aSPSProjectText: "SPS projekt: ",
+            aSumProjectText: "Vsota projekta: ",
+            aSumRequestText: "Vsota zahtevka: ",
+            aHeadRecapitulationText: "Naslov Rekapitulacija",
+            aRecapitulationRequestProjectText: "Rekapitulacija zahtevka po projektih",
+            aLogo1: logoEko1,
+            aLogo2: logoEko2
+            );
+            var time1 = DateTime.Now.ToFileTime().ToString();
+            File.WriteAllBytes($"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\Testi\\SUB-SPS_Request_{time1}.docx", SPSRequest_WordGenerator.Generate()); // popravi
+        }
         #endregion
 
         #region SUB-ListOfRecipient_Word

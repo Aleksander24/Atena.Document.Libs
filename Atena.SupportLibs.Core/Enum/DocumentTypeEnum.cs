@@ -8,6 +8,8 @@ namespace Atena.SupportLibs.Core.Enum
     {
         Word = 1,
         Excel = 2,
-        Pdf = 3
+        Pdf = 3,
+        Csv = 4,
+        Json = 5
     }
 }
