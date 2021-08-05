@@ -15,6 +15,7 @@
     <ProjectReference Include="..\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\Atena.SupportLibs.DocGenerators.SUB-SPSRequests_Word.csproj" />
     <ProjectReference Include="..\Atena.SupportLibs.Core\Atena.SupportLibs.Core.csproj" />
     <ProjectReference Include="..\Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word\Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word.csproj" />
+    <ProjectReference Include="..\Atena.SupportLibs.DocGenerators.AmortizationPlan\Atena.SupportLibs.DocGenerators.AmortizationPlan.csproj" />
     <ProjectReference Include="..\Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word\Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word.csproj" />
     <ProjectReference Include="..\Atena.SupportLibs.DocGenerators.ListOfTransactions_Word\Atena.SupportLibs.DocGenerators.ListOfTransactions_Word.csproj" />
     <ProjectReference Include="..\Atena.SupportLibs.DocGenerators.ReportInvestmentEffects_Word\Atena.SupportLibs.DocGenerators.ReportInvestmentEffects_Word.csproj" />

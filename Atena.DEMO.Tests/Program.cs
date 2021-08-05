@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Atena.SupportLibs.DocGenerators.ReportSubsidyReceivers_Excel.Models;
 using Atena.SupportLibs.DocGenerators.SUB_ListOfRecipient_Word.Models;
 using Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word.Models;
+using Atena.SupportLibs.DocGenerators.AmortizationPlan;
 using Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word.GroupsData;
 using Atena.SupportLibs.DocGenerators.ListOfTransactions_Word;
 using Atena.SupportLibs.DocGenerators.ListOfTransactions_Word.Models;
@@ -734,6 +735,20 @@ namespace Atena.DEMO.Tests
         //    var time = DateTime.Now.ToFileTime().ToString();
         //    File.WriteAllBytes($"C:\\test\\Atena.Documents\\ATENA_PoročiloAKT_nepovratne-Test_{time}.xlsx", reportSubsidyReceivers_ExcelGenerator.Generate());
         //}
+        #endregion
+
+        #region AmortizationPlan
+        //static void Main(string[] args)
+        //{
+        //    byte[] logoEko = File.ReadAllBytes(@"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\Atena.Document.Libs\\Atena.SupportLibs.DocGenerators.AmortizationPlan\\Images\\logo_Eko.jpg");
+
+        //    var AmortizationPlan_WordGenerator = new SupportLibs.DocGenerators.AmortizationPlan.DocumentGenerator(
+        //        logoEko = aLogo
+        //        );
+        //    var time1 = DateTime.Now.ToFileTime().ToString();
+        //    File.WriteAllBytes($"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\Testi\\AmortizationPlan_Demo{time1}.docx", SPSRequest_WordGenerator.Generate());
+        //}
+
         #endregion
 
         #region SUB-SPSRequest_Word
