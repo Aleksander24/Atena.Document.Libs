@@ -14,7 +14,7 @@ namespace Atena.SupportLibs.DocGenerators.AmortizationPlan
     public class DocumentGenerator : IDocumentGenerator
     {
         public string Version => "1.0.0";
-        public string Label => "DemoTest_ActivityAnalysis";
+        public string Label => "DemoTest_AmortizationPlan";
         public DocumentTypeEnum DocumentTypeEnum => DocumentTypeEnum.Word;
 
         List<TableAmortizationData> _tableAmortizationDatas;

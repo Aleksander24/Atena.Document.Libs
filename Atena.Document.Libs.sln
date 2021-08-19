@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Atena.SupportLibs.DocGenera
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Atena.SupportLibs.DocGenerators.ReportInvestmentEffects_Word", "Atena.SupportLibs.DocGenerators.ReportInvestmentEffects_Word\Atena.SupportLibs.DocGenerators.ReportInvestmentEffects_Word.csproj", "{580BCBE2-567C-47DF-A41C-853A3A8D3100}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atena.SupportLibs.DocGenerators.AmortizationPlan", "Atena.SupportLibs.DocGenerators.AmortizationPlan\Atena.SupportLibs.DocGenerators.AmortizationPlan.csproj", "{73C41F58-96DF-4E9B-BCAE-DDD3A0215878}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Atena.SupportLibs.DocGenerators.AmortizationPlan", "Atena.SupportLibs.DocGenerators.AmortizationPlan\Atena.SupportLibs.DocGenerators.AmortizationPlan.csproj", "{73C41F58-96DF-4E9B-BCAE-DDD3A0215878}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableMergeColumns_Word", "TableMergeColumns_Word\TableMergeColumns_Word.csproj", "{B5AB6152-7195-4848-89EC-9A9112D9FF3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{73C41F58-96DF-4E9B-BCAE-DDD3A0215878}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73C41F58-96DF-4E9B-BCAE-DDD3A0215878}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73C41F58-96DF-4E9B-BCAE-DDD3A0215878}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5AB6152-7195-4848-89EC-9A9112D9FF3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5AB6152-7195-4848-89EC-9A9112D9FF3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5AB6152-7195-4848-89EC-9A9112D9FF3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5AB6152-7195-4848-89EC-9A9112D9FF3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Atena.SupportLibs.DocGenerators.ReportSubsidyReceivers_Excel.Models;
 using Atena.SupportLibs.DocGenerators.SUB_ListOfRecipient_Word.Models;
 using Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word.Models;
-using Atena.SupportLibs.DocGenerators.AmortizationPlan;
+//using Atena.SupportLibs.DocGenerators.AmortizationPlan;
 using Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word.GroupsData;
 using Atena.SupportLibs.DocGenerators.ListOfTransactions_Word;
 using Atena.SupportLibs.DocGenerators.ListOfTransactions_Word.Models;
@@ -754,8 +754,8 @@ namespace Atena.DEMO.Tests
         #region SUB-SPSRequest_Word
         static void Main(string[] args)
         {
-            byte[] logoEko1 = File.ReadAllBytes(@"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\Atena.Document.Libs\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\Uefa_logo.png");
-            byte[] logoEko2 = File.ReadAllBytes(@"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\Atena.Document.Libs\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\EA_sports.png");
+            byte[] logoEko1 = File.ReadAllBytes(@"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\Atena.Libs.Documents\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\Uefa_logo.png");
+            byte[] logoEko2 = File.ReadAllBytes(@"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\Atena.Libs.Documents\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\EA_sports.png");
 
             var SPSRequest_WordGenerator = new SupporLibs.DocGenerators.SUB_SPSRequests_Word.DocumentGenerator(
                 aSender: "EKO SKLAD,\n" +
@@ -861,7 +861,7 @@ namespace Atena.DEMO.Tests
             aLogo2: logoEko2
             );
             var time1 = DateTime.Now.ToFileTime().ToString();
-            File.WriteAllBytes($"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\Testi\\SUB-SPS_Request_{time1}.docx", SPSRequest_WordGenerator.Generate()); // popravi
+            File.WriteAllBytes($"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\test\\SUB-SPS_Request_{time1}.docx", SPSRequest_WordGenerator.Generate()); // popravi
         }
         #endregion
 
