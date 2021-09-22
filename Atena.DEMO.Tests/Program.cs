@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Atena.SupportLibs.DocGenerators.ReportSubsidyReceivers_Excel.Models;
 using Atena.SupportLibs.DocGenerators.SUB_ListOfRecipient_Word.Models;
 using Atena.SupporLibs.DocGenerators.SUB_SPSRequests_Word.Models;
-//using Atena.SupportLibs.DocGenerators.AmortizationPlan;
+using Atena.SupportLibs.DocGenerators.AmortizationPlan;
 using Atena.SupportLibs.DocGenerators.ActitvityAnalysis_Word.GroupsData;
 using Atena.SupportLibs.DocGenerators.ListOfTransactions_Word;
 using Atena.SupportLibs.DocGenerators.ListOfTransactions_Word.Models;
@@ -15,6 +15,7 @@ using ListOfRemittances_FinishedUnfinished_Word.Models.FinishedData;
 using Atena.SupportLibs.DocGenerators.FundsTransferOrder_Word.Models;
 using System.Drawing;
 using Atena.SupportLibs.DocGenerators.ReportInvestmentEffects_Word.Models;
+using Atena.SupportLibs.DocGenerators.AmortizationPlan.Models;
 
 namespace Atena.DEMO.Tests
 {
@@ -738,131 +739,171 @@ namespace Atena.DEMO.Tests
         #endregion
 
         #region AmortizationPlan
-        //static void Main(string[] args)
-        //{
-        //    byte[] logoEko = File.ReadAllBytes(@"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\Atena.Document.Libs\\Atena.SupportLibs.DocGenerators.AmortizationPlan\\Images\\logo_Eko.jpg");
+        static void Main(string[] args)
+        {
+            byte[] logoEko = File.ReadAllBytes($"C:\\Users\\aleksanderv\\Desktop\\DeloOdDoma\\Atena.Libs.Documents\\Atena.SupportLibs.DocGenerators.AmortizationPlan\\Images\\logo_Eko.jpg");
+            
+            var AmortizationPlan_WordGenerator = new SupportLibs.DocGenerators.AmortizationPlan.DocumentGenerator(
+                aTableAmortizationDatas: new List<TableAmortizationData>()
+                {
+                    new TableAmortizationData()
+                    {
+                        Annuity = 200,
+                        Balance = 2000,
+                        InterestPaid = 3.00,
+                        MonthlyPay = 200,
+                        StartLoanDate = new DateTime(2021, 1, 1)
+                    },
+                    new TableAmortizationData()
+                    {
+                        Annuity = 200,
+                        Balance = 1000,
+                        InterestPaid = 2.50,
+                        MonthlyPay = 200,
+                        StartLoanDate = new DateTime(2021, 2, 1)
+                    }
+                },
+                aMainTitleAmortizationName: "Informativni amortizacijski načrt vračila kredita",
+                aLogo: logoEko,
+                aLabelContractName: "Oznaka pogodbe",
+                aPartyName: "Partija",
+                aLoanValueName: "Vrednost kredita",
+                aAgeOfReturnLoanName: "Doba vračanja",
+                aMoratoriumName: "Moratorij",
+                aInterestRateName: "Obrestna mera",
+                aTypeOfCalculationName: "Način obračuna",
+                aFirstDateLoanPaidName: "Datum prvega obroka",
+                aTitleAssumptionsNotesName: "PREDPOSTAVKE IN OPOMBE \n" +
+                "- kreditna sredstva so črpana v enkratnem znesku,\n" +
+                "- prognozirana stopnja revalorizacija je konstanta in je enaka zadnji objavljeni.",
+                aLabelContractValue: "050-0068",
+                aPartyValue: "301-0005997065",
+                aLoanValue: 1000.00,
+                aAgeOfReturnLoanNumber: 12,
+                aMoratoriumNumber: 0,
+                aInterestRateValue: 3.00,
+                aTypeOfCalculation: "fiksna obrestna mera",
+                aFirstDateLoanPaid: new DateTime(2021, 1, 1)
+                );
 
-        //    var AmortizationPlan_WordGenerator = new SupportLibs.DocGenerators.AmortizationPlan.DocumentGenerator(
-        //        logoEko = aLogo
-        //        );
-        //    var time1 = DateTime.Now.ToFileTime().ToString();
-        //    File.WriteAllBytes($"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\Testi\\AmortizationPlan_Demo{time1}.docx", SPSRequest_WordGenerator.Generate());
-        //}
+            var time1 = DateTime.Now.ToFileTime().ToString();
+            File.WriteAllBytes($"C:\\Users\\aleksanderv\\Desktop\\DeloOdDoma\\test\\AmortizationPlan_Demo{time1}.docx", AmortizationPlan_WordGenerator.Generate());
+        }
 
         #endregion
 
         #region SUB-SPSRequest_Word
-        static void Main(string[] args)
-        {
-            byte[] logoEko1 = File.ReadAllBytes(@"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\Atena.Libs.Documents\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\Uefa_logo.png");
-            byte[] logoEko2 = File.ReadAllBytes(@"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\Atena.Libs.Documents\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\EA_sports.png");
+        //static void Main(string[] args)
+        //{
+        //    byte[] logoEko1 = File.ReadAllBytes(@"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\Atena.Libs.Documents\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\Uefa_logo.png");
+        //    byte[] logoEko2 = File.ReadAllBytes(@"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\Atena.Libs.Documents\\Atena.SupporLibs.DocGenerators.SUB-SPSRequests_Word\\Images\\EA_sports.png");
 
-            var SPSRequest_WordGenerator = new SupporLibs.DocGenerators.SUB_SPSRequests_Word.DocumentGenerator(
-                aSender: "EKO SKLAD,\n" +
-                "SLOVENSKI OKOLJSKI JAVNI SKLAD\n" +
-                "BLEIWEISOV CESTA 30\n" +
-                "Davčna številka: 10677798\n\n",
-                aRecipient: "REPUBLIKA SLOVENIJA\n" +
-                            "MINISTRISTVO ZA OKOLJE IN PROSTOR\n" +
-                            "DUNAJSKA CESTA 47\n" +
-                            "1000 LJUBLJANA\n" +
-                            "Davčna številka: 31162991\n",
-                aTransferRequest: "ZAHTEVEK ZA NAKAZILO številka: ",
-                aTransferRequestCont: "60-SUB/2016",
-                aDate: "\t\t\tV Ljubljani, dne:",
-                aPublicTenderText: "\nna podlagi 6. člena pogodbe 2550-16-31100\n" +
-                    "Javni poziv: 37SUB-OB16\n\n\n",
-                aProgramFunds: "NAKAZILO NEPOVRATNIH SREDSTEV NA TRR: EKO SKLAD, j.s. - PROGRAMSKA SREDSTVA štev: SI56 0110 0695 0960 378\n",
-                aSerialNumberText: "Zap št.",
-                aContractNumberText: "Številka pogodbe",
-                aRecipientText: "Prejemnik",
-                aAddressText: "Naslov",
-                aPostNumberText: "Pošta",
-                aTaxNumberText: "Davčna številka",
-                aValueEURText: "Vrednost v EUR",
-                aRowDatas: new List<MainTableRowsData>()
-                {
-                new MainTableRowsData()
-                {
-                    ZapStevilka= 1,
-                    RegularStevilka ="4718",
-                    StevilkaPogodbe = "36014-8158/2017",
-                    Prejemnik = "Prejemnik 92545",
-                    Naslov = "naslov 92545",
-                    Posta = "1000 Ljubljana",
-                    DavcnaStevilka = 12345678,
-                    VrednostVEUR = 600.00m
-                } ,
-                new MainTableRowsData() {
-                    ZapStevilka= 2,
-                    RegularStevilka ="4719",
-                    StevilkaPogodbe = "36014-8648/2017",
-                    Prejemnik = "Prejemnik 92551",
-                    Naslov = "naslov 92551",
-                    Posta = "1000 Ljubljana",
-                    DavcnaStevilka = 12345678,
-                    VrednostVEUR = 1882.17M
-                } ,
-                new MainTableRowsData() {
-                    ZapStevilka= 3,
-                    RegularStevilka ="4719",
-                    StevilkaPogodbe = "36014-8648/2017",
-                    Prejemnik = "Prejemnik 92551",
-                    Naslov = "naslov 92551",
-                    Posta = "1000 Ljubljana",
-                    DavcnaStevilka = 12345678,
-                    VrednostVEUR = 1882.17M
-                } ,
-                new MainTableRowsData() {
-                    ZapStevilka= 4,
-                    RegularStevilka ="4719",
-                    StevilkaPogodbe = "36014-8648/2017",
-                    Prejemnik = "Prejemnik 92551",
-                    Naslov = "naslov 92551",
-                    Posta = "1000 Ljubljana",
-                    DavcnaStevilka = 12345678,
-                    VrednostVEUR = 1882.17M
-                } ,
-                new MainTableRowsData() {
-                    ZapStevilka= 5,
-                    RegularStevilka ="4719",
-                    StevilkaPogodbe = "36014-8648/2017",
-                    Prejemnik = "Prejemnik 92551",
-                    Naslov = "naslov 92551",
-                    Posta = "1000 Ljubljana",
-                    DavcnaStevilka = 12345678,
-                    VrednostVEUR = 1882.17M
-                } ,
-                },
-                aSPSRecapitulations: new List<SPSRecapitulationData>()
-                {
-                new SPSRecapitulationData
-                {
-                    SPSProjectName = "2550-17-0021 Ogrevalne naprave (Kurilne+TČ)",
-                    SPSProjectSum = 6602.66M
-                },
-                new SPSRecapitulationData
-                {
-                    SPSProjectName = "2550-17-0022 Ostali ukrepi na stavbah",
-                    SPSProjectSum = 16769.54M
-                }
-                },
-                aSumTableText: "Skupaj:",
-            aPrepared: "\nPripravil: mag. Igor Čehovin",
-            aResponsiblePerson: "Odgovorna oseba: mag. Vesna Črnilogar\n",
-            aAttachments: "\n\nPriloge:" +
-                    "\n - pogodbe\n",
-            aSPSProjectText: "SPS projekt: ",
-            aSumProjectText: "Vsota projekta: ",
-            aSumRequestText: "Vsota zahtevka: ",
-            aHeadRecapitulationText: "Naslov Rekapitulacija",
-            aRecapitulationRequestProjectText: "Rekapitulacija zahtevka po projektih",
-            aLogo1: logoEko1,
-            aLogo2: logoEko2
-            );
-            var time1 = DateTime.Now.ToFileTime().ToString();
-            File.WriteAllBytes($"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\test\\SUB-SPS_Request_{time1}.docx", SPSRequest_WordGenerator.Generate()); // popravi
-        }
+        //    var SPSRequest_WordGenerator = new SupporLibs.DocGenerators.SUB_SPSRequests_Word.DocumentGenerator(
+        //        aSender: "EKO SKLAD,\n" +
+        //        "SLOVENSKI OKOLJSKI JAVNI SKLAD\n" +
+        //        "BLEIWEISOV CESTA 30\n" +
+        //        "Davčna številka: 10677798\n\n",
+        //        aRecipient: "REPUBLIKA SLOVENIJA\n" +
+        //                    "MINISTRISTVO ZA OKOLJE IN PROSTOR\n" +
+        //                    "DUNAJSKA CESTA 47\n" +
+        //                    "1000 LJUBLJANA\n" +
+        //                    "Davčna številka: 31162991\n",
+        //        aTransferRequest: "ZAHTEVEK ZA NAKAZILO številka: ",
+        //        aTransferRequestCont: "60-SUB/2016",
+        //        aDate: "\t\t\tV Ljubljani, dne:",
+        //        aPublicTenderText: "\nna podlagi 6. člena pogodbe 2550-16-31100\n" +
+        //            "Javni poziv: 37SUB-OB16\n\n\n",
+        //        aProgramFunds: "NAKAZILO NEPOVRATNIH SREDSTEV NA TRR: EKO SKLAD, j.s. - PROGRAMSKA SREDSTVA štev: SI56 0110 0695 0960 378\n",
+        //        aSerialNumberText: "Zap št.",
+        //        aContractNumberText: "Številka pogodbe",
+        //        aRecipientText: "Prejemnik",
+        //        aAddressText: "Naslov",
+        //        aPostNumberText: "Pošta",
+        //        aTaxNumberText: "Davčna številka",
+        //        aValueEURText: "Vrednost v EUR",
+        //        aRowDatas: new List<MainTableRowsData>()
+        //        {
+        //        new MainTableRowsData()
+        //        {
+        //            ZapStevilka= 1,
+        //            RegularStevilka ="4718",
+        //            StevilkaPogodbe = "36014-8158/2017",
+        //            Prejemnik = "Prejemnik 92545",
+        //            Naslov = "naslov 92545",
+        //            Posta = "1000 Ljubljana",
+        //            DavcnaStevilka = 12345678,
+        //            VrednostVEUR = 600.00m
+        //        } ,
+        //        new MainTableRowsData() {
+        //            ZapStevilka= 2,
+        //            RegularStevilka ="4719",
+        //            StevilkaPogodbe = "36014-8648/2017",
+        //            Prejemnik = "Prejemnik 92551",
+        //            Naslov = "naslov 92551",
+        //            Posta = "1000 Ljubljana",
+        //            DavcnaStevilka = 12345678,
+        //            VrednostVEUR = 1882.17M
+        //        } ,
+        //        new MainTableRowsData() {
+        //            ZapStevilka= 3,
+        //            RegularStevilka ="4719",
+        //            StevilkaPogodbe = "36014-8648/2017",
+        //            Prejemnik = "Prejemnik 92551",
+        //            Naslov = "naslov 92551",
+        //            Posta = "1000 Ljubljana",
+        //            DavcnaStevilka = 12345678,
+        //            VrednostVEUR = 1882.17M
+        //        } ,
+        //        new MainTableRowsData() {
+        //            ZapStevilka= 4,
+        //            RegularStevilka ="4719",
+        //            StevilkaPogodbe = "36014-8648/2017",
+        //            Prejemnik = "Prejemnik 92551",
+        //            Naslov = "naslov 92551",
+        //            Posta = "1000 Ljubljana",
+        //            DavcnaStevilka = 12345678,
+        //            VrednostVEUR = 1882.17M
+        //        } ,
+        //        new MainTableRowsData() {
+        //            ZapStevilka= 5,
+        //            RegularStevilka ="4719",
+        //            StevilkaPogodbe = "36014-8648/2017",
+        //            Prejemnik = "Prejemnik 92551",
+        //            Naslov = "naslov 92551",
+        //            Posta = "1000 Ljubljana",
+        //            DavcnaStevilka = 12345678,
+        //            VrednostVEUR = 1882.17M
+        //        } ,
+        //        },
+        //        aSPSRecapitulations: new List<SPSRecapitulationData>()
+        //        {
+        //        new SPSRecapitulationData
+        //        {
+        //            SPSProjectName = "2550-17-0021 Ogrevalne naprave (Kurilne+TČ)",
+        //            SPSProjectSum = 6602.66M
+        //        },
+        //        new SPSRecapitulationData
+        //        {
+        //            SPSProjectName = "2550-17-0022 Ostali ukrepi na stavbah",
+        //            SPSProjectSum = 16769.54M
+        //        }
+        //        },
+        //        aSumTableText: "Skupaj:",
+        //    aPrepared: "\nPripravil: mag. Igor Čehovin",
+        //    aResponsiblePerson: "Odgovorna oseba: mag. Vesna Črnilogar\n",
+        //    aAttachments: "\n\nPriloge:" +
+        //            "\n - pogodbe\n",
+        //    aSPSProjectText: "SPS projekt: ",
+        //    aSumProjectText: "Vsota projekta: ",
+        //    aSumRequestText: "Vsota zahtevka: ",
+        //    aHeadRecapitulationText: "Naslov Rekapitulacija",
+        //    aRecapitulationRequestProjectText: "Rekapitulacija zahtevka po projektih",
+        //    aLogo1: logoEko1,
+        //    aLogo2: logoEko2
+        //    );
+        //    var time1 = DateTime.Now.ToFileTime().ToString();
+        //    File.WriteAllBytes($"C:\\Users\\aleks\\Desktop\\DeloOdDoma\\test\\SUB-SPS_Request_{time1}.docx", SPSRequest_WordGenerator.Generate()); // popravi
+        //}
         #endregion
 
         #region SUB-ListOfRecipient_Word
